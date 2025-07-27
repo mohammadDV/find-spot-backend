@@ -5,6 +5,7 @@ It provides ratings, photos, and detailed insights to guide better choices.
 Users can easily search by location, category, or service type.
 The goal is to connect people with trusted places around them.
 
+
 ## Table of Contents
 
 -   [Features](#features)
