@@ -38,10 +38,7 @@ src/
 │   │   │   └── Contracts/
 │   │   │       └── IReviewRepository.php
 │   ├── User/
-│   ├── Project/
-│   ├── Claim/
-│   ├── Wallet/
-│   ├── Payment/
+│   ├── Bussiness/
 │   └── ... (other subdomains)
 │
 ├── Application/
