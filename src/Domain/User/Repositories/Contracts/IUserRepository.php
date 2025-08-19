@@ -20,13 +20,6 @@ interface IUserRepository
     public function index() :JsonResponse;
 
     /**
-     * Get Activity Count about the user
-     *
-     * @return string The seller object
-     */
-    public function getActivityCount() :JsonResponse;
-
-    /**
      * Get the dashboard info
      *
      * @return array The seller object

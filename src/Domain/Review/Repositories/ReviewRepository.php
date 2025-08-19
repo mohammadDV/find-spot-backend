@@ -6,8 +6,8 @@ use Application\Api\Review\Requests\ReviewRequest;
 use Application\Api\Review\Resources\ReviewResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
-use Domain\Claim\Models\Claim;
-use Domain\Project\Models\Project;
+use Domain\Notification\Services\NotificationService;
+use Domain\Business\Models\Business;
 use Domain\Review\Models\Review;
 use Domain\Review\Repositories\Contracts\IReviewRepository;
 use Domain\User\Models\User;
@@ -88,19 +88,19 @@ class ReviewRepository implements IReviewRepository
     }
 
     /**
-     * Get the review per claim.
-     * @param Claim $claim
+     * Get the review per business.
+     * @param Business $business
      * @return Collection
      */
-    public function getReviewsPerClaim(Claim $claim) :Collection
+    public function getReviewsPerBusiness(Business $business) :Collection
     {
         $this->checkLevelAccess(
-            in_array(Auth::user()->id, [$claim->project->user_id, $claim->user_id])
+            in_array(Auth::user()->id, [$business->user_id, $business->user_id])
         );
 
         $reviews = Review::query()
                 ->with('user')
-                ->where('claim_id', $claim->id)
+                ->where('business_id', $business->id)
                 ->where('status', 1)
                 ->get();
 
@@ -109,24 +109,37 @@ class ReviewRepository implements IReviewRepository
 
     /**
      * Store the review.
-     * @param Claim $claim
+     * @param Business $business
      * @param ReviewRequest $request
      * @return JsonResponse
      * @throws \Exception
      */
-    public function store(Claim $claim, ReviewRequest $request) :JsonResponse
+    public function store(Business $business, ReviewRequest $request) :JsonResponse
     {
+        if (empty(Auth::user()->status)) {
+            return response()->json([
+                'status' => 0,
+                'message' => __('site.Your account is not active yet. Please send a message to the admin from ticket section.'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        if (empty(Auth::user()->verified_at)) {
+            return response()->json([
+                'status' => 0,
+                'message' => __('site.You must verify your account to create a review'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $this->checkLevelAccess(
-            in_array(Auth::user()->id, [$claim->project->user_id, $claim->user_id]) &&
-            $claim->status == Claim::DELIVERED
+            in_array(Auth::user()->id, [$business->user_id, $business->user_id]) &&
+            $business->status == Business::DELIVERED
         );
 
-        $owner = User::find(Auth::id() == $claim->user_id ? $claim->project->user_id : $claim->user_id);
+        $owner = User::find(Auth::id() == $business->user_id ? $business->user_id : $business->user_id);
 
         // Check for duplicate review
         $duplicate = Review::query()
-            ->where('claim_id', $claim->id)
+            ->where('business_id', $business->id)
             ->where('user_id', Auth::id())
             ->exists();
 
@@ -144,7 +157,7 @@ class ReviewRepository implements IReviewRepository
             $review = Review::create([
                 'comment' => $request->input('comment'),
                 'rate' => $request->input('rate'),
-                'claim_id' => $claim->id,
+                'business_id' => $business->id,
                 'owner_id' => $owner->id,
                 'user_id' => Auth::id(),
                 'status' => 1,
@@ -153,6 +166,13 @@ class ReviewRepository implements IReviewRepository
             $owner->update([
                 'rate' => empty($owner->rate) ? $request->input('rate') : ceil((($owner->rate + $request->input('rate')) / 2))
             ]);
+
+            NotificationService::create([
+                'title' => __('site.new_review_title'),
+                'content' => __('site.new_review_content', ['user_nickname' => Auth::user()->nickname]),
+                'id' => $business->id,
+                'type' => NotificationService::BUSINESS,
+            ], $owner);
 
             DB::commit();
 

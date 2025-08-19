@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->tinyInteger('status')->default(0);
-            $table->bigInteger('province_id')->unsigned()->index();
-            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
+            $table->tinyInteger('priority')->default(0);
+            $table->bigInteger('country_id')->unsigned()->index();
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->timestamps();
         });
     }

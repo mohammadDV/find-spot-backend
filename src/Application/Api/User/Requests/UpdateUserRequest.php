@@ -39,7 +39,6 @@ class UpdateUserRequest extends FormRequest
             'status' => ['required','in:0,1'],
             'address' => ['nullable', 'string', 'min:5', 'max:255'],
             'country_id' => ['required', 'exists:countries,id'],
-            'province_id' => ['required', 'exists:provinces,id'],
             'city_id' => ['required', 'exists:cities,id'],
         ];
     }

@@ -1,0 +1,37 @@
+<?php
+
+namespace Domain\Business\Models;
+
+use Domain\Business\Models\Facility;
+use Domain\Business\Models\Service;
+use Domain\User\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
+{
+    /** @use HasFactory<\Database\Factories\CategoryFactory> */
+    use HasFactory;
+
+    protected $guarded = [];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function businesses()
+    {
+        return $this->belongsToMany(Business::class, 'category_business', 'category_id', 'business_id');
+    }
+
+    public function facilities()
+    {
+        return $this->hasMany(Facility::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+}

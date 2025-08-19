@@ -5,11 +5,10 @@ It provides ratings, photos, and detailed insights to guide better choices.
 Users can easily search by location, category, or service type.
 The goal is to connect people with trusted places around them.
 
-
 ## Table of Contents
 
 -   [Features](#features)
--   [Project Structure & DDD](#project-structure--ddd)
+-   [Business Structure & DDD](#business-structure--ddd)
 -   [How to Run](#how-to-run)
 -   [Contributing](#contributing)
 -   [License](#license)
@@ -25,9 +24,9 @@ The goal is to connect people with trusted places around them.
 
 ---
 
-## Project Structure & DDD
+## Business Structure & DDD
 
-This project is architected using **Domain-Driven Design (DDD)** principles, which means the codebase is organized around the core business domains and their logic. Here's how the structure is laid out:
+This business is architected using **Domain-Driven Design (DDD)** principles, which means the codebase is organized around the core business domains and their logic. Here's how the structure is laid out:
 
 ```
 src/
@@ -46,7 +45,7 @@ src/
 │   ├── Api/
 │   │   ├── Review/
 │   │   ├── User/
-│   │   ├── Project/
+│   │   ├── Business/
 │   │   └── ... (other APIs)
 │   └── Application.php
 │
@@ -62,7 +61,7 @@ src/
 ### DDD Layers Explained
 
 -   **Domain Layer (`src/Domain/`)**:  
-    Contains the heart of the business logic. Each subdomain (e.g., Review, User, Project) has its own folder, with:
+    Contains the heart of the business logic. Each subdomain (e.g., Review, User, Business) has its own folder, with:
 
     -   `Models/`: Eloquent models representing domain entities.
     -   `Repositories/`: Data access logic, often split into `Contracts/` (interfaces) and concrete implementations.
@@ -126,4 +125,4 @@ Contributions are welcome! Please open issues or submit pull requests for any im
 
 ## License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This business is open-source and available under the [MIT License](LICENSE).

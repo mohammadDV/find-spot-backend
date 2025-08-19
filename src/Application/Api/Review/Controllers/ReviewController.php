@@ -5,8 +5,7 @@ namespace Application\Api\Review\Controllers;
 use Application\Api\Review\Requests\ReviewRequest;
 use Core\Http\Controllers\Controller;
 use Core\Http\Requests\TableRequest;
-use Domain\Claim\Models\Claim;
-use Domain\Project\Models\Project;
+use Domain\Business\Models\Business;
 use Domain\Review\Models\Review;
 use Domain\Review\Repositories\Contracts\IReviewRepository;
 use Domain\User\Models\User;
@@ -47,13 +46,13 @@ class ReviewController extends Controller
     }
 
     /**
-     * Get the reviews per claim pagination.
-     * @param Claim $claim
+     * Get the reviews per business pagination.
+     * @param Business $business
      * @return JsonResponse
      */
-    public function getReviewsPerClaim(Claim $claim): JsonResponse
+    public function getReviewsPerBusiness(Business $business): JsonResponse
     {
-        return response()->json($this->repository->getReviewsPerClaim($claim), Response::HTTP_OK);
+        return response()->json($this->repository->getReviewsPerBusiness($business), Response::HTTP_OK);
     }
 
     /**
@@ -68,13 +67,13 @@ class ReviewController extends Controller
 
     /**
      * Store the review.
-     * @param Claim $claim
+     * @param Business $business
      * @param ReviewRequest $request
      * @return JsonResponse
      */
-    public function store(Claim $claim, ReviewRequest $request) :JsonResponse
+    public function store(Business $business, ReviewRequest $request) :JsonResponse
     {
-        return $this->repository->store($claim, $request);
+        return $this->repository->store($business, $request);
     }
 
     /**

@@ -13,7 +13,7 @@ class Country extends Model
     protected $guarded = [];
 
 
-    public function provinces() {
-        return $this->hasMany(Province::class);
+    public function cities() {
+        return $this->hasMany(City::class);
     }
 }

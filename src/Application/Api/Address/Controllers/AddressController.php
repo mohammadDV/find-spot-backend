@@ -33,27 +33,27 @@ class AddressController extends Controller
     }
 
     /**
-     * Get provinces of the country.
+     * Get areas of the city.
+     * @param City     $city
+     * @param TableRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function activeAreas(City $city, TableRequest $request): JsonResponse
+    {
+        return response()->json($this->repository->activeAreas($city, $request), Response::HTTP_OK);
+    }
+
+    /**
+     * Get all cities of the country.
      * @param Country $country
      * @param TableRequest $request
      *
      * @return JsonResponse
      */
-    public function activeProvinces(Country $country, TableRequest $request): JsonResponse
+    public function activeCities(Country $country, TableRequest $request): JsonResponse
     {
-        return response()->json($this->repository->activeProvinces($country, $request), Response::HTTP_OK);
-    }
-
-    /**
-     * Get all cities of the province.
-     * @param Province $province
-     * @param TableRequest $request
-     *
-     * @return JsonResponse
-     */
-    public function activeCities(Province $province, TableRequest $request): JsonResponse
-    {
-        return response()->json($this->repository->activeCities($province, $request), Response::HTTP_OK);
+        return response()->json($this->repository->activeCities($country, $request), Response::HTTP_OK);
     }
 
     /**

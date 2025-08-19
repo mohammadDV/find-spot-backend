@@ -16,10 +16,8 @@ return new class extends Migration
             $table->text('comment')->nullable();
             $table->tinyInteger('rate');
             $table->tinyInteger('status')->default(0);
-            $table->bigInteger("claim_id")->unsigned()->index();
-            $table->foreign('claim_id')->references('id')->on('claims')->onDelete('cascade');
-            $table->bigInteger("owner_id")->unsigned()->index();
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger("business_id")->unsigned()->index();
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
             $table->bigInteger("user_id")->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

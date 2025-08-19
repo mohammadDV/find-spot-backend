@@ -3,6 +3,7 @@
 namespace Domain\Address\Repositories;
 
 use Core\Http\Requests\TableRequest;
+use Domain\Address\Models\Area;
 use Domain\Address\Models\City;
 use Domain\Address\Models\Country;
 use Domain\Address\Models\Province;
@@ -49,16 +50,16 @@ class AddressRepository implements IAddressRepository
 
 
     /**
-     * Get the provinces pagination.
-     * @param Country $country
+     * Get the areas pagination.
+     * @param City $city
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
-    public function getProvincesPaginate(Country $country, TableRequest $request) :LengthAwarePaginator
+    public function getAreasPaginate(City $city, TableRequest $request) :LengthAwarePaginator
     {
         $search = $request->get('query');
-        return Province::query()
-            ->where('country_id', $country->id)
+        return Area::query()
+            ->where('city_id', $city->id)
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
@@ -67,22 +68,22 @@ class AddressRepository implements IAddressRepository
     }
 
     /**
-     * Get the provinces.
+     * Get the areas.
      *
-     * @param Country $country
+     * @param City $city
      * @return Collection
      */
-    public function activeProvinces(Country $country) :Collection
+    public function activeAreas(City $city) :Collection
     {
-        return Province::query()
-            ->where('country_id', $country->id)
+        return Area::query()
+            ->where('city_id', $city->id)
             ->where('status', 1)
             ->get();
     }
 
 
     /**
-     * Get the provinces pagination.
+     * Get the cities pagination.
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
@@ -94,19 +95,19 @@ class AddressRepository implements IAddressRepository
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
-            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
+            ->orderBy($request->get('column', 'priority'), $request->get('sort', 'desc'))
             ->paginate($request->get('count', 25));
     }
 
     /**
      * Get the cities.
-     * @param Province $province
+     * @param Country $country
      * @return Collection
      */
-    public function activeCities(Province $province) :Collection
+    public function activeCities(Country $country) :Collection
     {
         return City::query()
-            ->where('province_id', $province->id)
+            ->where('country_id', $country->id)
             ->where('status', 1)
             ->get();
     }

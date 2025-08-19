@@ -5,6 +5,7 @@ namespace Domain\Chat\Repositories\Contracts;
 use Application\Api\Chat\Requests\ChatRequest;
 use Core\Http\Requests\TableRequest;
 use Domain\Chat\Models\Chat;
+use Domain\Business\Models\Business;
 use Domain\User\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -44,6 +45,12 @@ interface IChatRepository  {
     * @return Chat
     */
    public function chatInfo(Chat $chat) :Chat;
+
+    /**
+    * Get the chat id from business id.
+    * @param Business $business
+    */
+   public function getChatID(Business $business);
 
     /**
      * Get the messages of the chat.

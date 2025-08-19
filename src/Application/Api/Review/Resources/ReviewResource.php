@@ -20,7 +20,7 @@ class ReviewResource extends JsonResource
             'comment' => $this->comment,
             'rate' => $this->rate,
             'status' => $this->status,
-            'claim_id' => $this->claim_id,
+            'business_id' => $this->business_id,
             'owner_id' => $this->owner_id,
             'user_id' => $this->user_id,
             'user' => new UserResource($this->whenLoaded('user')),

@@ -11,8 +11,11 @@ class City extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public function areas() {
+        return $this->hasMany(Area::class);
+    }
 
-    public function province() {
-        return $this->belongsTo(Province::class);
+    public function country() {
+        return $this->belongsTo(Country::class);
     }
 }

@@ -8,6 +8,7 @@ use Core\Http\traits\GlobalFunc;
 use Domain\Chat\Models\Chat;
 use Domain\Chat\Models\ChatMessage;
 use Domain\Chat\Repositories\Contracts\IChatRepository;
+use Domain\Notification\Services\NotificationService;
 use Domain\User\Models\User;
 use Domain\User\Services\TelegramNotificationService;
 use Illuminate\Http\JsonResponse;
@@ -36,7 +37,7 @@ class ChatRepository implements IChatRepository {
     {
         $search = $request->get('query');
         return Chat::query()
-            ->with('user:id,nickname,profile_photo_path,rate', 'target:id,nickname,profile_photo_path')
+            ->with('user:id,nickname,profile_photo_path,rate', 'target:id,nickname,profile_photo_path', 'lastMessage')
             ->withCount(['messages' => function ($query) {
                 $query->where(function($query) {
                     $query->where('status', ChatMessage::STATUS_PENDING)
@@ -127,6 +128,27 @@ class ChatRepository implements IChatRepository {
     }
 
     /**
+    * Get the chat id from business id.
+    * @param Business $business
+    */
+    public function getChatID(Business $business)
+    {
+        $otherId = $business->user_id == Auth::id() ? $business->user_id : $business->user_id;
+
+        return Chat::query()
+            ->where(function ($query) use ($otherId) {
+                $query->where('user_id', Auth::user()->id)
+                    ->where('target_id', $otherId);
+            })
+            ->orWhere(function ($query) use ($otherId) {
+                $query->where('user_id', $otherId)
+                    ->where('target_id', Auth::user()->id);
+            })
+            ->orderBy('id', 'desc')
+            ->first();
+    }
+
+    /**
      * Get the messages of the chat.
      * @param TableRequest $request
      * @param Chat $chat
@@ -165,23 +187,22 @@ class ChatRepository implements IChatRepository {
      */
     public function store(ChatRequest $request, User $user) :JsonResponse
     {
-
-        // if ($this->areBothBlocked($user)) {
-        //     return response()->json([
-        //         'status' => 0,
-        //         'message' => ''
-        //     ]);
-        // }
+        if (empty(Auth::user()->status)) {
+            return response()->json([
+                'status' => 0,
+                'message' => __('site.Your account is not active yet. Please send a message to the admin from ticket section.'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         $chat = Chat::query()
-            ->where([
-                ['user_id', Auth::user()->id],
-                ['target_id', $user->id],
-            ])
-            ->orWhere([
-                ['target_id', Auth::user()->id],
-                ['user_id', $user->id],
-            ])
+            ->where(function ($query) use ($user) {
+                $query->where('user_id', Auth::user()->id)
+                    ->where('target_id', $user->id);
+            })
+            ->orWhere(function ($query) use ($user) {
+                $query->where('user_id', $user->id)
+                    ->where('target_id', Auth::user()->id);
+            })
             ->orderBy('id', 'desc')
             ->first();
 
@@ -204,20 +225,17 @@ class ChatRepository implements IChatRepository {
 
         if ($message) {
 
-            cache()->remember(
-                'notification.chat.user' . Auth::user()->id . '.' . $user->id,
-                now()->addMinutes(1),
-                function () use($user, $chat) {
-                    // Add notification
-                    // return Notification::create([
-                    //     'message' => __('site.Someone sent a private message to you.', ['someone' => Auth::user()->nickname]),
-                    //     'link' => '/profile/chats/' . $chat->id,
-                    //     'user_id' => $user->id,
-                    //     'model_id' => Auth::user()->id,
-                    //     'model_type' => User::class,
-                    //     'has_email' => 1,
-                    // ]);
-                });
+            // cache()->remember(
+            //     'notification.chat.user' . Auth::user()->id . '.' . $user->id,
+            //     now()->addMinutes(1),
+                // function () use($user, $chat) {
+                    NotificationService::create([
+                        'title' => __('site.private_message_title'),
+                        'content' => __('site.private_message_content', ['user_nickname' => Auth::user()->nickname]),
+                        'id' => $chat->id,
+                        'type' => 'chat',
+                    ], $user);
+                // });
 
                 // $this->service->sendNotification(
                 //     config('telegram.chat_id'),

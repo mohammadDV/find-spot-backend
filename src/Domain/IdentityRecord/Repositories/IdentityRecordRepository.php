@@ -10,11 +10,11 @@ use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\IdentityRecord\Models\IdentityRecord;
 use Domain\IdentityRecord\Repositories\Contracts\IIdentityRecordRepository;
+use Domain\Notification\Services\NotificationService;
 use Domain\Payment\Models\Transaction;
 use Domain\Plan\Models\Plan;
 use Domain\Plan\Repositories\SubscribeRepository;
 use Domain\User\Models\User;
-use Evryn\LaravelToman\Facades\Toman;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
@@ -105,12 +105,15 @@ class IdentityRecordRepository implements IIdentityRecordRepository
         }
 
         $identityRecord = IdentityRecord::create([
-            'fullname' => $request->input('fullname'),
+            'first_name' => Auth::user()->first_name,
+            'last_name' => Auth::user()->last_name,
+            'country_id' => $request->input('country_id'),
+            'province_id' => $request->input('province_id'),
+            'city_id' => $request->input('city_id'),
             'national_code' => $request->input('national_code'),
-            'mobile' => $request->input('mobile'),
+            'mobile' => Auth::user()->mobile,
             'birthday' => $request->input('birthday'),
-            'email' => $request->input('email'),
-            'country' => $request->input('country'),
+            'email' => Auth::user()->email,
             'postal_code' => $request->input('postal_code'),
             'address' => $request->input('address'),
             'image_national_code_front' => $request->input('image_national_code_front'),
@@ -120,7 +123,19 @@ class IdentityRecordRepository implements IIdentityRecordRepository
             'user_id' => Auth::user()->id,
         ]);
 
-        return $this->redirectToGateway($identityRecord);
+        if ($identityRecord) {
+
+            Auth::user()->update([
+                'address'               => $request->input('address'),
+                'country_id'            => $request->input('country_id'),
+                'province_id'           => $request->input('province_id'),
+                'city_id'               => $request->input('city_id'),
+            ]);
+
+            return $this->redirectToGateway($identityRecord);
+        }
+
+        throw new \Exception();
 
     }
 
@@ -187,6 +202,13 @@ class IdentityRecordRepository implements IIdentityRecordRepository
                     Plan::find(config('plan.default_plan_id')), $user
                 );
 
+                NotificationService::create([
+                    'title' => __('site.identity_verification_approved_title'),
+                    'content' => __('site.identity_verification_approved_content'),
+                    'id' => $user->id,
+                    'type' => NotificationService::PROFILE,
+                ], $user);
+
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
@@ -227,11 +249,8 @@ class IdentityRecordRepository implements IIdentityRecordRepository
         $this->checkLevelAccess(Auth::user()->level == 3);
 
         $identityRecord = $identityRecord->update([
-            'fullname' => $request->input('fullname'),
             'national_code' => $request->input('national_code'),
-            'mobile' => $request->input('mobile'),
             'birthday' => $request->input('birthday'),
-            'email' => $request->input('email'),
             'country' => $request->input('country'),
             'postal_code' => $request->input('postal_code'),
             'address' => $request->input('address'),

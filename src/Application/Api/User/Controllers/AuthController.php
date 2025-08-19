@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Domain\Wallet\Models\Wallet;
 // use Application\Api\User\Notifications\ThankYouForRegistering;
 use Illuminate\Support\Facades\Auth;
 use Application\Api\User\Mail\ThankYouForRegistering;
@@ -31,10 +30,10 @@ class AuthController extends Controller
     /**
      * @param TelegramNotificationService $service
      */
-    // public function __construct(protected TelegramNotificationService $service)
-    // {
+    public function __construct(protected TelegramNotificationService $service)
+    {
 
-    // }
+    }
 
     /**
      * Log in the user.
@@ -69,6 +68,7 @@ class AuthController extends Controller
             'verify_email' => !empty($user->email_verified_at),
             'verify_access' => !empty($user->verified_at),
             'status_approval' => $status,
+            'customer_number' => $user->customer_number,
             'user' => new UserResource($user),
             'mesasge' => 'success',
             'status' => 1
@@ -113,14 +113,6 @@ class AuthController extends Controller
                 $user->assignRole(['user']);
 
                 $token = $user->createToken('myapptokens')->plainTextToken;
-
-                // create wallet for the user
-                Wallet::create([
-                    'user_id' => $user->id,
-                    'balance' => 0,
-                    'currency' => Wallet::IRR,
-                    'status' => 1
-                ]);
 
             }
 
@@ -187,25 +179,18 @@ class AuthController extends Controller
 
         $token = $user->createToken('myapptokens')->plainTextToken;
 
-         // create wallet for the user
-         Wallet::create([
-            'user_id' => $user->id,
-            'balance' => 0,
-            'currency' => Wallet::IRR,
-            'status' => 1
-        ]);
 
         event(new Registered($user));
 
-        // $this->service->sendNotification(
-        //     config('telegram.chat_id'),
-        //     'ثبت نام کاربر جدید' . PHP_EOL .
-        //     'first_name ' . $request->first_name . PHP_EOL .
-        //     'last_name ' . $request->last_name. PHP_EOL .
-        //     'nickname ' . $request->nickname . PHP_EOL .
-        //     'email ' . $request->email . PHP_EOL .
-        //     'mobile ' . $request->mobile . PHP_EOL
-        // );
+        $this->service->sendNotification(
+            config('telegram.chat_id'),
+            'ثبت نام کاربر جدید' . PHP_EOL .
+            'first_name ' . $request->first_name . PHP_EOL .
+            'last_name ' . $request->last_name. PHP_EOL .
+            'nickname ' . $request->nickname . PHP_EOL .
+            'email ' . $request->email . PHP_EOL .
+            'mobile ' . $request->mobile . PHP_EOL
+        );
 
         return response([
             'is_admin' => $user->level == 3,
@@ -255,7 +240,8 @@ class AuthController extends Controller
         $user->markEmailAsVerified();
         event(new \Illuminate\Auth\Events\Verified($user));
 
-        return response()->json(['message' => __('site.Email verified successfully')], 200);
+        return redirect('/auth/check-verification');
+
     }
 
     public function resendVerification(Request $request)
@@ -303,7 +289,7 @@ class AuthController extends Controller
         );
 
         // Generate reset URL (you can customize this based on your frontend URL)
-        $resetUrl = config('app.frontend_url', 'http://localhost:3000') . '/reset-password?token=' . $token . '&email=' . urlencode($request->email);
+        $resetUrl = config('app.frontend_url', 'http://localhost:3000') . '/auth/reset-password?token=' . $token . '&email=' . urlencode($request->email);
 
         // Send email
         Mail::to($user->email)->send(new PasswordResetMail($user, $resetUrl));

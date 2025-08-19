@@ -28,7 +28,6 @@ Route::middleware(['auth:sanctum'])->get('/logout', [AuthController::class, 'log
                 ->middleware('auth')
                 ->name('logout');
 
-// Password Reset Routes
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])
                 ->middleware('guest')
                 ->name('password.email');
@@ -40,19 +39,3 @@ Route::post('/verify-reset-token', [AuthController::class, 'verifyResetToken'])
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])
                 ->middleware('guest')
                 ->name('password.reset');
-
-// Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-//                 ->middleware('guest')
-//                 ->name('password.email');
-
-// Route::post('/reset-password', [NewPasswordController::class, 'store'])
-//                 ->middleware('guest')
-//                 ->name('password.store');
-
-// Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
-//                 ->middleware(['auth', 'signed', 'throttle:6,1'])
-//                 ->name('verification.verify');
-
-// Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-//                 ->middleware(['auth', 'throttle:6,1'])
-//                 ->name('verification.send');

@@ -5,7 +5,7 @@ namespace Domain\Review\Repositories\Contracts;
 use Application\Api\Review\Requests\ReviewRequest;
 use Application\Api\Review\Resources\ReviewResource;
 use Core\Http\Requests\TableRequest;
-use Domain\Claim\Models\Claim;
+use Domain\Business\Models\Business;
 use Domain\Review\Models\Review;
 use Domain\User\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -40,20 +40,20 @@ interface IReviewRepository
     public function show(Review $review) :ReviewResource;
 
     /**
-     * Get the review per claim.
-     * @param Claim $claim
+     * Get the review per business.
+     * @param Business $business
      * @return Collection
      */
-    public function getReviewsPerClaim(Claim $claim) :Collection;
+    public function getReviewsPerBusiness(Business $business) :Collection;
 
     /**
      * Store the review.
-     * @param Claim $claim
+     * @param Business $business
      * @param ReviewRequest $request
      * @return JsonResponse
      * @throws \Exception
      */
-    public function store(Claim $claim, ReviewRequest $request) :JsonResponse;
+    public function store(Business $business, ReviewRequest $request) :JsonResponse;
 
     /**
      * Update the review.

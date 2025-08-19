@@ -2,18 +2,16 @@
 
 namespace Domain\User\Repositories;
 
-use Application\Api\Project\Resources\ProjectResource;
+use Application\Api\Business\Resources\BusinessResource;
 use Application\Api\User\Requests\ChangePasswordRequest;
 use Application\Api\User\Requests\UpdateUserRequest;
 use Application\Api\User\Resources\UserResource;
 use Carbon\Carbon;
 use Core\Http\traits\GlobalFunc;
-use Domain\Chat\Models\Chat;
 use Domain\Chat\Models\ChatMessage;
-use Domain\Claim\Models\Claim;
 use Domain\IdentityRecord\Models\IdentityRecord;
-use Domain\Plan\Models\Subscription;
-use Domain\Project\Models\Project;
+use Domain\Notification\Services\NotificationService;
+use Domain\Business\Models\Business;
 use Domain\Ticket\Models\Ticket;
 use Domain\User\Models\User;
 use Domain\User\Repositories\Contracts\IUserRepository;
@@ -47,7 +45,7 @@ class UserRepository implements IUserRepository
     public function getUserInfo(User $user) :array
     {
 
-        $senderQuery = Project::query()
+        $senderQuery = Business::query()
             ->with([
                 'categories:id,title',
                 'oCountry',
@@ -58,19 +56,18 @@ class UserRepository implements IUserRepository
                 'dCity',
             ])
             ->where('user_id', $user->id)
-            ->where('type', Project::SENDER)
-            ->where('status', '!=', Project::REJECT)
+            ->where('status', '!=', Business::REJECT)
             ->where('active', 1)
             ->orderBy('id', 'desc');
 
-        $senderProjects = $senderQuery
+        $senderBusinesses = $senderQuery
             ->limit(4)
             ->get()
-            ->map(fn ($project) => new ProjectResource($project));
+            ->map(fn ($business) => new BusinessResource($business));
 
-        $senderProjectsCount = $senderQuery->count();
+        $senderBusinessesCount = $senderQuery->count();
 
-        $passengerQuery = Project::query()
+        $passengerQuery = Business::query()
             ->with([
                 'categories:id,title',
                 'oCountry',
@@ -81,24 +78,23 @@ class UserRepository implements IUserRepository
                 'dCity',
             ])
             ->where('user_id', $user->id)
-            ->where('type', Project::PASSENGER)
-            ->where('status', '!=', Project::REJECT)
+            ->where('status', '!=', Business::REJECT)
             ->where('active', 1)
             ->orderBy('id', 'desc');
 
-        $passengerProjects = $passengerQuery
+        $passengerBusinesses = $passengerQuery
             ->limit(4)
             ->get()
-            ->map(fn ($project) => new ProjectResource($project));
+            ->map(fn ($business) => new BusinessResource($business));
 
-        $passengerProjectsCount = $passengerQuery->count();
+        $passengerBusinessesCount = $passengerQuery->count();
 
         return [
             'user' => new UserResource($user),
-            'sender_projects' => $senderProjects,
-            'sender_projects_count' => $senderProjectsCount,
-            'passenger_projects' => $passengerProjects,
-            'passenger_projects_count' => $passengerProjectsCount
+            'sender_businesses' => $senderBusinesses,
+            'sender_businesses_count' => $senderBusinessesCount,
+            'passenger_businesses' => $passengerBusinesses,
+            'passenger_businesses_count' => $passengerBusinessesCount
         ];
     }
 
@@ -153,7 +149,8 @@ class UserRepository implements IUserRepository
             'verify_email' => !empty(Auth::user()->email_verified_at),
             'verify_access' => !empty(Auth::user()->verified_at),
             'status_approval' => $status,
-            'user' => new UserResource(Auth::user())
+            'user' => new UserResource(Auth::user()),
+            'customer_number' => Auth::user()->customer_number
         ];
     }
 
@@ -164,27 +161,13 @@ class UserRepository implements IUserRepository
      */
     public function getDashboardInfo() :array
     {
-        $senderCount = Project::query()
-                ->where('user_id', Auth::user()->id)
-                ->where('type', Project::SENDER)
-                ->where('created_at', '>', Carbon::now()->subMonth())
-                ->count();
-
-        $passengerCount = Project::query()
-                ->where('user_id', Auth::user()->id)
-                ->where('type', Project::PASSENGER)
-                ->where('created_at', '>', Carbon::now()->subMonth())
-                ->count();
-
-        $claimCount = Claim::query()
+        $senderCount = Business::query()
                 ->where('user_id', Auth::user()->id)
                 ->where('created_at', '>', Carbon::now()->subMonth())
                 ->count();
 
-        $receiveClaimCount = Claim::query()
-                ->whereHas('project', function ($query) {
-                    $query->where('user_id', Auth::user()->id);
-                })
+        $passengerCount = Business::query()
+                ->where('user_id', Auth::user()->id)
                 ->where('created_at', '>', Carbon::now()->subMonth())
                 ->count();
 
@@ -205,79 +188,9 @@ class UserRepository implements IUserRepository
         return [
             'senders' => $senderCount,
             'passengers' => $passengerCount,
-            'claims' => $claimCount,
-            'receive_claims' => $receiveClaimCount,
             'tickets' => $ticketCount,
             'messages' => $messageCount,
         ];
-    }
-
-    /**
-     * Get Activity Count about the user
-     *
-     * @return JsonResponse The seller object
-     */
-    public function getActivityCount() :JsonResponse
-    {
-        // Expire the old subscription
-        $this->expireSubscriprions();
-
-        // Get active subscription
-        $activeSubscription = Subscription::query()
-            ->where('user_id', Auth::user()->id)
-            ->where('active', 1)
-            ->where('ends_at', '>', Carbon::now())
-            ->first();
-
-        $projectCount = 0;
-        $claimCount = 0;
-        $projects = 0;
-        $claims = 0;
-        $subscriptionInfo = null;
-
-        if ($activeSubscription) {
-
-            // Get projects count
-            $projectCount = Project::query()
-                ->where('user_id', Auth::user()->id)
-                ->where('status', '!=', Project::REJECT)
-                ->where('created_at', '>', $activeSubscription->created_at)
-                ->count();
-
-            // Get claims count
-            $claimCount = Claim::query()
-                ->where('user_id', Auth::user()->id)
-                ->where('created_at', '>', $activeSubscription->created_at)
-                ->count();
-
-            $projects = $activeSubscription->project_count;
-            $claims = $activeSubscription->claim_count;
-
-            $remainingDays = now()->diffInDays($activeSubscription->ends_at, false);
-            $subscriptionInfo = [
-                'has_active_subscription' => 1,
-                'remaining_days' => $remainingDays,
-                'ends_at' => $activeSubscription->ends_at,
-                'message' => $remainingDays > 0
-                    ? __('site.:days days remain to expire your subscription', ['days' => $remainingDays])
-                    : __('site.Your subscription has expired')
-            ];
-        } else {
-            $subscriptionInfo = [
-                'has_active_subscription' => 0,
-                'remaining_days' => 0,
-                'ends_at' => null,
-                'message' => __('site.No active subscription found')
-            ];
-        }
-
-        return response()->json([
-            'project_count' => $projectCount,
-            'projects' => $projects,
-            'claim_count' => $claimCount,
-            'claims' => $claims,
-            'subscription' => $subscriptionInfo
-        ]);
     }
 
      /**
@@ -309,16 +222,16 @@ class UserRepository implements IUserRepository
         }
 
         $update = $user->update([
-            'first_name'            => $request->input('first_name'),
-            'last_name'             => $request->input('last_name'),
+            // 'first_name'            => $request->input('first_name'),
+            // 'last_name'             => $request->input('last_name'),
             'nickname'              => $request->input('nickname'),
-            'address'               => $request->input('address'),
-            'country_id'            => $request->input('country_id'),
-            'province_id'           => $request->input('province_id'),
-            'city_id'               => $request->input('city_id'),
-            'status'                => $user->level == 3 ? $request->input('status') : $user->status,
+            // 'address'               => $request->input('address'),
+            // 'country_id'            => $request->input('country_id'),
+            // 'province_id'           => $request->input('province_id'),
+            // 'city_id'               => $request->input('city_id'),
+            // 'status'                => $user->level == 3 ? $request->input('status') : $user->status,
             // 'is_private'            => $request->input('is_private', false),
-            'mobile'                => $request->input('mobile'),
+            // 'mobile'                => $request->input('mobile'),
             'biography'             => $request->input('biography'),
             'profile_photo_path'    => $request->input('profile_photo_path', config('image.default-profile-image')),
             'bg_photo_path'         => $request->input('bg_photo_path', config('image.default-background-image')),
@@ -374,6 +287,13 @@ class UserRepository implements IUserRepository
         $update = $user->update([
             'password' => Hash::make($request->input('password'))
         ]);
+
+        NotificationService::create([
+            'title' => __('site.password_changed_title'),
+            'content' => __('site.password_changed_content'),
+            'id' => $user->id,
+            'type' => NotificationService::PROFILE,
+        ], $user);
 
         if ($update) {
             return [

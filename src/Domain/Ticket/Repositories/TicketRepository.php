@@ -5,12 +5,14 @@ namespace Domain\Ticket\Repositories;
 use Application\Api\Ticket\Requests\TicketMessageRequest;
 use Application\Api\Ticket\Requests\TicketRequest;
 use Application\Api\Ticket\Requests\TicketStatusRequest;
+use Domain\Notification\Services\NotificationService;
 use Carbon\Carbon;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\Ticket\Models\Ticket;
 use Domain\Ticket\Models\TicketMessage;
 use Domain\Ticket\Repositories\Contracts\ITicketRepository;
+use Domain\User\Services\TelegramNotificationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -19,6 +21,11 @@ use Illuminate\Support\Facades\Auth;
 class TicketRepository implements ITicketRepository {
 
     use GlobalFunc;
+
+    public function __construct(protected TelegramNotificationService $service)
+    {
+        //
+    }
 
     /**
      * Get the tickets pagination.
@@ -29,7 +36,7 @@ class TicketRepository implements ITicketRepository {
     {
         $search = $request->get('query');
         return Ticket::query()
-            ->with('subject')
+            ->with('subject', 'message')
             ->when(Auth::user()->level != 3, function ($query) {
                 return $query->where('user_id', Auth::user()->id);
             })
@@ -48,6 +55,11 @@ class TicketRepository implements ITicketRepository {
      */
     public function show(Ticket $ticket) :Ticket
     {
+        TicketMessage::query()
+            ->where('user_id', '!=', Auth::user()->id)
+            ->where('ticket_id', $ticket->id)
+            ->update(['status' => TicketMessage::READ]);
+
         return Ticket::query()
                 ->with('subject')
                 ->with('messages')
@@ -87,14 +99,6 @@ class TicketRepository implements ITicketRepository {
             ], Response::HTTP_CREATED);
         }
 
-        // Check if created_at is more than 5 minutes ago
-        if ($createdAt->diffInMinutes(Carbon::now()) < config('times.ticket_time_min')) {
-            return response()->json([
-                'status' => 0,
-                'message' => __('site.You are not allowed to resend messages. Please try again in 5 minutes.')
-            ], Response::HTTP_CREATED);
-        }
-
         $ticket = Ticket::create([
             'subject_id'    => $request->input('subject_id'),
             'user_id'       => Auth::user()->id,
@@ -106,6 +110,20 @@ class TicketRepository implements ITicketRepository {
             'message'      => $request->input('message'),
             'user_id'      => Auth::user()->id,
         ]);
+
+        NotificationService::create([
+            'title' => __('site.ticket_created_successfully'),
+            'content' => __('site.ticket_created_successfully_message_content'),
+            'id' => $ticket->id,
+            'type' => NotificationService::TICKET,
+        ], Auth::user());
+
+        $this->service->sendNotification(
+            config('telegram.chat_id'),
+            'ارسال تیکت جدید' . PHP_EOL .
+            'id ' . Auth::user()->id . PHP_EOL .
+            'nickname ' . Auth::user()->nickname
+        );
 
         if ($message) {
             return response()->json([
@@ -164,10 +182,17 @@ class TicketRepository implements ITicketRepository {
                     ->orderBy('id', 'desc')
                     ->first();
 
-        if ($exist->user_id == Auth::user()->id && Auth::user()->level != 3) {
+        if ($exist->user_id == Auth::user()->id) {
             return response()->json([
                 'status' => 0,
                 'message' => __('site.You are not allowed to resend messages. Please wait until the operator answers.')
+            ], Response::HTTP_OK);
+        }
+
+        if ($ticket->status != Ticket::STATUS_ACTIVE) {
+            return response()->json([
+                'status' => 0,
+                'message' => __('site.This ticket is closed.')
             ], Response::HTTP_OK);
         }
 

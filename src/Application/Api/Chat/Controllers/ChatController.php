@@ -7,6 +7,7 @@ use Core\Http\Controllers\Controller;
 use Core\Http\Requests\TableRequest;
 use Domain\Chat\Models\Chat;
 use Domain\Chat\Repositories\Contracts\IChatRepository;
+use Domain\Business\Models\Business;
 use Domain\User\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -39,6 +40,16 @@ class ChatController extends Controller
     public function chatInfo(Chat $chat) :JsonResponse
     {
         return response()->json($this->repository->chatInfo($chat), Response::HTTP_OK);
+    }
+
+    /**
+     * Get the chat id from business id.
+     * @param Business $business
+     * @return JsonResponse
+     */
+    public function getChatID(Business $business) :JsonResponse
+    {
+        return response()->json($this->repository->getChatID($business), Response::HTTP_OK);
     }
 
     /**

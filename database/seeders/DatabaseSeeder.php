@@ -13,11 +13,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
+        // Create a test user
+        \Domain\User\Models\User::create([
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'nickname' => 'testuser',
+            'customer_number' => 'CUST001',
+            'role_id' => 2,
+            'status' => 1,
             'email' => 'test@example.com',
+            'mobile' => '09123456789',
+            'password' => bcrypt('password'),
+            'level' => 0,
+        ]);
+
+        // Seed filters
+        $this->call([
+            FilterSeeder::class,
         ]);
     }
 }
