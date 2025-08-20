@@ -9,6 +9,7 @@ use Application\Api\Post\Controllers\PostController;
 use Application\Api\Business\Controllers\CategoryController;
 use Application\Api\Business\Controllers\BusinessController;
 use Application\Api\Business\Controllers\FilterController;
+use Application\Api\Event\Controllers\EventController;
 use Application\Api\Review\Controllers\ReviewController;
 use Application\Api\Ticket\Controllers\TicketController;
 use Application\Api\Ticket\Controllers\TicketSubjectController;
@@ -94,4 +95,10 @@ Route::middleware(['auth:sanctum', 'auth', 'throttle:10,1'])->group(function() {
 Route::prefix('businesses')->group(function () {
     Route::get('featured', [BusinessController::class, 'featured']);
     Route::get('search', [BusinessController::class, 'search']);
+});
+
+// Events
+Route::prefix('events')->group(function () {
+    Route::get('featured', [EventController::class, 'featured'])->name('site.events.featured');
+    // Route::get('search', [EventController::class, 'search'])->name('site.events.search');
 });

@@ -85,4 +85,10 @@ class Business extends Model
     {
         return $this->belongsToMany(Weekend::class, 'business_weekend', 'business_id', 'weekend_id');
     }
+
+    public function saves()
+    {
+        return $this->morphMany(Save::class, 'saveable');
+    }
+
 }
