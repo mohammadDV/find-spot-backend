@@ -29,7 +29,11 @@ class DatabaseSeeder extends Seeder
 
         // Seed filters
         $this->call([
-            FilterSeeder::class,
+            RoleSeeder::class,
+            CountrySeeder::class,
+            CitySeeder::class,
+            AreaSeeder::class,
+            EventSeeder::class,
         ]);
     }
 }
