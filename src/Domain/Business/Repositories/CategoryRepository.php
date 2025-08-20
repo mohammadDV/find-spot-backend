@@ -5,8 +5,8 @@ namespace Domain\Business\Repositories;
 use Application\Api\Business\Requests\BusinessCategoryRequest;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
-use Domain\Business\Models\BusinessCategory;
-use Domain\Business\Repositories\Contracts\IBusinessCategoryRepository;
+use Domain\Business\Models\Category;
+use Domain\Business\Repositories\Contracts\ICategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -14,9 +14,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 /**
- * Class BusinessCategoryRepository.
+ * Class CategoryRepository.
  */
-class BusinessCategoryRepository implements IBusinessCategoryRepository
+class CategoryRepository implements ICategoryRepository
 {
     use GlobalFunc;
 
@@ -28,7 +28,7 @@ class BusinessCategoryRepository implements IBusinessCategoryRepository
     public function index(TableRequest $request) :LengthAwarePaginator
     {
         $search = $request->get('query');
-        return BusinessCategory::query()
+        return Category::query()
             ->when(Auth::user()->level != 3, function ($query) {
                 return $query->where('user_id', Auth::user()->id);
             })
@@ -45,20 +45,24 @@ class BusinessCategoryRepository implements IBusinessCategoryRepository
      */
     public function activeBusinessCategories() :Collection
     {
-        return BusinessCategory::query()
+        return Category::query()
+            ->select('id', 'title', 'image')
+            ->where('parent_id', 0)
             ->where('status', 1)
+            ->orderBy('priority', 'desc')
+            ->limit(config('business.category_limit'))
             ->get();
     }
 
     /**
-     * Get the businessCategory.
-     * @param BusinessCategory $businessCategory
-     * @return BusinessCategory
+     * Get the Category.
+     * @param Category $category
+     * @return Category
      */
-    public function show(BusinessCategory $businessCategory) :BusinessCategory
+    public function show(Category $category) :Category
     {
-        return BusinessCategory::query()
-                ->where('id', $businessCategory->id)
+        return Category::query()
+                ->where('id', $category->id)
                 ->first();
     }
 

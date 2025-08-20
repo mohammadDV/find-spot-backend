@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/cities', [AddressController::class, 'getCitiesPaginate'])->name('city-search');
 
 // Plan
-// Route::get('/active-business-categories', [CategoryController::class, 'activeBusinessCategories'])->name('active-business-categories');
+Route::get('/active-categories', [CategoryController::class, 'activeBusinessCategories'])->name('active-business-categories');
 // Route::get('/filters', [FilterController::class, 'index'])->name('filters.index');
 // Route::get('/filters/{filter}', [FilterController::class, 'show'])->name('filters.show');
 // Route::get('/business/{business}', [BusinessController::class, 'show'])->name('business.show');

@@ -10,16 +10,16 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
- * Interface IBusinessCategoryRepository.
+ * Interface ICategoryRepository.
  */
-interface IBusinessCategoryRepository
+interface ICategoryRepository
 {
     /**
      * Get the businessCategories pagination.
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(TableRequest $request) :LengthAwarePaginator;
+    // public function index(TableRequest $request) :LengthAwarePaginator;
 
     /**
      * Get the businessCategories.
@@ -32,7 +32,7 @@ interface IBusinessCategoryRepository
      * @param BusinessCategory $businessCategory
      * @return BusinessCategory
      */
-    public function show(BusinessCategory $businessCategory) :BusinessCategory;
+    // public function show(BusinessCategory $businessCategory) :BusinessCategory;
 
     /**
      * Store the businessCategory.
@@ -40,7 +40,7 @@ interface IBusinessCategoryRepository
      * @return JsonResponse
      * @throws \Exception
      */
-    public function store(BusinessCategoryRequest $request) :JsonResponse;
+    // public function store(BusinessCategoryRequest $request) :JsonResponse;
 
     /**
      * Update the businessCategory.
@@ -49,7 +49,7 @@ interface IBusinessCategoryRepository
      * @return JsonResponse
      * @throws \Exception
      */
-    public function update(BusinessCategoryRequest $request, BusinessCategory $businessCategory) :JsonResponse;
+    // public function update(BusinessCategoryRequest $request, BusinessCategory $businessCategory) :JsonResponse;
 
     /**
     * Delete the businessCategory.
@@ -57,5 +57,5 @@ interface IBusinessCategoryRepository
     * @param BusinessCategory $businessCategory
     * @return JsonResponse
     */
-   public function destroy(BusinessCategory $businessCategory) :JsonResponse;
+//    public function destroy(BusinessCategory $businessCategory) :JsonResponse;
 }
