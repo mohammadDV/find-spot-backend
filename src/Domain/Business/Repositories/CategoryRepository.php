@@ -3,6 +3,7 @@
 namespace Domain\Business\Repositories;
 
 use Application\Api\Business\Requests\BusinessCategoryRequest;
+use Application\Api\Business\Resources\CategoryResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\Business\Models\Category;
@@ -41,6 +42,51 @@ class CategoryRepository implements ICategoryRepository
 
     /**
      * Get the businessCategories.
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function allCategories() {
+        $categories = Category::query()
+            ->select('id', 'title', 'image', 'status')
+            ->with('children')
+            ->where('parent_id', 0)
+            ->where('status', 1)
+            ->orderBy('priority', 'desc')
+            ->get();
+
+        return CategoryResource::collection($categories);
+    }
+
+    /**
+     * Get the children of a specific category.
+     * @param Category $category
+     * @return Collection
+     */
+    public function getCategoryChildren(Category $category): Collection
+    {
+        return Category::query()
+            ->select('id', 'title', 'image', 'status')
+            ->where('parent_id', $category->id)
+            ->where('status', 1)
+            ->orderBy('priority', 'desc')
+            ->get();
+    }
+
+    /**
+     * Get all parent categories.
+     * @return Collection
+     */
+    public function getParentCategories(): Collection
+    {
+        return Category::query()
+            ->select('id', 'title', 'image', 'status')
+            ->where('parent_id', 0)
+            ->where('status', 1)
+            ->orderBy('priority', 'desc')
+            ->get();
+    }
+
+    /**
+     * Get the businessCategories.
      * @return Collection
      */
     public function activeBusinessCategories() :Collection
@@ -67,6 +113,21 @@ class CategoryRepository implements ICategoryRepository
     }
 
     /**
+     * Get the Category with parent hierarchy.
+     * @param Category $category
+     * @return Category
+     */
+    public function showWithParents(Category $category) :Category
+    {
+        return Category::query()
+                ->with(['parent' => function ($query) {
+                    $query->select('id', 'title', 'image', 'status', 'parent_id');
+                }])
+                ->where('id', $category->id)
+                ->first();
+    }
+
+    /**
      * Store the businessCategory.
      * @param BusinessCategoryRequest $request
      * @return JsonResponse
@@ -76,7 +137,7 @@ class CategoryRepository implements ICategoryRepository
     {
         $this->checkLevelAccess();
 
-        $businessCategory = BusinessCategory::create([
+        $businessCategory = Category::create([
             'title' => $request->input('title'),
             'status' => $request->input('status'),
             'user_id' => Auth::user()->id,
@@ -95,11 +156,11 @@ class CategoryRepository implements ICategoryRepository
     /**
      * Update the businessCategory.
      * @param BusinessCategoryRequest $request
-     * @param BusinessCategory $businessCategory
+     * @param Category $businessCategory
      * @return JsonResponse
      * @throws \Exception
      */
-    public function update(BusinessCategoryRequest $request, BusinessCategory $businessCategory) :JsonResponse
+    public function update(BusinessCategoryRequest $request, Category $businessCategory) :JsonResponse
     {
         $this->checkLevelAccess(Auth::user()->id == $businessCategory->user_id);
 
@@ -122,10 +183,10 @@ class CategoryRepository implements ICategoryRepository
     /**
     * Delete the businessCategory.
     * @param UpdatePasswordRequest $request
-    * @param BusinessCategory $businessCategory
+    * @param Category $businessCategory
     * @return JsonResponse
     */
-   public function destroy(BusinessCategory $businessCategory) :JsonResponse
+   public function destroy(Category $businessCategory) :JsonResponse
    {
         $this->checkLevelAccess(Auth::user()->id == $businessCategory->user_id);
 

@@ -3,6 +3,7 @@
 namespace Application\Api\Business\Controllers;
 
 use Application\Api\Business\Requests\CategoryRequest;
+use Application\Api\Business\Resources\CategoryWithParentsResource;
 use Core\Http\Controllers\Controller;
 use Core\Http\Requests\TableRequest;
 use Domain\Business\Models\Category;
@@ -42,13 +43,41 @@ class CategoryController extends Controller
     }
 
     /**
+     * Get all of BusinessCategories
+     * @return JsonResponse
+     */
+    public function allCategories(): JsonResponse
+    {
+        return response()->json($this->repository->allCategories(), Response::HTTP_OK);
+    }
+
+    /**
+     * Get the children of a specific category.
+     * @param Category $category
+     * @return JsonResponse
+     */
+    public function getCategoryChildren(Category $category) :JsonResponse
+    {
+        return response()->json($this->repository->getCategoryChildren($category), Response::HTTP_OK);
+    }
+
+    /**
+     * Get all parent categories.
+     * @return JsonResponse
+     */
+    public function getParentCategories() :JsonResponse
+    {
+        return response()->json($this->repository->getParentCategories(), Response::HTTP_OK);
+    }
+
+    /**
      * Get the Category.
-     * @param
+     * @param Category $category
      * @return JsonResponse
      */
     public function show(Category $category) :JsonResponse
     {
-        return response()->json($this->repository->show($category), Response::HTTP_OK);
+        return response()->json(new CategoryWithParentsResource($this->repository->show($category)), Response::HTTP_OK);
     }
 
     /**

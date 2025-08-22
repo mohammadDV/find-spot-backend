@@ -204,4 +204,12 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
     {
         $this->notify(new \Application\Api\User\Notifications\CustomEmailVerificationNotification());
     }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\UserFactory::new();
+    }
 }

@@ -37,4 +37,12 @@ class Post extends Model
     {
         return $this->status == 1 ? __('site.Active') : __('site.Inactive');
     }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return \Database\Factories\PostFactory::new();
+    }
 }

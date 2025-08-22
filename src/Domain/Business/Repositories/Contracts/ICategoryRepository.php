@@ -5,6 +5,7 @@ namespace Domain\Business\Repositories\Contracts;
 use Application\Api\Business\Requests\BusinessCategoryRequest;
 use Core\Http\Requests\TableRequest;
 use Domain\Business\Models\BusinessCategory;
+use Domain\Business\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -19,7 +20,7 @@ interface ICategoryRepository
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
-    // public function index(TableRequest $request) :LengthAwarePaginator;
+    public function index(TableRequest $request) :LengthAwarePaginator;
 
     /**
      * Get the businessCategories.
@@ -28,11 +29,36 @@ interface ICategoryRepository
     public function activeBusinessCategories() :Collection;
 
     /**
-     * Get the businessCategory.
-     * @param BusinessCategory $businessCategory
-     * @return BusinessCategory
+     * Get the businessCategories.
      */
-    // public function show(BusinessCategory $businessCategory) :BusinessCategory;
+    public function allCategories();
+
+    /**
+     * Get the children of a specific category.
+     * @param Category $category
+     * @return Collection
+     */
+    public function getCategoryChildren(Category $category);
+
+    /**
+     * Get all parent categories.
+     * @return Collection
+     */
+    public function getParentCategories();
+
+    /**
+     * Get the Category.
+     * @param Category $category
+     * @return Category
+     */
+    public function show(Category $category);
+
+    /**
+     * Get the Category with parent hierarchy.
+     * @param Category $category
+     * @return Category
+     */
+    public function showWithParents(Category $category);
 
     /**
      * Store the businessCategory.
