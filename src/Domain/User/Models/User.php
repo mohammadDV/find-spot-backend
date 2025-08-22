@@ -2,6 +2,7 @@
 
 namespace Domain\User\Models;
 
+use Database\Factories\UserFactory;
 use Domain\Post\Models\Post;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -210,6 +211,6 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
      */
     protected static function newFactory()
     {
-        return \Database\Factories\UserFactory::new();
+        return UserFactory::new();
     }
 }

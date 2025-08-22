@@ -3,6 +3,7 @@
 namespace Domain\Post\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Database\Factories\PostFactory;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +44,6 @@ class Post extends Model
      */
     protected static function newFactory()
     {
-        return \Database\Factories\PostFactory::new();
+        return PostFactory::new();
     }
 }
