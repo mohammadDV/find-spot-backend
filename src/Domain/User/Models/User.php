@@ -2,6 +2,7 @@
 
 namespace Domain\User\Models;
 
+use Database\Factories\UserFactory;
 use Domain\Post\Models\Post;
 use Filament\Models\Contracts\HasName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -203,5 +204,13 @@ class User extends Authenticatable implements MustVerifyEmail, HasName, Filament
     public function sendEmailVerificationNotification()
     {
         $this->notify(new \Application\Api\User\Notifications\CustomEmailVerificationNotification());
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 }

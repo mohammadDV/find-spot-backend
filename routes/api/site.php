@@ -24,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 // Plan
 Route::get('/active-categories', [CategoryController::class, 'activeBusinessCategories'])->name('active-business-categories');
+Route::get('/all-categories', [CategoryController::class, 'allCategories'])->name('all-categories');
+Route::get('/parent-categories', [CategoryController::class, 'getParentCategories'])->name('parent-categories');
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/categories/{category}/children', [CategoryController::class, 'getCategoryChildren'])->name('category-children');
 // Route::get('/filters', [FilterController::class, 'index'])->name('filters.index');
 // Route::get('/filters/{filter}', [FilterController::class, 'show'])->name('filters.show');
 // Route::get('/business/{business}', [BusinessController::class, 'show'])->name('business.show');
@@ -32,8 +36,8 @@ Route::get('/active-categories', [CategoryController::class, 'activeBusinessCate
 // Route::get('/user/{user}/reviews', [ReviewController::class, 'getReviewsPerUser']);
 
 
-// Route::get('/posts', [PostController::class, 'getPosts'])->name('site.posts.index');
-// Route::get('/post/{post}', [PostController::class, 'getPostInfo'])->name('site.post.info');
+Route::get('/posts', [PostController::class, 'getPosts'])->name('site.posts.index');
+Route::get('/post/{post}', [PostController::class, 'getPostInfo'])->name('site.post.info');
 
 Route::middleware(['auth:sanctum', 'auth', 'throttle:200,1'])->prefix('profile')->name('profile.')->group(function() {
 

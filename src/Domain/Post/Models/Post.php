@@ -3,6 +3,7 @@
 namespace Domain\Post\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
+use Database\Factories\PostFactory;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,5 +37,13 @@ class Post extends Model
     public function getStatusNameAttribute()
     {
         return $this->status == 1 ? __('site.Active') : __('site.Inactive');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     */
+    protected static function newFactory()
+    {
+        return PostFactory::new();
     }
 }
