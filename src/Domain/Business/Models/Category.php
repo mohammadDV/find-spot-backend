@@ -20,6 +20,11 @@ class Category extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function filters()
+    {
+        return $this->belongsToMany(Filter::class, 'category_filter', 'category_id', 'filter_id');
+    }
+
     public function businesses()
     {
         return $this->belongsToMany(Business::class, 'category_business', 'category_id', 'business_id');

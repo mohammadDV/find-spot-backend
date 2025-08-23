@@ -39,9 +39,9 @@ class EventRepository implements IEventRepository
         $businesses = Business::query()
             ->with([
                 'user:id,nickname,profile_photo_path,rate',
-                'country:id,name',
-                'city:id,name',
-                'area:id,name',
+                'country:id,title',
+                'city:id,title',
+                'area:id,title',
                 'categories:id,title',
                 'services:id,title',
                 'tags:id,title',
@@ -80,9 +80,9 @@ class EventRepository implements IEventRepository
                     'filters:id,title',
                     'files:id,path,type',
                     'user:id,nickname,profile_photo_path,rate',
-                    'country:id,name',
-                    'city:id,name',
-                    'area:id,name',
+                    'country:id,title',
+                    'city:id,title',
+                    'area:id,title',
                 ])
                 ->where('id', $event->id)
                 ->first();
@@ -94,9 +94,9 @@ class EventRepository implements IEventRepository
                 'services:id,title',
                 'tags:id,title',
                 'facilities:id,title',
-                'country:id,name',
-                'city:id,name',
-                'area:id,name',
+                'country:id,title',
+                'city:id,title',
+                'area:id,title',
             ])
             ->where('status', 1)
             ->inRandomOrder()

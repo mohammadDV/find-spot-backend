@@ -4,6 +4,7 @@ namespace Application\Api\Business\Controllers;
 
 use Application\Api\Business\Requests\CategoryRequest;
 use Application\Api\Business\Resources\CategoryWithParentsResource;
+use Application\Api\Business\Resources\FilterResource;
 use Core\Http\Controllers\Controller;
 use Core\Http\Requests\TableRequest;
 use Domain\Business\Models\Category;
@@ -78,6 +79,17 @@ class CategoryController extends Controller
     public function show(Category $category) :JsonResponse
     {
         return response()->json(new CategoryWithParentsResource($this->repository->show($category)), Response::HTTP_OK);
+    }
+
+    /**
+     * Get the filters associated with a specific category.
+     * @param TableRequest $request
+     * @param Category $category
+     * @return JsonResponse
+     */
+    public function getCategoryFilters(TableRequest $request, Category $category): JsonResponse
+    {
+        return response()->json($this->repository->getCategoryFilters($request, $category), Response::HTTP_OK);
     }
 
     /**

@@ -1135,6 +1135,17 @@ return array(
     'stars' => 'ستاره',
     'owner' => 'مالک',
 
+    // Review Ratings
+    'very_bad' => 'خیلی بد',
+    'bad' => 'بد',
+    'average' => 'متوسط',
+    'good' => 'خوب',
+    'excellent' => 'عالی',
+
+    // Business Management
+    'business_created_title' => 'کسب و کار با موفقیت ایجاد شد',
+    'business_created_content' => 'کسب و کار شما با عنوان ":business_title" با موفقیت ایجاد شد و در انتظار تایید است.',
+
     // Chat Management
     'Communication' => 'ارتباطات',
     'chats' => 'چت ها',

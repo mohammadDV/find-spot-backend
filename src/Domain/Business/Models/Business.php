@@ -9,6 +9,7 @@ use Domain\Business\Models\File;
 use Domain\Business\Models\Facility;
 use Domain\Business\Models\Service;
 use Domain\Business\Models\Tag;
+use Domain\Review\Models\Review;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -91,4 +92,8 @@ class Business extends Model
         return $this->morphMany(Save::class, 'saveable');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

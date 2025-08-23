@@ -8,14 +8,20 @@ use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\Business\Models\Business;
 use Domain\Business\Repositories\Contracts\IBusinessRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Application\Api\Business\Requests\SearchBusinessRequest;
 use Application\Api\Business\Resources\BusinessBoxResource;
+use Application\Api\Business\Resources\ServiceVoteResource;
+use DateTimeZone;
+use Domain\Business\Models\Category;
+use Domain\Business\Models\Filter;
+use Domain\Business\Models\ServiceVote;
 use Domain\Notification\Services\NotificationService;
+use Domain\Review\Models\Review;
 use Domain\User\Services\TelegramNotificationService;
 use Illuminate\Support\Facades\DB;
 
@@ -43,9 +49,9 @@ class BusinessRepository implements IBusinessRepository
         $businesses = Business::query()
             ->with([
                 'user:id,nickname,profile_photo_path,rate',
-                'country:id,name',
-                'city:id,name',
-                'area:id,name',
+                'country:id,title',
+                'city:id,title',
+                'area:id,title',
                 'categories:id,title',
                 'services:id,title',
                 'tags:id,title',
@@ -78,40 +84,29 @@ class BusinessRepository implements IBusinessRepository
         $business = Business::query()
                 ->with([
                     'categories:id,title',
-                    'services:id,title',
-                    'tags:id,title',
+                    'country:id,title',
+                    'city:id,title',
+                    'area.city.country',
+                    'tags',
                     'facilities:id,title',
                     'filters:id,title',
-                    'files:id,path,type',
-                    'user:id,nickname,profile_photo_path,rate',
-                    'country:id,name',
-                    'city:id,name',
-                    'area:id,name',
+                    'files',
                 ])
                 ->where('id', $business->id)
                 ->first();
 
-        $recommended = Business::query()
-            ->with([
-                'user:id,nickname,profile_photo_path,rate',
-                'categories:id,title',
-                'services:id,title',
-                'tags:id,title',
-                'facilities:id,title',
-                'country:id,name',
-                'city:id,name',
-                'area:id,name',
-            ])
-            ->where('active', 1)
-            ->where('status', Business::APPROVED)
-            ->inRandomOrder()
-            ->limit(config('business.limit'))
-            ->get()
-            ->map(fn ($business) => new BusinessResource($business));
+
+        // votes and quantity services
+        $services = $this->getServiceVotes($business?->id);
+
+
+        $reviews = $this->getReviewsByRate($business->id);
 
         return [
             'business' => new BusinessResource($business),
-            'recommended'=> $recommended
+            // 'quality_services' => ServiceVoteResource::collection($services),
+            'quality_services' => $services,
+            'reviews' => $reviews,
         ];
 
     }
@@ -134,9 +129,9 @@ class BusinessRepository implements IBusinessRepository
                     'filters:id,title',
                     'files:id,path,type',
                     'user:id,nickname,profile_photo_path,rate',
-                    'country:id,name',
-                    'city:id,name',
-                    'area:id,name',
+                    'country:id,title',
+                    'city:id,title',
+                    'area:id,title',
                 ])
                 ->where('id', $business->id)
                 ->first();
@@ -366,28 +361,6 @@ class BusinessRepository implements IBusinessRepository
         throw new \Exception();
     }
 
-
-    /**
-     * Delete the business.
-     * @param Business $business
-     * @return JsonResponse
-     */
-    public function destroy(Business $business) :JsonResponse
-    {
-        $this->checkLevelAccess(Auth::user()->id == $business->user_id);
-
-        $deleted = $business->delete();
-
-        if ($deleted) {
-            return response()->json([
-                'status' => 1,
-                'message' => __('site.The operation has been successfully')
-            ], Response::HTTP_OK);
-        }
-
-        throw new \Exception();
-    }
-
     /**
      * Get featured businesses by type with configurable limits.
      * @return array{sender: Collection, passenger: Collection}
@@ -429,6 +402,51 @@ class BusinessRepository implements IBusinessRepository
     }
 
     /**
+     * Search suggestions with filters and pagination.
+     * @param TableRequest $request
+     */
+    public function searchSuggestions(TableRequest $request)
+    {
+
+        $search = $request->get('query');
+
+        $categories = Category::query()
+            ->with(['filters' => function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            }])
+            ->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhereHas('filters', function ($q) use ($search) {
+                        $q->where('title', 'like', '%' . $search . '%');
+                    });
+            })
+            ->where('status', 1)
+            ->limit(10)
+            ->get();
+
+        $queryBusiness = Business::query()
+            ->where('active', 1)
+            ->where('status', Business::APPROVED)
+            ->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhereHas('filters', function ($q) use ($search) {
+                        $q->where('title', 'like', '%' . $search . '%');
+                    });
+            });
+
+        $businesses = $queryBusiness->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
+            ->limit(5)
+            ->get();
+
+
+        return [
+            'businesses' => $businesses->map(fn ($business) => new BusinessBoxResource($business)),
+            'categories' => $categories,
+        ];
+
+    }
+
+    /**
      * Search businesses with filters and pagination.
      * @param SearchBusinessRequest $request
      * @return LengthAwarePaginator
@@ -436,98 +454,95 @@ class BusinessRepository implements IBusinessRepository
     public function search(SearchBusinessRequest $request): LengthAwarePaginator
     {
 
+        $search = $request->get('query');
+        $catId = $request->get('category');
+        $filters = $request->get('filters');
+        $amountType = $request->get('amount_type');
+        $now = $request->get('now');
+        $lat = $request->get('lat');
+        $long = $request->get('long');
+        $areaId = $request->get('area_id');
+
+        // Get current hour and day of week for business open filtering
+        $currentDateTime = now();
+        $currentHour = intval($currentDateTime->setTimezone(new DateTimeZone('Asia/Istanbul'))->format('H'));
+        $currentDayOfWeek = $currentDateTime->format('l'); // Returns English day name (Monday, Tuesday, etc.)
+
         // Generate a unique cache key based on all search parameters
         $cacheKey = 'business_search_' . md5(json_encode([
-            'type' => $request->input('type'),
-            'o_city_id' => $request->input('o_city_id'),
-            'd_city_id' => $request->input('d_city_id'),
-            'o_province_id' => $request->input('o_province_id'),
-            'd_province_id' => $request->input('d_province_id'),
-            'o_country_id' => $request->input('o_country_id'),
-            'd_country_id' => $request->input('d_country_id'),
-            'send_date' => $request->input('send_date'),
-            'receive_date' => $request->input('receive_date'),
-            'path_type' => $request->input('path_type'),
-            'categories' => $request->input('categories'),
-            'min_weight' => $request->input('min_weight'),
-            'max_weight' => $request->input('max_weight'),
+            'query' => $search,
+            'category' => $catId,
+            'filters' => $filters,
+            'amount_type' => $amountType,
+            'now' => $now,
+            'lat' => $lat,
+            'long' => $long,
+            'area_id' => $areaId,
             'page' => $request->input('page', 1),
         ]));
 
         // Try to get results from cache first
         // return cache()->remember($cacheKey, now()->addMinutes(5), function () use ($request, $today) {
             $query = Business::query()
-                ->with([
-                    'categories:id,title',
-                    'user:id,nickname,profile_photo_path,rate',
-                    'oCountry',
-                    'oProvince',
-                    'oCity',
-                    'dCountry',
-                    'dProvince',
-                    'dCity',
-                ])
                 ->where('active', 1)
-                ->where('status', Business::APPROVED)
-                ->where('send_date', '>=', now()->startOfDay())
-                ->where('type', $request->input('type'));
+                ->where('status', Business::APPROVED);
 
-            // Apply filters
-            if ($request->has('o_city_id')) {
-                $query->where('o_city_id', $request->input('o_city_id'));
+            // Apply title
+            if (!empty($search)) {
+                $query->where('title','like', '%' . $search . '%');
             }
 
-            if ($request->has('d_city_id')) {
-                $query->where('d_city_id', $request->input('d_city_id'));
+            // amount type
+            if (!empty($amountType)) {
+                $query->where('amount_type', $amountType);
             }
 
-            if ($request->has('o_province_id')) {
-                $query->where('o_province_id', $request->input('o_province_id'));
-            }
-
-            if ($request->has('d_province_id')) {
-                $query->where('d_province_id', $request->input('d_province_id'));
-            }
-
-            if ($request->has('o_country_id')) {
-                $query->where('o_country_id', $request->input('o_country_id'));
-            }
-
-            if ($request->has('d_country_id')) {
-                $query->where('d_country_id', $request->input('d_country_id'));
-            }
-
-            if ($request->has('send_date')) {
-                $query->where('send_date', '=', $request->input('send_date'));
-            }
-
-            if ($request->has('receive_date')) {
-                $query->where('receive_date', '>=', $request->input('receive_date'));
-            }
-
-            if ($request->has('path_type')) {
-                $query->where('path_type', $request->input('path_type'));
-            }
-
-            // Apply weight range filter
-            if ($request->has('min_weight')) {
-                $query->where('weight', '>=', $request->input('min_weight'));
-            }
-
-            if ($request->has('max_weight')) {
-                $query->where('weight', '<=', $request->input('max_weight'));
-            }
-
-            if ($request->has('categories')) {
-                $query->whereHas('categories', function ($q) use ($request) {
-                    $q->whereIn('categories.id', $request->input('categories'));
+            // category
+            if (!empty($catId)) {
+                $query->whereHas('categories', function ($q) use ($catId) {
+                    $q->where('categories.id', $catId)
+                      ->orWhere('categories.parent_id', $catId);
                 });
             }
+
+            // filters
+            if (!empty($filters)) {
+                $query->whereHas('filters', function ($q) use ($filters) {
+                    $q->whereIn('filter_id', $filters);
+                }, '=', count($filters));
+            }
+
+            // now
+            if (!empty($now)) {
+                $query->where('from_' . strtolower($currentDayOfWeek), '<=', $currentHour)
+                    ->where('to_' . strtolower($currentDayOfWeek), '>=', $currentHour);
+            }
+
+            // near me
+            if (!empty($lat) && !empty($long)) {
+                // Filter businesses within 5 kilometers radius using a simpler approach
+                $radius = 2; // kilometers
+
+                // Use a bounding box approach for better performance and compatibility
+                $latMin = $lat - ($radius / 111.32); // 1 degree = ~111.32 km
+                $latMax = $lat + ($radius / 111.32);
+                $longMin = $long - ($radius / (111.32 * cos(deg2rad($lat))));
+                $longMax = $long + ($radius / (111.32 * cos(deg2rad($lat))));
+
+                $query->whereBetween('lat', [$latMin, $latMax])
+                      ->whereBetween('long', [$longMin, $longMax]);
+            }
+
+            // area
+            if (!empty($areaId)) {
+                $query->where('area_id', $areaId);
+            }
+
 
             $businesses = $query->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
                 ->paginate($request->get('count', 25));
 
-            return $businesses->through(fn ($business) => new BusinessResource($business));
+            return $businesses->through(fn ($business) => new BusinessBoxResource($business));
         // });
     }
 
@@ -598,5 +613,70 @@ class BusinessRepository implements IBusinessRepository
         if (!empty($existingFiles)) {
             $business->files()->whereIn('id', array_values($existingFiles))->delete();
         }
+    }
+
+    /**
+     * Get reviews grouped by rate with counts for businesses
+     * @param int|null $businessId Optional business ID to filter by specific business
+     * @return Collection
+     */
+    public function getReviewsByRate(?int $businessId = null): Collection
+    {
+        $query = Review::query()
+            ->select('rate', DB::raw('COUNT(*) as count'))
+            ->where('status', 1); // Only approved reviews
+
+        if ($businessId) {
+            $query->where('business_id', $businessId);
+        }
+
+        $titles = [
+            1 => __('site.very_bad'),
+            2 => __('site.bad'),
+            3 => __('site.average'),
+            4 => __('site.good'),
+            5 => __('site.excellent')
+        ];
+
+        return $query->groupBy('rate')
+            ->orderBy('rate', 'desc')
+            ->get()
+            ->map(function ($item) use ($titles) {
+                return [
+                    'title' => $titles[$item->rate],
+                    'rate' => $item->rate,
+                    'count' => $item->count,
+                    'percentage' => 0 // Will be calculated below
+                ];
+            })
+            ->map(function ($item, $index) use ($businessId) {
+                // Calculate percentage based on total reviews
+                $totalReviews = Review::query()
+                    ->where('status', 1)
+                    ->when($businessId ?? false, function ($query) use ($businessId) {
+                        return $query->where('business_id', $businessId);
+                    })
+                    ->count();
+
+                $item['percentage'] = $totalReviews > 0 ? round(($item['count'] / $totalReviews) * 100, 2) : 0;
+                return $item;
+            });
+    }
+
+    public function getServiceVotes(?int $businessId = null): Collection
+    {
+        $query = ServiceVote::query()
+            ->where('business_id', $businessId)
+            ->select('service_id', DB::raw('COUNT(*) as count'));
+
+        return $query->groupBy('service_id')
+            ->orderBy('service_id', 'asc')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'title' => $item->service->title,
+                    'count' => $item->count,
+                ];
+            });
     }
 }

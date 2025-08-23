@@ -2,16 +2,17 @@
 
 namespace Application\Api\Business\Resources;
 
+use Application\Api\Address\Resources\AreaResource;
 use Application\Api\Address\Resources\CityResource;
 use Application\Api\Address\Resources\CountryResource;
 use Application\Api\Address\Resources\ProvinceResource;
 use Application\Api\Business\Resources\CategoryResource;
 use Application\Api\Business\Resources\FilterResource;
 use Application\Api\Business\Resources\FileResource;
-use Domain\Business\Models\Business;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Morilog\Jalali\Jalalian;
 use Application\Api\User\Resources\UserResource;
+use DateTimeZone;
 
 class BusinessResource extends JsonResource
 {
@@ -23,13 +24,16 @@ class BusinessResource extends JsonResource
      */
     public function toArray($request)
     {
-        $destinationImage = config('image.default_business_image');
+        $currentDayOfWeek = now()->format('l'); // Returns English day name (Monday, Tuesday, etc.)
+        // now
+        $from = 'from_' . strtolower($currentDayOfWeek);
+        $to = 'to_' . strtolower($currentDayOfWeek);
+        if (!empty($this->$from) && !empty($this->$to)) {
+            $opening_hours = now()->dayName . ' ' . $this->$from . ':00 الی ' . $this->$to . ':00';
+        } else {
+            $opening_hours = now()->dayName . ' ' . $this->from_monday . ' الی ' . $this->to_monday;
+        }
 
-            if ($this->relationLoaded('area') && $this->area?->image) {
-                $destinationImage = $this->area->image;
-            } elseif ($this->relationLoaded('city') && $this->city?->image) {
-                $destinationImage = $this->city->image;
-            }
 
         return [
             'id' => $this->id,
@@ -48,20 +52,19 @@ class BusinessResource extends JsonResource
             'status' => $this->status,
             'description' => $this->description,
             'vip' => $this->vip,
-            'image' => $destinationImage,
-            'menu_image' => $destinationImage,
-            'video' => $destinationImage,
-            'send_date' => $this->send_date ? Jalalian::fromDateTime($this->send_date)->format('d F') : null,
-            'receive_date' => $this->receive_date ? Jalalian::fromDateTime($this->receive_date)->format('d F') : null,
-            'country' => new CountryResource($this->whenLoaded('oCountry')),
-            'province' => new ProvinceResource($this->whenLoaded('oProvince')),
-            'city' => new CityResource($this->whenLoaded('oCity')),
+            'image' => $this->image,
+            'menu_image' => $this->menu_image,
+            'video' => $this->video,
+            'rate' => $this->rate,
+            'reviews_count' => $this->reviews()->count(),
+            'opening_hours' => $opening_hours,
+            'area' => new AreaResource($this->whenLoaded('area')),
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'filters' => FilterResource::collection($this->whenLoaded('filters')),
             'files' => FileResource::collection($this->whenLoaded('files')),
             'user' => new UserResource($this->whenLoaded('user')),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'facilities' => FacilityResource::collection($this->whenLoaded('facilities'))
         ];
     }
 }

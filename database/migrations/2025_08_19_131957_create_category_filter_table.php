@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger("filter_id")->unsigned()->index();
             $table->foreign('filter_id')->references('id')->on('filters')->onDelete('cascade');
             $table->unique(['category_id', 'filter_id'], 'category_filter_category_id_filter_id_unique');
+            $table->tinyInteger('priority')->default(0);
             $table->timestamps();
         });
     }

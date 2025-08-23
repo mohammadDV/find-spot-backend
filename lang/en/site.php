@@ -602,6 +602,17 @@ return array(
     'owner' => 'Owner',
     'comment' => 'Comment',
 
+    // Review Ratings
+    'very_bad' => 'Very Bad',
+    'bad' => 'Bad',
+    'average' => 'Average',
+    'good' => 'Good',
+    'excellent' => 'Excellent',
+
+    // Business Management
+    'business_created_title' => 'Business Created Successfully',
+    'business_created_content' => 'Your business ":business_title" has been created successfully and is pending approval.',
+
     // Chat Management
     'Communication' => 'Communication',
     'chats' => 'Chats',

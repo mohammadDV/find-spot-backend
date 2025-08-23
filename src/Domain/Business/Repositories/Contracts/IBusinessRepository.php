@@ -54,13 +54,6 @@ interface IBusinessRepository
     public function update(BusinessRequest $request, Business $business) :JsonResponse;
 
     /**
-     * Delete the business.
-     * @param Business $business
-     * @return JsonResponse
-     */
-    public function destroy(Business $business) :JsonResponse;
-
-    /**
      * Get featured businesses by type with configurable limits.
      * @return array{sender: Collection, passenger: Collection}
      */
@@ -72,4 +65,10 @@ interface IBusinessRepository
      * @return LengthAwarePaginator
      */
     public function search(SearchBusinessRequest $request): LengthAwarePaginator;
+
+    /**
+     * Search suggestions with filters and pagination.
+     * @param TableRequest $request
+     */
+    public function searchSuggestions(TableRequest $request);
 }
