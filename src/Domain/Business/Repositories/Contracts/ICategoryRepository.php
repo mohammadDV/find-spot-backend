@@ -61,6 +61,14 @@ interface ICategoryRepository
     public function showWithParents(Category $category);
 
     /**
+     * Get the filters associated with a specific category.
+     * @param TableRequest $request
+     * @param Category $category
+     * @return LengthAwarePaginator
+     */
+    public function getCategoryFilters(TableRequest $request, Category $category) :LengthAwarePaginator;
+
+    /**
      * Store the businessCategory.
      * @param BusinessCategoryRequest $request
      * @return JsonResponse

@@ -23,15 +23,13 @@ class SearchBusinessRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'type' => ['required', 'string', 'in:passenger,sender'],
-            'send_date' => ['nullable', 'date', 'after_or_equal:today'],
-            'receive_date' => ['nullable', 'date', 'after_or_equal:send_date'],
-            'path_type' => ['nullable', 'string', 'in:land,sea,air'],
-            'categories' => ['nullable', 'array'],
-            'categories.*' => ['exists:categories,id'],
-            'min_weight' => ['nullable', 'integer', 'min:0'],
-            'max_weight' => ['nullable', 'integer', 'min:0', 'gte:min_weight'],
+            'category' => ['nullable', 'exists:categories,id'],
             'query' => ['nullable', 'string', 'min:1', 'max:50'],
+            'filters' => ['nullable', 'array'],
+            'filters.*' => ['nullable', 'exists:filters,id'],
+            'amount_type' => ['nullable', 'integer', 'in:1,2,3,4'],
+            'now' => ['nullable', 'boolean'],
+            'area_id' => ['nullable', 'exists:areas,id'],
             'column' => ['nullable', 'string', 'min:2', 'max:50'],
             'sort' => ['nullable', 'string', 'in:desc,asc'],
             'page' => ['nullable','integer'],

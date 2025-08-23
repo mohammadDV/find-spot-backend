@@ -28,6 +28,7 @@ Route::get('/all-categories', [CategoryController::class, 'allCategories'])->nam
 Route::get('/parent-categories', [CategoryController::class, 'getParentCategories'])->name('parent-categories');
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('/categories/{category}/children', [CategoryController::class, 'getCategoryChildren'])->name('category-children');
+Route::get('/categories/{category}/filters', [CategoryController::class, 'getCategoryFilters'])->name('category.filters');
 // Route::get('/filters', [FilterController::class, 'index'])->name('filters.index');
 // Route::get('/filters/{filter}', [FilterController::class, 'show'])->name('filters.show');
 // Route::get('/business/{business}', [BusinessController::class, 'show'])->name('business.show');
@@ -99,6 +100,8 @@ Route::middleware(['auth:sanctum', 'auth', 'throttle:10,1'])->group(function() {
 Route::prefix('businesses')->group(function () {
     Route::get('featured', [BusinessController::class, 'featured']);
     Route::get('search', [BusinessController::class, 'search']);
+    Route::get('search-suggestions', [BusinessController::class, 'searchSuggestions']);
+    Route::get('{business}', [BusinessController::class, 'show']);
 });
 
 // Events

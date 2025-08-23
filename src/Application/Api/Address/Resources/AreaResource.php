@@ -18,10 +18,7 @@ class AreaResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'image' => $this->image,
-            'status' => $this->status,
-            'city_id' => $this->city_id,
-            'created_at' => $this->created_at,
-            // 'updated_at' => $this->updated_at,
+            'city' => new CityResource($this->whenLoaded('city')),
         ];
     }
 }

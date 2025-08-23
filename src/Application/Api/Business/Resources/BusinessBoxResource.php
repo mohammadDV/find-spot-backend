@@ -26,6 +26,7 @@ class BusinessBoxResource extends JsonResource
             'lat' => $this->lat,
             'long' => $this->long,
             'image' => $this->image,
+            'rate' => $this->rate,
             'area' => new AreaResource($this->whenLoaded('area')),
         ];
     }

@@ -4,6 +4,7 @@ namespace Domain\Business\Repositories;
 
 use Application\Api\Business\Requests\BusinessCategoryRequest;
 use Application\Api\Business\Resources\CategoryResource;
+use Application\Api\Business\Resources\FilterResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\Business\Models\Category;
@@ -125,6 +126,27 @@ class CategoryRepository implements ICategoryRepository
                 }])
                 ->where('id', $category->id)
                 ->first();
+    }
+
+    /**
+     * Get the filters associated with a specific category.
+     * @param TableRequest $request
+     * @param Category $category
+     * @return LengthAwarePaginator
+     */
+    public function getCategoryFilters(TableRequest $request, Category $category) :LengthAwarePaginator
+    {
+        $search = $request->get('query');
+        $filters = $category->filters()
+            ->when(!empty($search), function ($query) use ($search) {
+                return $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->where('status', 1)
+            ->orderBy($request->get('column', 'priority'), $request->get('sort', 'desc'))
+            ->paginate($request->get('count', 25));
+
+        return $filters->through(fn ($filter) => new FilterResource($filter));
+
     }
 
     /**

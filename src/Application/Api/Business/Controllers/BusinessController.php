@@ -76,15 +76,7 @@ class BusinessController extends Controller
         return $this->repository->update($request, $business);
     }
 
-    /**
-     * Delete the business.
-     * @param Business $business
-     * @return JsonResponse
-     */
-    public function destroy(Business $business) :JsonResponse
-    {
-        return $this->repository->destroy($business);
-    }
+
 
     /**
      * Get featured businesses by type.
@@ -107,5 +99,15 @@ class BusinessController extends Controller
     public function search(SearchBusinessRequest $request): JsonResponse
     {
         return response()->json($this->repository->search($request), Response::HTTP_OK);
+    }
+
+    /**
+     * Search suggestions with filters.
+     * @param TableRequest     $request
+     * @return JsonResponse
+     */
+    public function searchSuggestions(TableRequest $request): JsonResponse
+    {
+        return response()->json($this->repository->searchSuggestions($request), Response::HTTP_OK);
     }
 }
