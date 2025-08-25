@@ -15,7 +15,7 @@ class PostSeeder extends Seeder
     {
         // Get or create a user for posts
         $user = User::firstOrCreate(
-            ['email' => 'admin@finybo.com'],
+            ['email' => 'admin@gmail.com'],
             [
                 'first_name' => 'مدیر',
                 'last_name' => 'سیستم',
@@ -24,7 +24,7 @@ class PostSeeder extends Seeder
                 'role_id' => 1,
                 'status' => 1,
                 'mobile' => '09120000000',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('123456789'),
                 'level' => 0,
             ]
         );
