@@ -822,7 +822,7 @@ return array(
 
     // Review Notifications
     'new_review_title' => 'ثبت دیدگاه جدید',
-    'new_review_content' => 'کاربر گرامی: کاربر با نام :user_nickname برای شما یک دیدگاه جدید ثبت کرده است.',
+    'new_review_content' => 'کاربر گرامی: کاربر با نام :user_nickname برای کسب و کار شما یک دیدگاه جدید ثبت کرده است.',
 
     // User Notifications
     'password_changed_title' => 'تغییر رمز عبور',

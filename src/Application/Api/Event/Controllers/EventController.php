@@ -54,4 +54,24 @@ class EventController extends Controller
         ], Response::HTTP_OK);
     }
 
+    /**
+     * Favorite the event.
+     * @param Event $event
+     * @return JsonResponse
+     */
+    public function favorite(Event $event) :JsonResponse
+    {
+        return $this->repository->favorite($event);
+    }
+
+    /**
+     * Get favorite events.
+     * @param TableRequest $request
+     * @return JsonResponse
+     */
+    public function getFavoriteEvents(TableRequest $request): JsonResponse
+    {
+        return response()->json($this->repository->getFavoriteEvents($request), Response::HTTP_OK);
+    }
+
 }

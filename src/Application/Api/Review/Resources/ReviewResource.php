@@ -2,8 +2,11 @@
 
 namespace Application\Api\Review\Resources;
 
+use Application\Api\Business\Resources\ServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Application\Api\User\Resources\UserResource;
+use Application\Api\Business\Resources\ServiceVoteResource;
+use Carbon\Carbon;
 
 class ReviewResource extends JsonResource
 {
@@ -24,8 +27,10 @@ class ReviewResource extends JsonResource
             'owner_id' => $this->owner_id,
             'user_id' => $this->user_id,
             'user' => new UserResource($this->whenLoaded('user')),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'likes_count' => $this->likes_count,
+            'dislikes_count' => $this->dislikes_count,
+            'quality_services' => ServiceResource::collection($this->whenLoaded('services')),
+            'created_at' => Carbon::parse($this->created_at)->format('Y M d'),
         ];
     }
 }

@@ -7,6 +7,7 @@ use Application\Api\Event\Resources\EventResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\Business\Models\Business;
+use Domain\Business\Models\Favorite;
 use Domain\Event\Models\Event;
 use Domain\Event\Repositories\Contracts\IEventRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Application\Api\Business\Requests\SearchBusinessRequest;
 use Application\Api\Event\Resources\EventBoxResource;
 use Domain\User\Services\TelegramNotificationService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 /**
  * Class EventRepository.
@@ -230,4 +233,56 @@ class EventRepository implements IEventRepository
         // });
     }
 
+    /**
+     * Favorite the event.
+     * @param Event $event
+     * @return JsonResponse
+     */
+    public function favorite(Event $event) :JsonResponse
+    {
+        $favorite = Favorite::where('favoritable_id', $event->id)
+            ->where('favoritable_type', Event::class)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+
+        $active = 0;
+
+        if ($favorite) {
+            $favorite->delete();
+        } else {
+            $favorite = Favorite::create([
+                'favoritable_id' => $event->id,
+                'favoritable_type' => Event::class,
+                'user_id' => Auth::user()->id,
+            ]);
+            $active = 1;
+        }
+
+        return response()->json([
+            'status' => 1,
+            'message' => __('site.The operation has been successfully'),
+            'favorite' => $active,
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Get favorite events.
+     * @param TableRequest $request
+     * @return LengthAwarePaginator
+     */
+    public function getFavoriteEvents(TableRequest $request): LengthAwarePaginator
+    {
+        $search = $request->get('query');
+        $events = Event::query()
+            ->whereHas('favorites', function ($query) {
+                $query->where('favorites.user_id', Auth::user()->id);
+            })
+            ->when(!empty($search), function ($query) use ($search) {
+                return $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
+            ->paginate($request->get('count', 25));
+
+        return $events->through(fn ($event) => new EventBoxResource($event));
+    }
 }

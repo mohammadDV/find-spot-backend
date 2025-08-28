@@ -54,6 +54,20 @@ interface IBusinessRepository
     public function update(BusinessRequest $request, Business $business) :JsonResponse;
 
     /**
+     * Favorite the business.
+     * @param Business $business
+     * @return JsonResponse
+     */
+    public function favorite(Business $business) :JsonResponse;
+
+    /**
+     * Get favorite businesses.
+     * @param TableRequest $request
+     * @return LengthAwarePaginator
+     */
+    public function getFavoriteBusinesses(TableRequest $request): LengthAwarePaginator;
+
+    /**
      * Get featured businesses by type with configurable limits.
      * @return array{sender: Collection, passenger: Collection}
      */

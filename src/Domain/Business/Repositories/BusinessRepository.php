@@ -15,10 +15,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Application\Api\Business\Requests\SearchBusinessRequest;
 use Application\Api\Business\Resources\BusinessBoxResource;
-use Application\Api\Business\Resources\ServiceVoteResource;
 use DateTimeZone;
 use Domain\Business\Models\Category;
-use Domain\Business\Models\Filter;
+use Domain\Business\Models\Favorite;
 use Domain\Business\Models\ServiceVote;
 use Domain\Notification\Services\NotificationService;
 use Domain\Review\Models\Review;
@@ -344,6 +343,62 @@ class BusinessRepository implements IBusinessRepository
         }
 
         throw new \Exception();
+    }
+
+    /**
+     * Favorite the business.
+     * @param Business $business
+     * @return JsonResponse
+     */
+    public function favorite(Business $business) :JsonResponse
+    {
+        $favorite = Favorite::where('favoritable_id', $business->id)
+            ->where('favoritable_type', Business::class)
+            ->where('user_id', Auth::user()->id)
+            ->first();
+
+        $active = 0;
+
+        if ($favorite) {
+            $favorite->delete();
+        } else {
+            $favorite = Favorite::create([
+                'favoritable_id' => $business->id,
+                'favoritable_type' => Business::class,
+                'user_id' => Auth::user()->id,
+            ]);
+            $active = 1;
+        }
+
+        return response()->json([
+            'status' => 1,
+            'message' => __('site.The operation has been successfully'),
+            'favorite' => $active,
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Get favorite businesses.
+     * @param TableRequest $request
+     * @return LengthAwarePaginator
+     */
+    public function getFavoriteBusinesses(TableRequest $request): LengthAwarePaginator
+    {
+        $search = $request->get('query');
+        $businesses = Business::query()
+            ->with([
+                'area:id,title',
+            ])
+            ->whereHas('favorites', function ($query) {
+                $query->where('favorites.user_id', Auth::user()->id);
+            })
+            ->when(!empty($search), function ($query) use ($search) {
+                return $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
+            ->paginate($request->get('count', 25));
+
+        return $businesses->through(fn ($business) => new BusinessBoxResource($business));
     }
 
     /**
