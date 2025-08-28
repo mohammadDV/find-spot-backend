@@ -27,7 +27,9 @@ class TableRequest extends BaseRequest
             'search' => !empty($this->get('search')) ? ['required','string', 'max:255'] : 'sometimes',
             'count' => !empty($this->get('count')) ? ['required','integer', 'min:5','max:200'] : 'sometimes',
             'type' => ['nullable','string','max:100'],
-            'status' => ['nullable','string','max:100']
+            'status' => ['nullable','string','max:100'],
+            'categories' => ['nullable','array'],
+            'categories.*' => ['nullable','integer','exists:categories,id'],
         ];
     }
 }

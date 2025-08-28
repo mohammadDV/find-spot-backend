@@ -48,16 +48,7 @@ class BusinessRepository implements IBusinessRepository
         $status = $request->get('status');
         $businesses = Business::query()
             ->with([
-                'user:id,nickname,profile_photo_path,rate',
-                'country:id,title',
-                'city:id,title',
                 'area:id,title',
-                'categories:id,title',
-                'services:id,title',
-                'tags:id,title',
-                'facilities:id,title',
-                'filters:id,title',
-                'files:id,path,type'
             ])
             ->when(Auth::user()->level != 3, function ($query) {
                 return $query->where('user_id', Auth::user()->id);
@@ -71,7 +62,7 @@ class BusinessRepository implements IBusinessRepository
             ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
             ->paginate($request->get('count', 25));
 
-        return $businesses->through(fn ($business) => new BusinessResource($business));
+        return $businesses->through(fn ($business) => new BusinessBoxResource($business));
     }
 
     /**
@@ -99,12 +90,10 @@ class BusinessRepository implements IBusinessRepository
         // votes and quantity services
         $services = $this->getServiceVotes($business?->id);
 
-
         $reviews = $this->getReviewsByRate($business->id);
 
         return [
             'business' => new BusinessResource($business),
-            // 'quality_services' => ServiceVoteResource::collection($services),
             'quality_services' => $services,
             'reviews' => $reviews,
         ];
@@ -123,15 +112,11 @@ class BusinessRepository implements IBusinessRepository
         return Business::query()
                 ->with([
                     'categories:id,title',
-                    'services:id,title',
-                    'tags:id,title',
+                    'area.city.country',
+                    'tags',
                     'facilities:id,title',
                     'filters:id,title',
-                    'files:id,path,type',
-                    'user:id,nickname,profile_photo_path,rate',
-                    'country:id,title',
-                    'city:id,title',
-                    'area:id,title',
+                    'files',
                 ])
                 ->where('id', $business->id)
                 ->first();
@@ -213,7 +198,7 @@ class BusinessRepository implements IBusinessRepository
                 // Create tags if provided
                 if ($request->has('tags')) {
                     foreach ($request->input('tags') as $tagData) {
-                        $business->tags()->create($tagData);
+                        $business->tags()->create(['title' => $tagData, 'status' => 1]);
                     }
                 }
 
@@ -558,7 +543,7 @@ class BusinessRepository implements IBusinessRepository
 
         // Process new tags
         foreach ($tagsData as $tagData) {
-            $title = $tagData['title'];
+            $title = $tagData;
 
             if (isset($existingTags[$title])) {
                 // Tag exists, update it if needed
@@ -570,7 +555,7 @@ class BusinessRepository implements IBusinessRepository
                 unset($existingTags[$title]);
             } else {
                 // Create new tag
-                $business->tags()->create($tagData);
+                $business->tags()->create(['title' => $title, 'status' => 1]);
             }
         }
 

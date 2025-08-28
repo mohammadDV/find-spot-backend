@@ -91,7 +91,7 @@ class AddressRepository implements IAddressRepository
     {
         $search = $request->get('query');
         return City::query()
-            ->with('province.country')
+            ->with('country')
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
@@ -120,7 +120,7 @@ class AddressRepository implements IAddressRepository
     public function getCityDetails(City $city) :Collection
     {
         return City::query()
-            ->with('province.country')
+            ->with('country')
             ->where('id', $city->id)
             ->get();
     }

@@ -16,11 +16,11 @@ use Application\Api\Ticket\Controllers\TicketSubjectController;
 use Application\Api\User\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/countries', [AddressController::class, 'activeCountries'])->name('active-countries');
-// Route::get('/areas/{city}', [AddressController::class, 'activeAreas'])->name('active-areas');
-// Route::get('/cities/{country}', [AddressController::class, 'activeCities'])->name('active-cities');
-// Route::get('/cities/{city}/details', [AddressController::class, 'getCityDetails'])->name('city-details');
-// Route::get('/cities', [AddressController::class, 'getCitiesPaginate'])->name('city-search');
+Route::get('/countries', [AddressController::class, 'activeCountries'])->name('active-countries');
+Route::get('/areas/{city}', [AddressController::class, 'activeAreas'])->name('active-areas');
+Route::get('/cities/{country}', [AddressController::class, 'activeCities'])->name('active-cities');
+Route::get('/cities/{city}/details', [AddressController::class, 'getCityDetails'])->name('city-details');
+Route::get('/areas/{city}/search', [AddressController::class, 'getAreasPaginate'])->name('area-search');
 
 // Plan
 Route::get('/active-categories', [CategoryController::class, 'activeBusinessCategories'])->name('active-business-categories');
@@ -41,6 +41,13 @@ Route::get('/posts', [PostController::class, 'getPosts'])->name('site.posts.inde
 Route::get('/post/{post}', [PostController::class, 'getPostInfo'])->name('site.post.info');
 
 Route::middleware(['auth:sanctum', 'auth', 'throttle:200,1'])->prefix('profile')->name('profile.')->group(function() {
+
+    Route::get('my-businesses', [BusinessController::class, 'index'])->name('businesses.index');
+    Route::post('businesses', [BusinessController::class, 'store'])->name('businesses.store');
+    Route::get('businesses/{business}/edit', [BusinessController::class, 'edit'])->name('businesses.edit');
+    Route::patch('businesses/{business}', [BusinessController::class, 'update'])->name('businesses.update');
+
+
 
     // Route::get('/check-verification', [UserController::class, 'checkVerification'])->name('user.check.verification');
 

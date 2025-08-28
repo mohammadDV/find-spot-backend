@@ -65,7 +65,7 @@ class BusinessRequest extends BaseRequest
             'services' => ['nullable', 'array'],
             'services.*' => ['exists:services,id'],
             'tags' => ['nullable', 'array'],
-            'tags.*.title' => ['required', 'string', 'max:255'],
+            'tags.*' => ['required', 'string', 'max:255'],
             'facilities' => ['nullable', 'array'],
             'facilities.*' => ['exists:facilities,id'],
             'filters' => ['nullable', 'array'],
