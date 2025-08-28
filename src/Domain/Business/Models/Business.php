@@ -57,10 +57,10 @@ class Business extends Model
         return $this->hasMany(Tag::class);
     }
 
-    // public function services()
-    // {
-    //     return $this->belongsToMany(Service::class, 'business_services', 'business_id', 'service_id');
-    // }
+    public function favorites()
+    {
+        return $this->morphMany(Favorite::class, 'favoritable', 'favoritable_type', 'favoritable_id');
+    }
 
     public function user()
     {

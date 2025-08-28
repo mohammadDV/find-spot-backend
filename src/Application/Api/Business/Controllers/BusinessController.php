@@ -76,7 +76,25 @@ class BusinessController extends Controller
         return $this->repository->update($request, $business);
     }
 
+    /**
+     * Favorite the business.
+     * @param Business $business
+     * @return JsonResponse
+     */
+    public function favorite(Business $business) :JsonResponse
+    {
+        return $this->repository->favorite($business);
+    }
 
+    /**
+     * Get favorite businesses.
+     * @param TableRequest $request
+     * @return JsonResponse
+     */
+    public function getFavoriteBusinesses(TableRequest $request): JsonResponse
+    {
+        return response()->json($this->repository->getFavoriteBusinesses($request), Response::HTTP_OK);
+    }
 
     /**
      * Get featured businesses by type.

@@ -28,7 +28,7 @@ class EventBoxResource extends JsonResource
             'amount' => $this->amount,
             'lat' => $this->lat,
             'long' => $this->long,
-            'slider_image' => $this->slider_image,
+            'image' => $this->image,
         ];
     }
 }

@@ -9,10 +9,7 @@ use Application\Api\User\Notifications\EmailNotification;
 class NotificationService
 {
     const PROFILE = 'profile';
-    const PASSENGER = 'passenger';
-    const SENDER = 'sender';
     const CHAT = 'chat';
-    const WITHDRAWAL = 'withdrawal';
     const TICKET = 'ticket';
     const BUSINESS = 'business';
 

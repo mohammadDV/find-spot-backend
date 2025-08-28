@@ -29,6 +29,10 @@ Route::get('/parent-categories', [CategoryController::class, 'getParentCategorie
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('/categories/{category}/children', [CategoryController::class, 'getCategoryChildren'])->name('category-children');
 Route::get('/categories/{category}/filters', [CategoryController::class, 'getCategoryFilters'])->name('category.filters');
+
+
+Route::get('businesses/{business}/reviews', [ReviewController::class, 'getReviewsPerBusiness'])->name('business.reviews.get');
+
 // Route::get('/filters', [FilterController::class, 'index'])->name('filters.index');
 // Route::get('/filters/{filter}', [FilterController::class, 'show'])->name('filters.show');
 // Route::get('/business/{business}', [BusinessController::class, 'show'])->name('business.show');
@@ -42,11 +46,23 @@ Route::get('/post/{post}', [PostController::class, 'getPostInfo'])->name('site.p
 
 Route::middleware(['auth:sanctum', 'auth', 'throttle:200,1'])->prefix('profile')->name('profile.')->group(function() {
 
+    // business
     Route::get('my-businesses', [BusinessController::class, 'index'])->name('businesses.index');
     Route::post('businesses', [BusinessController::class, 'store'])->name('businesses.store');
     Route::get('businesses/{business}/edit', [BusinessController::class, 'edit'])->name('businesses.edit');
     Route::patch('businesses/{business}', [BusinessController::class, 'update'])->name('businesses.update');
+    Route::get('businesses/{business}/favorite', [BusinessController::class, 'favorite'])->name('businesses.favorite');
+    Route::get('businesses/favorite', [BusinessController::class, 'getFavoriteBusinesses'])->name('businesses.favorite.index');
 
+
+    // event
+    Route::get('events/{event}/favorite', [EventController::class, 'favorite'])->name('events.favorite');
+    Route::get('events/favorite', [EventController::class, 'getFavoriteEvents'])->name('events.favorite.index');
+
+
+    Route::get('my-reviews', [ReviewController::class, 'myReviews'])->name('reviews.index');
+    Route::post('reviews/{business}', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::patch('reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
 
 
     // Route::get('/check-verification', [UserController::class, 'checkVerification'])->name('user.check.verification');

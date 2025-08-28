@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('comment')->nullable();
             $table->tinyInteger('rate');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('active')->default(1);
+            $table->enum('status', ['pending', 'approved', 'cancelled'])->default('pending');
             $table->bigInteger("business_id")->unsigned()->index();
             $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
             $table->bigInteger("user_id")->unsigned()->index();

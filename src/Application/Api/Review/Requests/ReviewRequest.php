@@ -23,7 +23,13 @@ class ReviewRequest extends BaseRequest
     {
         return [
             'rate' => ['required', 'integer', 'between:1,5'],
-            'comment' => ['nullable', 'string', 'max:2000'],
+            'comment' => ['required', 'string', 'max:2000'],
+            'services' => ['nullable', 'array'],
+            'services.*' => ['nullable', 'integer', 'exists:services,id'],
+            'files' => ['nullable', 'array'],
+            'files.*.path' => ['required', 'string', 'max:2048'],
+            'files.*.type' => ['nullable', 'string', 'in:image,video'],
+            'status' => ['nullable', 'string', 'in:pending,cancelled'],
         ];
     }
 }

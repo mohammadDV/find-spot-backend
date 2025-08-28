@@ -25,13 +25,13 @@ class ReviewController extends Controller
     }
 
     /**
-     * Get all of Countries with pagination
+     * Get my reviews with pagination
      * @param TableRequest $request
      * @return JsonResponse
      */
-    public function index(TableRequest $request): JsonResponse
+    public function myReviews(TableRequest $request): JsonResponse
     {
-        return response()->json($this->repository->index($request), Response::HTTP_OK);
+        return response()->json($this->repository->myReviews($request), Response::HTTP_OK);
     }
 
     /**
@@ -47,12 +47,13 @@ class ReviewController extends Controller
 
     /**
      * Get the reviews per business pagination.
+     * @param TableRequest $request
      * @param Business $business
      * @return JsonResponse
      */
-    public function getReviewsPerBusiness(Business $business): JsonResponse
+    public function getReviewsPerBusiness(TableRequest $request, Business $business): JsonResponse
     {
-        return response()->json($this->repository->getReviewsPerBusiness($business), Response::HTTP_OK);
+        return response()->json($this->repository->getReviewsPerBusiness($request, $business), Response::HTTP_OK);
     }
 
     /**

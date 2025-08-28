@@ -7,10 +7,8 @@ use Application\Api\Review\Resources\ReviewResource;
 use Core\Http\Requests\TableRequest;
 use Domain\Business\Models\Business;
 use Domain\Review\Models\Review;
-use Domain\User\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 /**
  * Interface IReviewRepository.
@@ -18,19 +16,11 @@ use Illuminate\Support\Collection;
 interface IReviewRepository
 {
     /**
-     * Get the reviews pagination.
+     * Get my reviews with pagination
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(TableRequest $request) :LengthAwarePaginator;
-
-    /**
-     * Get the reviews per user pagination.
-     * @param User $user
-     * @param TableRequest $request
-     * @return LengthAwarePaginator
-     */
-    public function getReviewsPerUser(TableRequest $request, User $user) :LengthAwarePaginator;
+    public function myReviews(TableRequest $request) :LengthAwarePaginator;
 
     /**
      * Get the review.
@@ -41,10 +31,11 @@ interface IReviewRepository
 
     /**
      * Get the review per business.
+     * @param TableRequest $request
      * @param Business $business
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function getReviewsPerBusiness(Business $business) :Collection;
+    public function getReviewsPerBusiness(TableRequest $request, Business $business) :LengthAwarePaginator;
 
     /**
      * Store the review.
@@ -63,12 +54,4 @@ interface IReviewRepository
      * @throws \Exception
      */
     public function update(ReviewRequest $request, Review $review) :JsonResponse;
-
-    /**
-    * Delete the review.
-    * @param UpdatePasswordRequest $request
-    * @param Review $review
-    * @return JsonResponse
-    */
-   public function destroy(Review $review) :JsonResponse;
 }

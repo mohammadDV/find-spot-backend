@@ -6,8 +6,9 @@ use Application\Api\Review\Requests\ReviewRequest;
 use Application\Api\Review\Resources\ReviewResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
-use Domain\Notification\Services\NotificationService;
 use Domain\Business\Models\Business;
+use Domain\Business\Models\ServiceVote;
+use Domain\Notification\Services\NotificationService;
 use Domain\Review\Models\Review;
 use Domain\Review\Repositories\Contracts\IReviewRepository;
 use Domain\User\Models\User;
@@ -15,7 +16,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -26,49 +26,23 @@ class ReviewRepository implements IReviewRepository
     use GlobalFunc;
 
     /**
-     * Get the reviews pagination.
+     * Get my reviews with pagination
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
-    public function index(TableRequest $request) :LengthAwarePaginator
+    public function myReviews(TableRequest $request) :LengthAwarePaginator
     {
-        $this->checkLevelAccess(Auth::user()->level == 3);
 
         $search = $request->get('query');
         return Review::query()
             ->with('user:id,nickname,profile_photo_path,rate')
-            ->when(Auth::user()->level != 3, function ($query) {
-                return $query->where('user_id', Auth::user()->id);
-            })
+            ->withCount('likes')
+            ->withCount('dislikes')
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('comment', 'like', '%' . $search . '%');
             })
             ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
             ->paginate($request->get('count', 25));
-    }
-
-    /**
-     * Get the reviews per user pagination.
-     * @param User $user
-     * @param TableRequest $request
-     * @return LengthAwarePaginator
-     */
-    public function getReviewsPerUser(TableRequest $request, User $user) :LengthAwarePaginator
-    {
-
-        $search = in_array($request->get('query'), [1,2,3,4,5]) ? $request->get('query') : 0;
-
-        $reviews = Review::query()
-            ->with('user:id,nickname,profile_photo_path,rate')
-            ->where('owner_id', $user->id)
-            ->where('status', 1)
-            ->when(!empty($search), function ($query) use ($search) {
-                return $query->where('rate', $search);
-            })
-            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
-            ->paginate($request->get('count', 10));
-
-        return $reviews->through(fn ($review) => new ReviewResource($review));
     }
 
     /**
@@ -89,22 +63,23 @@ class ReviewRepository implements IReviewRepository
 
     /**
      * Get the review per business.
+     * @param TableRequest $request
      * @param Business $business
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function getReviewsPerBusiness(Business $business) :Collection
+    public function getReviewsPerBusiness(TableRequest $request, Business $business) :LengthAwarePaginator
     {
-        $this->checkLevelAccess(
-            in_array(Auth::user()->id, [$business->user_id, $business->user_id])
-        );
-
         $reviews = Review::query()
-                ->with('user')
-                ->where('business_id', $business->id)
-                ->where('status', 1)
-                ->get();
+            ->with('user:id,nickname,profile_photo_path,rate', 'services')
+            ->withCount('likes')
+            ->withCount('dislikes')
+            ->where('business_id', $business->id)
+            ->where('status', Review::APPROVED)
+            ->where('active', 1)
+            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
+            ->paginate($request->get('count', 25));
 
-        return $reviews->map(fn ($review) => new ReviewResource($review));
+        return $reviews->through(fn ($review) => new ReviewResource($review));;
     }
 
     /**
@@ -123,19 +98,12 @@ class ReviewRepository implements IReviewRepository
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        if (empty(Auth::user()->verified_at)) {
-            return response()->json([
-                'status' => 0,
-                'message' => __('site.You must verify your account to create a review'),
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $this->checkLevelAccess(
-            in_array(Auth::user()->id, [$business->user_id, $business->user_id]) &&
-            $business->status == Business::DELIVERED
-        );
-
-        $owner = User::find(Auth::id() == $business->user_id ? $business->user_id : $business->user_id);
+        // if (empty(Auth::user()->verified_at)) {
+        //     return response()->json([
+        //         'status' => 0,
+        //         'message' => __('site.You must verify your account to create a review'),
+        //     ], Response::HTTP_BAD_REQUEST);
+        // }
 
         // Check for duplicate review
         $duplicate = Review::query()
@@ -150,7 +118,6 @@ class ReviewRepository implements IReviewRepository
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-
         try {
             DB::beginTransaction();
 
@@ -158,13 +125,34 @@ class ReviewRepository implements IReviewRepository
                 'comment' => $request->input('comment'),
                 'rate' => $request->input('rate'),
                 'business_id' => $business->id,
-                'owner_id' => $owner->id,
                 'user_id' => Auth::id(),
-                'status' => 1,
+                'status' => Review::PENDING,
             ]);
 
-            $owner->update([
-                'rate' => empty($owner->rate) ? $request->input('rate') : ceil((($owner->rate + $request->input('rate')) / 2))
+            // Create files if provided
+            if ($request->has('files')) {
+                foreach ($request->input('files') as $fileData) {
+                    $review->files()->create($fileData);
+                }
+            }
+
+            if ($request->has('services')) {
+                foreach ($request->input('services') as $service) {
+                    ServiceVote::create([
+                        'review_id' => $review->id,
+                        'service_id' => $service,
+                        'business_id' => $business->id,
+                    ]);
+                }
+            }
+
+            // Calculate average rate from all reviews for this business
+            $averageRate = Review::where('business_id', $business->id)
+                ->avg('rate');
+
+            // Update business with average rate (rounded to nearest integer)
+            $business->update([
+                'rate' => round($averageRate)
             ]);
 
             NotificationService::create([
@@ -172,21 +160,20 @@ class ReviewRepository implements IReviewRepository
                 'content' => __('site.new_review_content', ['user_nickname' => Auth::user()->nickname]),
                 'id' => $business->id,
                 'type' => NotificationService::BUSINESS,
-            ], $owner);
+            ], $business->user);
 
             DB::commit();
 
             return response()->json([
                 'status' => 1,
                 'message' => __('site.The operation has been successfully'),
-                'data' => $review
+                'data' => new ReviewResource($review)
             ], Response::HTTP_CREATED);
 
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
         }
-
     }
 
     /**
@@ -198,12 +185,27 @@ class ReviewRepository implements IReviewRepository
      */
     public function update(ReviewRequest $request, Review $review) :JsonResponse
     {
-        $this->checkLevelAccess(Auth::user()->level == 3);
-
         $review->update([
             'comment' => $request->input('comment'),
             'rate' => $request->input('rate'),
-            'status' => !empty($request->input('status')) ? 1 : 0,
+            'status' => $request->input('status') ?? Review::PENDING,
+        ]);
+
+        if ($request->has('files')) {
+            $this->updateReviewFiles($review, $request->input('files'));
+        }
+
+        // Update business rates after review update
+        $business = $review->business;
+        $averageRate = Review::where('business_id', $business->id)
+            ->avg('rate');
+
+        if ($request->input('services')) {
+            $this->updateReviewServices($review, $request->input('services'));
+        }
+
+        $business->update([
+            'rate' => round($averageRate)
         ]);
 
         if ($review) {
@@ -216,25 +218,52 @@ class ReviewRepository implements IReviewRepository
         throw new \Exception();
     }
 
+    private function updateReviewServices(Review $review, array $services): void
+    {
+        // Delete existing service votes for this review
+        ServiceVote::where('review_id', $review->id)->delete();
+
+        // Create new service votes
+        foreach ($services as $service) {
+            ServiceVote::create([
+                'review_id' => $review->id,
+                'service_id' => $service,
+                'business_id' => $review->business_id,
+            ]);
+        }
+    }
     /**
-    * Delete the review.
-    * @param UpdatePasswordRequest $request
-    * @param Review $review
-    * @return JsonResponse
-    */
-   public function destroy(Review $review) :JsonResponse
-   {
-        $this->checkLevelAccess(Auth::user()->id == $review->user_id);
+     * Update review files intelligently
+     * @param Review $review
+     * @param array $filesData
+     */
+    private function updateReviewFiles(Review $review, array $filesData): void
+    {
+        // Get existing files
+        $existingFiles = $review->files()->pluck('id', 'path')->toArray();
 
-        $review->delete();
+        // Process new files
+        foreach ($filesData as $fileData) {
+            $path = $fileData['path'];
 
-        if ($review) {
-            return response()->json([
-                'status' => 1,
-                'message' => __('site.The operation has been successfully')
-            ], Response::HTTP_OK);
+            if (isset($existingFiles[$path])) {
+                // File exists, update it if needed
+                $fileId = $existingFiles[$path];
+                $review->files()->where('id', $fileId)->update([
+                    'type' => $fileData['type'] ?? 'image',
+                    'status' => $fileData['status'] ?? 1
+                ]);
+                // Remove from existing files so we don't delete it
+                unset($existingFiles[$path]);
+            } else {
+                // Create new file
+                $review->files()->create($fileData);
+            }
         }
 
-        throw new \Exception();
-   }
+        // Delete files that are no longer in the request
+        if (!empty($existingFiles)) {
+            $review->files()->whereIn('id', array_values($existingFiles))->delete();
+        }
+    }
 }
