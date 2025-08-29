@@ -134,21 +134,9 @@ class UserRepository implements IUserRepository
      */
     public function checkVerification() :array
     {
-        $identityRecord = IdentityRecord::query()
-            ->where('user_id', Auth::user()->id)
-            ->first();
-
-        $status = false;
-
-        if ($identityRecord) {
-            $status = $identityRecord->status;
-        }
-
         return [
-            'is_admin' => Auth::user()->level == 3,
             'verify_email' => !empty(Auth::user()->email_verified_at),
             'verify_access' => !empty(Auth::user()->verified_at),
-            'status_approval' => $status,
             'user' => new UserResource(Auth::user()),
             'customer_number' => Auth::user()->customer_number
         ];

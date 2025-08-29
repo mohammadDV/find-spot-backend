@@ -84,7 +84,7 @@ Route::middleware(['auth:sanctum', 'auth', 'throttle:200,1'])->prefix('profile')
     Route::patch('reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
 
 
-    // Route::get('/check-verification', [UserController::class, 'checkVerification'])->name('user.check.verification');
+    Route::get('/check-verification', [UserController::class, 'checkVerification'])->name('user.check.verification');
 
     // // update user
     // Route::patch('/users/{user}', [UserController::class, 'update'])->name('user.update');

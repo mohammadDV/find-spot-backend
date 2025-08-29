@@ -24,6 +24,10 @@ Route::post('/google/verify', [AuthController::class, 'verify'])
                 ->middleware('guest')
                 ->name('verify');
 
+Route::post('/complete-register', [AuthController::class, 'completeRegister'])
+                ->middleware('auth:sanctum')
+                ->name('complete-register');
+
 Route::middleware(['auth:sanctum'])->get('/logout', [AuthController::class, 'logout'])
                 ->middleware('auth')
                 ->name('logout');
@@ -39,3 +43,7 @@ Route::post('/verify-reset-token', [AuthController::class, 'verifyResetToken'])
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])
                 ->middleware('guest')
                 ->name('password.reset');
+
+
+Route::get('auth/google', [AuthController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
