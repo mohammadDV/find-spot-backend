@@ -7,6 +7,7 @@ use Application\Api\User\Requests\RegisterRequest;
 use Application\Api\User\Requests\ForgotPasswordRequest;
 use Application\Api\User\Requests\ResetPasswordRequest;
 use Application\Api\User\Mail\PasswordResetMail;
+use Application\Api\User\Requests\RegisterInformationRequest;
 use Core\Http\Controllers\Controller;
 use Domain\User\Models\User;
 use Domain\User\Services\TelegramNotificationService;
@@ -17,12 +18,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-// use Application\Api\User\Notifications\ThankYouForRegistering;
 use Illuminate\Support\Facades\Auth;
-use Application\Api\User\Mail\ThankYouForRegistering;
 use Application\Api\User\Resources\UserResource;
-use Domain\IdentityRecord\Models\IdentityRecord;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -50,24 +49,13 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('finybotokenapp')->plainTextToken;
-
-        $identityRecord = IdentityRecord::query()
-            ->where('user_id', $user->id)
-            ->first();
-
-        $status = false;
-
-        if ($identityRecord) {
-            $status = $identityRecord->status;
-        }
+        $token = $user->createToken('finybotoken')->plainTextToken;
 
         return response([
             'is_admin' => $user->level == 3,
             'token' => $token,
             'verify_email' => !empty($user->email_verified_at),
             'verify_access' => !empty($user->verified_at),
-            'status_approval' => $status,
             'customer_number' => $user->customer_number,
             'user' => new UserResource($user),
             'mesasge' => 'success',
@@ -75,62 +63,80 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function redirectToGoogle()
+    {
+        $query = http_build_query([
+            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'redirect_uri' => env('GOOGLE_REDIRECT_URI'),
+            'response_type' => 'code',
+            'scope' => 'openid profile email',
+            'access_type' => 'offline',
+            'prompt' => 'select_account',
+        ]);
+
+        return redirect('https://accounts.google.com/o/oauth2/auth?' . $query);
+    }
+
     /**
      * Log in the user.
      */
-    public function verify(Request $request): Response
+    public function handleGoogleCallback(Request $request)
     {
 
-        $client = new Google_Client(['client_id' => env('GOOGLE_CLIENT_ID')]);
-        $payload = $client->verifyIdToken($request->token);
+        $code = $request->input('code');
+
+        if (!$code) {
+            return redirect('/auth/check-verification');
+        }
+
+        // Exchange code for token
+        $response = Http::asForm()->post('https://oauth2.googleapis.com/token', [
+            'code' => $code,
+            'client_id' => env('GOOGLE_CLIENT_ID'),
+            'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+            'redirect_uri' => env('GOOGLE_REDIRECT_URI'),
+            'grant_type' => 'authorization_code',
+        ]);
+
+        $tokenData = $response->json();
+
+        // Get user info
+        $userResponse = Http::withToken($tokenData['access_token'])
+            ->get('https://www.googleapis.com/oauth2/v3/userinfo');
+
+        $payload = $userResponse->json();
 
         if ($payload) {
 
             $user = User::where('email', $payload['email'])->first();
 
             if (!empty($user->id)) {
-                $token = $user->createToken('myapptokens')->plainTextToken;
+                $user->createToken('finybotoken')->plainTextToken;
             } else {
 
                 $nickname = str_replace(' ', '-', $payload['name']);
 
                 $nickname = $this->nicknameCheck($nickname);
+                $password = $nickname . '!@#' . rand(1111, 9999);
 
                 $user = User::create([
-                    'first_name' => !empty($payload['given_name']) ? $payload['given_name'] : $payload['name'],
-                    'last_name' => !empty($payload['family_name']) ? $payload['family_name'] : '',
-                    'nickname' => $nickname,
                     'customer_number' => User::generateCustumerNumber(),
                     'role_id' => 2,
-                    'status' => 0,
+                    'status' => 1,
                     'email' => $payload['email'],
                     'google_id' => $payload['sub'],
-                    'password' => bcrypt($nickname . '!@#' . rand(1111, 9999)),
-                    'profile_photo_path' => !empty($payload['picture']) ? $payload['picture'] : config('image.default-profile-image'),
-                    'bg_photo_path' => config('image.default-background-image'),
+                    'password' => bcrypt($password),
+                    'email_verified_at' => now(),
                 ]);
 
                 $user->assignRole(['user']);
 
-                $token = $user->createToken('myapptokens')->plainTextToken;
-
+                $user->createToken('finybotoken')->plainTextToken;
             }
-
-
-            return response([
-                'token' => $token,
-                'status' => 1,
-                'data' => $user,
-                'is_admin' => $user->level == 3,
-            ], Response::HTTP_ACCEPTED);
-
-
-        } else {
-            return response([
-                'token' => '',
-                'status' => 0
-            ], Response::HTTP_BAD_REQUEST);
         }
+
+        return redirect('/auth/check-verification');
+
     }
 
     /**
@@ -150,52 +156,69 @@ class AuthController extends Controller
     /**
      * Register the user.
      */
-    public function register(RegisterRequest $request): Response
+    public function completeRegister(RegisterInformationRequest $request): Response
     {
 
-
-        // Add the lite and normal roles
-        // $admin = Role::updateOrCreate(['name' => 'admin', 'guard_name' => 'web']);
-        // $user = Role::firstOrCreate(['name' => 'user', 'guard_name' => 'web']);
-
-        $user = User::create([
+        Auth::user()->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'nickname' => $request->nickname,
+            'mobile' => $request->mobile,
+            'profile_photo_path' => $request->profile_photo_path,
+            'verified_at' => now(),
+        ]);
+
+        return response([
+            'user' => new UserResource(Auth::user()),
+            'verify_email' => !empty(Auth::user()->email_verified_at),
+            'verify_access' => !empty(Auth::user()->verified_at),
+            'customer_number' => Auth::user()->customer_number,
+            'status' => 1
+        ], Response::HTTP_CREATED);
+    }
+
+    /**
+     * Register the user.
+     */
+    public function register(RegisterRequest $request): Response
+    {
+
+        $user = User::create([
             'customer_number' => User::generateCustumerNumber(),
             'role_id' => 2,
             'status' => 1,
             'email' => $request->email,
-            'mobile' => $request->mobile,
             'password' => bcrypt($request->password),
-            'profile_photo_path'    => config('image.default-profile-image'),
-            'bg_photo_path'         => config('image.default-background-image'),
         ]);
 
         $user->assignRole(['user']);
 
-        // Send thank you notification
-        // $user->notify(new \Application\Api\User\Notifications\ThankYouForRegistering());
-
-        $token = $user->createToken('myapptokens')->plainTextToken;
-
+        $token = $user->createToken('finybotoken')->plainTextToken;
 
         event(new Registered($user));
 
-        $this->service->sendNotification(
-            config('telegram.chat_id'),
-            'ثبت نام کاربر جدید' . PHP_EOL .
-            'first_name ' . $request->first_name . PHP_EOL .
-            'last_name ' . $request->last_name. PHP_EOL .
-            'nickname ' . $request->nickname . PHP_EOL .
-            'email ' . $request->email . PHP_EOL .
-            'mobile ' . $request->mobile . PHP_EOL
-        );
+        // $this->service->sendNotification(
+        //     config('telegram.chat_id'),
+        //     'ثبت نام کاربر جدید' . PHP_EOL .
+        //     'email ' . $request->email . PHP_EOL
+        // );
+
+        // $this->service->sendNotification(
+        //     config('telegram.chat_id'),
+        //     'ثبت نام کاربر جدید' . PHP_EOL .
+        //     'first_name ' . $request->first_name . PHP_EOL .
+        //     'last_name ' . $request->last_name. PHP_EOL .
+        //     'nickname ' . $request->nickname . PHP_EOL .
+        //     'email ' . $request->email . PHP_EOL .
+        //     'mobile ' . $request->mobile . PHP_EOL
+        // );
 
         return response([
-            'is_admin' => $user->level == 3,
             'user' => new UserResource($user),
             'token' => $token,
+            'verify_email' => !empty($user->email_verified_at),
+            'verify_access' => !empty($user->verified_at),
+            'customer_number' => $user->customer_number,
             'status' => 1
         ], Response::HTTP_CREATED);
     }
@@ -211,15 +234,6 @@ class AuthController extends Controller
             'mesasge' => 'success',
             'status' => 1
         ], 201);
-    }
-
-    public function mail() {
-
-        $user = Auth::user();
-
-        $user->notify(new \Application\Api\User\Notifications\ThankYouForRegistering());
-
-        // Mail::to($user->email)->send(new ThankYouForRegistering($user));
     }
 
     /**
