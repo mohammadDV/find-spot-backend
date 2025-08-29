@@ -3,7 +3,7 @@
 namespace Application\Api\Post\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Morilog\Jalali\Jalalian;
+use Illuminate\Support\Carbon;
 
 class PostResource extends JsonResource
 {
@@ -22,13 +22,12 @@ class PostResource extends JsonResource
             'slug' => $this->slug,
             'summary' => $this->summary,
             'content' => $this->content,
+            'type' => $this->type,
             'image' => $this->image,
-            'thumbnail' => $this->thumbnail,
-            'slide' => $this->slide,
             'video' => $this->video,
             'view' => $this->view,
             'special' => $this->special,
-            'created_at' => $this->created_at ? Jalalian::fromDateTime($this->created_at)->format('Y/m/d H:i') : null,
+            'created_at' => $this->created_at ? Carbon::parse($this->created_at)->format('Y M d H:i') : null,
         ];
     }
 }

@@ -31,55 +31,26 @@ class PostController extends Controller
     }
 
     /**
+     * Get all of popular posts.
+     */
+    public function getPopularPosts(TableRequest $request): JsonResponse
+    {
+        return response()->json($this->repository->getPopularPosts($request), Response::HTTP_OK);
+    }
+
+    /**
+     * Get all of latest posts.
+     */
+    public function getLatestPosts(TableRequest $request): JsonResponse
+    {
+        return response()->json($this->repository->getLatestPosts($request), Response::HTTP_OK);
+    }
+
+    /**
      * Get the post info.
      */
     public function getPostInfo(Post $post): JsonResponse
     {
         return response()->json($this->repository->getPostInfo($post), Response::HTTP_OK);
-    }
-
-    /**
-     * Get all of post except newspaper.
-     */
-    public function index(TableRequest $request): JsonResponse
-    {
-        return response()->json($this->repository->index($request), Response::HTTP_OK);
-    }
-
-    /**
-     * Get the post.
-     */
-    public function show(Post $post): JsonResponse
-    {
-        return response()->json($this->repository->show($post), Response::HTTP_OK);
-    }
-
-    /**
-     * Store the post.
-     */
-    public function store(PostRequest $request): JsonResponse
-    {
-        return $this->repository->store($request);
-    }
-
-    /**
-     * Update the post.
-     * @param PostUpdateRequest $request
-     * @param Post $post
-     * @return JsonResponse
-     */
-    public function update(PostUpdateRequest $request, Post $post): JsonResponse
-    {
-        return $this->repository->update($request, $post);
-    }
-
-    /**
-     * Delete the post.
-     * @param Post $post
-     * @return JsonResponse
-     */
-    public function destroy(Post $post): JsonResponse
-    {
-        return $this->repository->destroy($post);
     }
 }
