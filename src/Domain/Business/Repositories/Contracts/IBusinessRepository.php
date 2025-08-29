@@ -68,6 +68,12 @@ interface IBusinessRepository
     public function getFavoriteBusinesses(TableRequest $request): LengthAwarePaginator;
 
     /**
+     * Get similar businesses.
+     * @param Business $business
+     */
+    public function similarBusinesses(Business $business);
+
+    /**
      * Get featured businesses by type with configurable limits.
      * @return array{sender: Collection, passenger: Collection}
      */

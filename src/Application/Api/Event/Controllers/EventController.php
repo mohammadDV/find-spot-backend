@@ -32,6 +32,15 @@ class EventController extends Controller
     }
 
     /**
+     * Get vip businesses
+     * @return JsonResponse
+     */
+    public function sliders(): JsonResponse
+    {
+        return response()->json($this->repository->sliders(), Response::HTTP_OK);
+    }
+
+    /**
      * Get the event.
      * @param Event $event
      * @return JsonResponse

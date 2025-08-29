@@ -31,7 +31,24 @@ Route::get('/categories/{category}/children', [CategoryController::class, 'getCa
 Route::get('/categories/{category}/filters', [CategoryController::class, 'getCategoryFilters'])->name('category.filters');
 
 
-Route::get('businesses/{business}/reviews', [ReviewController::class, 'getReviewsPerBusiness'])->name('business.reviews.get');
+// Businesses
+Route::prefix('businesses')->group(function () {
+    Route::get('featured', [BusinessController::class, 'featured']);
+    Route::get('search', [BusinessController::class, 'search']);
+    Route::get('search-suggestions', [BusinessController::class, 'searchSuggestions']);
+    Route::get('{business}', [BusinessController::class, 'show']);
+    Route::get('{business}/reviews', [ReviewController::class, 'getReviewsPerBusiness'])->name('business.reviews.get');
+    Route::get('{business}/similar', [BusinessController::class, 'similarBusinesses'])->name('business.similar');
+});
+
+// Events
+Route::prefix('events')->group(function () {
+    Route::get('featured', [EventController::class, 'featured'])->name('events.featured');
+    Route::get('sliders', [EventController::class, 'sliders'])->name('events.vip');
+    Route::get('/', [EventController::class, 'index'])->name('events.index');
+    Route::get('{event}', [EventController::class, 'show'])->name('events.show');
+});
+
 
 // Route::get('/filters', [FilterController::class, 'index'])->name('filters.index');
 // Route::get('/filters/{filter}', [FilterController::class, 'show'])->name('filters.show');
@@ -117,18 +134,4 @@ Route::middleware(['auth:sanctum', 'auth', 'throttle:10,1'])->group(function() {
     Route::post('/upload-image', [FileController::class, 'uploadImage'])->name('site.upload-image');
     Route::post('/upload-video', [FileController::class, 'uploadVideo'])->name('site.upload-video');
     Route::post('/upload-file', [FileController::class, 'uploadFile'])->name('site.upload-file');
-});
-
-// Businesses
-Route::prefix('businesses')->group(function () {
-    Route::get('featured', [BusinessController::class, 'featured']);
-    Route::get('search', [BusinessController::class, 'search']);
-    Route::get('search-suggestions', [BusinessController::class, 'searchSuggestions']);
-    Route::get('{business}', [BusinessController::class, 'show']);
-});
-
-// Events
-Route::prefix('events')->group(function () {
-    Route::get('featured', [EventController::class, 'featured'])->name('site.events.featured');
-    // Route::get('search', [EventController::class, 'search'])->name('site.events.search');
 });

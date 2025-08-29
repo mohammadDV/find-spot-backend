@@ -3,6 +3,7 @@
 namespace Domain\Event\Repositories\Contracts;
 
 use Application\Api\Business\Requests\SearchBusinessRequest;
+use Application\Api\Event\Resources\EventResource;
 use Core\Http\Requests\TableRequest;
 use Domain\Event\Models\Event;
 use Illuminate\Database\Eloquent\Collection;
@@ -22,11 +23,17 @@ interface IEventRepository
     public function index(TableRequest $request) :LengthAwarePaginator;
 
     /**
-     * Get the business.
-     * @param Event $event
+     * Get the businesses pagination.
      * @return array
      */
-    public function show(Event $event) :array;
+    public function sliders() :array;
+
+    /**
+     * Get the business.
+     * @param Event $event
+     * @return arrayEventResource
+     */
+    public function show(Event $event) :EventResource;
 
     /**
      * Get featured businesses by type with configurable limits.

@@ -97,6 +97,16 @@ class BusinessController extends Controller
     }
 
     /**
+     * Get similar businesses.
+     * @param Business $business
+     * @return JsonResponse
+     */
+    public function similarBusinesses(Business $business): JsonResponse
+    {
+        return response()->json($this->repository->similarBusinesses($business), Response::HTTP_OK);
+    }
+
+    /**
      * Get featured businesses by type.
      * @param Request $request
      * @return JsonResponse
