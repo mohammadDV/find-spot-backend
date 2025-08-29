@@ -59,6 +59,8 @@ Route::prefix('events')->group(function () {
 
 
 Route::get('/posts', [PostController::class, 'getPosts'])->name('site.posts.index');
+Route::get('/posts/popular', [PostController::class, 'getPopularPosts'])->name('site.posts.popular');
+Route::get('/posts/latest', [PostController::class, 'getLatestPosts'])->name('site.posts.latest');
 Route::get('/post/{post}', [PostController::class, 'getPostInfo'])->name('site.post.info');
 
 Route::middleware(['auth:sanctum', 'auth', 'throttle:200,1'])->prefix('profile')->name('profile.')->group(function() {
