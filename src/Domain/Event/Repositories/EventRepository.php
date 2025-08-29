@@ -38,79 +38,71 @@ class EventRepository implements IEventRepository
     public function index(TableRequest $request) :LengthAwarePaginator
     {
         $search = $request->get('query');
-        $status = $request->get('status');
-        $businesses = Business::query()
-            ->with([
-                'user:id,nickname,profile_photo_path,rate',
-                'country:id,title',
-                'city:id,title',
-                'area:id,title',
-                'categories:id,title',
-                'services:id,title',
-                'tags:id,title',
-                'facilities:id,title',
-                'filters:id,title',
-                'files:id,path,type'
-            ])
-            ->when(Auth::user()->level != 3, function ($query) {
-                return $query->where('user_id', Auth::user()->id);
-            })
+        $events = Event::query()
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
-            ->when(!empty($status), function ($query) use ($status) {
-                return $query->where('status', $status);
+            ->where('status', 1)
+            ->where(function($query) {
+                $query->where('end_date', '>=', now()->startOfDay())
+                    ->orWhereNull('end_date');
             })
-            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
-            ->paginate($request->get('count', 25));
+            ->orderBy($request->get('column', 'priority'), $request->get('sort', 'desc'))
+            ->paginate($request->get('count', 24));
 
-        return $businesses->through(fn ($business) => new BusinessResource($business));
+        return $events->through(fn ($event) => new EventBoxResource($event));
+    }
+
+    /**
+     * Get the businesses pagination.
+     * @return array
+     */
+    public function sliders() :array
+    {
+        $sliders = Event::query()
+            ->where('status', 1)
+            ->where('vip', 1)
+            ->orderBy('priority', 'desc')
+            ->where(function($query) {
+                $query->where('end_date', '>=', now()->startOfDay())
+                    ->orWhereNull('end_date');
+            })
+            ->limit(10)
+            ->get()
+            ->map(fn ($event) => new EventBoxResource($event));
+
+        $recommended = Event::query()
+            ->where('status', 1)
+            ->where('start_date', '<=', now()->addDays(2)->startOfDay())
+            ->where('start_date', '>=', now()->yesterday()->startOfDay())
+            ->where(function($query) {
+                $query->where('end_date', '>=', now()->startOfDay())
+                    ->orWhereNull('end_date');
+            })
+            ->inRandomOrder()
+            ->limit(20)
+            ->get()
+            ->map(fn ($event) => new EventBoxResource($event));
+
+        return [
+            'sliders' => $sliders,
+            'recommended'=> $recommended
+        ];
     }
 
     /**
      * Get the event.
      * @param Event $event
-     * @return array
+     * @return EventResource
      */
-    public function show(Event $event) :array
+    public function show(Event $event) :EventResource
     {
         $event = Event::query()
-                ->with([
-                    'categories:id,title',
-                    'services:id,title',
-                    'tags:id,title',
-                    'facilities:id,title',
-                    'filters:id,title',
-                    'files:id,path,type',
-                    'user:id,nickname,profile_photo_path,rate',
-                    'country:id,title',
-                    'city:id,title',
-                    'area:id,title',
-                ])
+                ->where('status', 1)
                 ->where('id', $event->id)
                 ->first();
 
-        $recommended = Event::query()
-            ->with([
-                'user:id,nickname,profile_photo_path,rate',
-                'categories:id,title',
-                'services:id,title',
-                'tags:id,title',
-                'facilities:id,title',
-                'country:id,title',
-                'city:id,title',
-                'area:id,title',
-            ])
-            ->where('status', 1)
-            ->inRandomOrder()
-            ->limit(config('business.event_limit'))
-            ->get()
-            ->map(fn ($event) => new EventResource($event));
-
-        return [
-            'event' => new EventResource($event),
-            'recommended'=> $recommended
-        ];
+        return new EventResource($event);
 
     }
 

@@ -35,17 +35,6 @@ class ReviewController extends Controller
     }
 
     /**
-     * Get the reviews per user pagination.
-     * @param TableRequest $request
-     * @param User $user
-     * @return JsonResponse
-     */
-    public function getReviewsPerUser(TableRequest $request, User $user): JsonResponse
-    {
-        return response()->json($this->repository->getReviewsPerUser($request, $user), Response::HTTP_OK);
-    }
-
-    /**
      * Get the reviews per business pagination.
      * @param TableRequest $request
      * @param Business $business

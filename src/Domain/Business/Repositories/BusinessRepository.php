@@ -352,7 +352,8 @@ class BusinessRepository implements IBusinessRepository
      */
     public function favorite(Business $business) :JsonResponse
     {
-        $favorite = Favorite::where('favoritable_id', $business->id)
+        $favorite = Favorite::query()
+            ->where('favoritable_id', $business->id)
             ->where('favoritable_type', Business::class)
             ->where('user_id', Auth::user()->id)
             ->first();
@@ -399,6 +400,25 @@ class BusinessRepository implements IBusinessRepository
             ->paginate($request->get('count', 25));
 
         return $businesses->through(fn ($business) => new BusinessBoxResource($business));
+    }
+
+    /**
+     * Get similar businesses.
+     * @param Business $business
+     */
+    public function similarBusinesses(Business $business)
+    {
+        $similarBusinesses = Business::query()
+            ->where('active', 1)
+            ->where('status', Business::APPROVED)
+            ->whereHas('categories', function ($query) use ($business) {
+                $query->whereIn('categories.id', $business->categories->pluck('id'));
+            })
+            ->where('id', '!=', $business->id)
+            ->limit(4)
+            ->get();
+
+        return $similarBusinesses->map(fn ($business) => new BusinessBoxResource($business));
     }
 
     /**
