@@ -9,7 +9,6 @@ use Application\Api\User\Resources\UserResource;
 use Carbon\Carbon;
 use Core\Http\traits\GlobalFunc;
 use Domain\Chat\Models\ChatMessage;
-use Domain\IdentityRecord\Models\IdentityRecord;
 use Domain\Notification\Services\NotificationService;
 use Domain\Business\Models\Business;
 use Domain\Ticket\Models\Ticket;
@@ -47,16 +46,9 @@ class UserRepository implements IUserRepository
 
         $senderQuery = Business::query()
             ->with([
-                'categories:id,title',
-                'oCountry',
-                'oProvince',
-                'oCity',
-                'dCountry',
-                'dProvince',
-                'dCity',
+                'area'
             ])
             ->where('user_id', $user->id)
-            ->where('status', '!=', Business::REJECT)
             ->where('active', 1)
             ->orderBy('id', 'desc');
 
@@ -67,63 +59,37 @@ class UserRepository implements IUserRepository
 
         $senderBusinessesCount = $senderQuery->count();
 
-        $passengerQuery = Business::query()
-            ->with([
-                'categories:id,title',
-                'oCountry',
-                'oProvince',
-                'oCity',
-                'dCountry',
-                'dProvince',
-                'dCity',
-            ])
-            ->where('user_id', $user->id)
-            ->where('status', '!=', Business::REJECT)
-            ->where('active', 1)
-            ->orderBy('id', 'desc');
-
-        $passengerBusinesses = $passengerQuery
-            ->limit(4)
-            ->get()
-            ->map(fn ($business) => new BusinessResource($business));
-
-        $passengerBusinessesCount = $passengerQuery->count();
-
         return [
             'user' => new UserResource($user),
-            'sender_businesses' => $senderBusinesses,
-            'sender_businesses_count' => $senderBusinessesCount,
-            'passenger_businesses' => $passengerBusinesses,
-            'passenger_businesses_count' => $passengerBusinessesCount
+            'businesses' => $senderBusinesses,
+            'businesses_count' => $senderBusinessesCount,
         ];
     }
 
     /**
      * Get the user info.
-     * @param User $user
      * @return array
      */
-    public function show(User $user) :array
+    public function show() :array
     {
-        $this->checkLevelAccess($user->id == Auth::user()->id);
 
         return [
             'user' => [
-                'id' => $user->id,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'email' => $user->email,
-                'nickname' => $user->nickname,
-                'address' => $user->address,
-                'country_id' => $user->country_id,
-                'province_id' => $user->province_id,
-                'city_id' => $user->city_id,
-                'mobile' => $user->mobile,
-                'biography' => $user->biography,
-                'profile_photo_path' => $user->profile_photo_path,
-                'bg_photo_path' => $user->bg_photo_path,
-                'rate' => $user->rate,
-                'point' => $user->point,
+                'id' => Auth::user()->id,
+                'first_name' => Auth::user()->first_name,
+                'last_name' => Auth::user()->last_name,
+                'email' => Auth::user()->email,
+                'nickname' => Auth::user()->nickname,
+                'address' => Auth::user()->address,
+                'country_id' => Auth::user()->country_id,
+                'city_id' => Auth::user()->city_id,
+                'area_id' => Auth::user()->area_id,
+                'mobile' => Auth::user()->mobile,
+                'biography' => Auth::user()->biography,
+                'profile_photo_path' => Auth::user()->profile_photo_path,
+                'bg_photo_path' => Auth::user()->bg_photo_path,
+                'rate' => Auth::user()->rate,
+                'point' => Auth::user()->point,
             ]
         ];
     }
@@ -149,35 +115,28 @@ class UserRepository implements IUserRepository
      */
     public function getDashboardInfo() :array
     {
-        $senderCount = Business::query()
+        $businessCount = Business::query()
                 ->where('user_id', Auth::user()->id)
-                ->where('created_at', '>', Carbon::now()->subMonth())
-                ->count();
-
-        $passengerCount = Business::query()
-                ->where('user_id', Auth::user()->id)
-                ->where('created_at', '>', Carbon::now()->subMonth())
                 ->count();
 
         $ticketCount = Ticket::query()
                 ->where('user_id', Auth::user()->id)
-                ->where('created_at', '>', Carbon::now()->subMonth())
+                ->where('status', Ticket::STATUS_ACTIVE)
                 ->count();
 
-        $messageCount = ChatMessage::query()
-                ->whereHas('chat', function ($query) {
-                    return $query->where('user_id', Auth::user()->id)
-                        ->orWhere('target_id', Auth::user()->id);
-                })
-                ->where('user_id', '!=', Auth::user()->id)
-                ->where('created_at', '>', Carbon::now()->subMonth())
-                ->count();
+        // $messageCount = ChatMessage::query()
+        //         ->whereHas('chat', function ($query) {
+        //             return $query->where('user_id', Auth::user()->id)
+        //                 ->orWhere('target_id', Auth::user()->id);
+        //         })
+        //         ->where('user_id', '!=', Auth::user()->id)
+        //         ->where('created_at', '>', Carbon::now()->subMonth())
+        //         ->count();
 
         return [
-            'senders' => $senderCount,
-            'passengers' => $passengerCount,
+            'business_count' => $businessCount,
             'tickets' => $ticketCount,
-            'messages' => $messageCount,
+            // 'messages' => $messageCount,
         ];
     }
 
@@ -187,20 +146,10 @@ class UserRepository implements IUserRepository
      * @param User $user
      * @return array
      */
-    public function update(UpdateUserRequest $request, User $user) :array
+    public function update(UpdateUserRequest $request) :array
     {
 
-        $this->checkLevelAccess($user->id == Auth::user()->id);
-
-        // $role_id = !empty($request->input('role_id')) ? $request->input('role_id') : Auth::user()->role_id;
-
-        // if ($user->id == Auth::user()->id) {
-        //     $role_id = Auth::user()->role_id;
-        // }
-
-        // if ($role_id == 1 && Auth::user()->role_id != 1) {
-        //     throw New \Exception('Unauthorized', 403);
-        // }
+        $user = Auth::user();
 
         if (!$this->checkNickname($request->input('nickname'), $user->id)) {
             return [
@@ -210,25 +159,19 @@ class UserRepository implements IUserRepository
         }
 
         $update = $user->update([
-            // 'first_name'            => $request->input('first_name'),
-            // 'last_name'             => $request->input('last_name'),
+            'first_name'            => $request->input('first_name'),
+            'last_name'             => $request->input('last_name'),
             'nickname'              => $request->input('nickname'),
-            // 'address'               => $request->input('address'),
-            // 'country_id'            => $request->input('country_id'),
-            // 'province_id'           => $request->input('province_id'),
-            // 'city_id'               => $request->input('city_id'),
-            // 'status'                => $user->level == 3 ? $request->input('status') : $user->status,
-            // 'is_private'            => $request->input('is_private', false),
-            // 'mobile'                => $request->input('mobile'),
+            'address'               => $request->input('address'),
+            'country_id'            => $request->input('country_id'),
+            'city_id'               => $request->input('city_id'),
+            'mobile'                => $request->input('mobile'),
             'biography'             => $request->input('biography'),
             'profile_photo_path'    => $request->input('profile_photo_path', config('image.default-profile-image')),
             'bg_photo_path'         => $request->input('bg_photo_path', config('image.default-background-image')),
         ]);
 
         if ($update) {
-
-            // $role = Role::findOrFail($role_id);
-            // $user->syncRoles([$role->name]);
 
             // $this->service->sendNotification(
             //     config('telegram.chat_id'),
@@ -246,7 +189,7 @@ class UserRepository implements IUserRepository
             return [
                 'status' => 1,
                 'message' => __('site.The data has been updated'),
-                'user' => $user
+                'user' => new UserResource($user)
             ];
         }
 
@@ -259,9 +202,9 @@ class UserRepository implements IUserRepository
      * @param User $user
      * @return array
      */
-    public function changePassword(ChangePasswordRequest $request, User $user) :array
+    public function changePassword(ChangePasswordRequest $request) :array
     {
-        $this->checkLevelAccess($user->id == Auth::user()->id);
+        $user = Auth::user();
 
         // Verify current password
         if (!Hash::check($request->input('current_password'), $user->password)) {

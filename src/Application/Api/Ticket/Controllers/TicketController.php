@@ -53,14 +53,13 @@ class TicketController extends Controller
     }
 
     /**
-     * Change status of the ticket
-     * @param TicketStatusRequest $request
+     * Close the ticket
      * @param Ticket $ticket
      * @return JsonResponse
      */
-    public function changeStatus(TicketStatusRequest $request, Ticket $ticket) :JsonResponse
+    public function closeTicket(Ticket $ticket) :JsonResponse
     {
-        return $this->repository->changeStatus($request, $ticket);
+        return $this->repository->closeTicket($ticket);
     }
 
      /**
@@ -73,15 +72,5 @@ class TicketController extends Controller
     public function storeMessage(TicketMessageRequest $request, Ticket $ticket) :JsonResponse
     {
         return $this->repository->storeMessage($request, $ticket);
-    }
-
-    /**
-     * Delete the ticket.
-     * @param Ticket $ticket
-     * @return JsonResponse
-     */
-    public function destroy(Ticket $ticket)
-    {
-        // return $this->repository->destroy($ticket);
     }
 }

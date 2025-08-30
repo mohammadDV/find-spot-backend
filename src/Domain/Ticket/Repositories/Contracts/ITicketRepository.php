@@ -31,12 +31,11 @@ interface ITicketRepository  {
     public function store(TicketRequest $request) :JsonResponse;
 
     /**
-     * Change status of the ticket
-     * @param TicketStatusRequest $request
+     * Close the ticket
      * @param Ticket $ticket
      * @return JsonResponse
      */
-    public function changeStatus(TicketStatusRequest $request, Ticket $ticket) :JsonResponse;
+    public function closeTicket(Ticket $ticket) :JsonResponse;
 
     /**
      * Get the sport.

@@ -37,9 +37,7 @@ class TicketRepository implements ITicketRepository {
         $search = $request->get('query');
         return Ticket::query()
             ->with('subject', 'message')
-            ->when(Auth::user()->level != 3, function ($query) {
-                return $query->where('user_id', Auth::user()->id);
-            })
+            ->where('user_id', Auth::user()->id)
             ->when(!empty($search), function ($query) use ($search) {
                 // return $query->where('title', 'like', '%' . $search . '%')
                 //     ->orWhere('alias_title','like','%' . $search . '%');
@@ -136,25 +134,17 @@ class TicketRepository implements ITicketRepository {
     }
 
     /**
-     * Change status of the ticket
-     * @param TicketStatusRequest $request
+     * Close the ticket
      * @param Ticket $ticket
      * @return JsonResponse
      */
-    public function changeStatus(TicketStatusRequest $request, Ticket $ticket) :JsonResponse
+    public function closeTicket(Ticket $ticket) :JsonResponse
     {
         $this->checkLevelAccess(Auth::user()->id == $ticket->user_id);
 
-        if (Auth::user()->level != 3) {
-            $update = $ticket->update([
-                'status' => Ticket::STATUS_CLOSED
-            ]);
-        } else {
-            $update = $ticket->update([
-                'status' => $request->input('status')
-            ]);
-        }
-
+        $update = $ticket->update([
+            'status' => Ticket::STATUS_CLOSED
+        ]);
 
         if ($update) {
             return response()->json([
@@ -212,25 +202,4 @@ class TicketRepository implements ITicketRepository {
 
         throw new \Exception();
     }
-
-    /**
-    * Delete the ticket.
-    * @param Ticket $ticket
-    * @return JsonResponse
-    */
-   public function destroy(Ticket $ticket) :JsonResponse
-   {
-        $this->checkLevelAccess(Auth::user()->id == $ticket->user_id);
-
-        $ticket->delete();
-
-        if ($ticket) {
-            return response()->json([
-                'status' => 1,
-                'message' => __('site.The operation has been successfully')
-            ], Response::HTTP_OK);
-        }
-
-        throw new \Exception();
-   }
 }

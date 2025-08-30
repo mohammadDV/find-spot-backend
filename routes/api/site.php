@@ -3,7 +3,6 @@
 use Application\Api\Address\Controllers\AddressController;
 use Application\Api\Chat\Controllers\ChatController;
 use Application\Api\File\Controllers\FileController;
-use Application\Api\IdentityRecord\Controllers\IdentityRecordController;
 use Application\Api\Notification\Controllers\NotificationController;
 use Application\Api\Post\Controllers\PostController;
 use Application\Api\Business\Controllers\CategoryController;
@@ -49,13 +48,15 @@ Route::prefix('events')->group(function () {
     Route::get('{event}', [EventController::class, 'show'])->name('events.show');
 });
 
+// user info
+Route::get('/user-info/{user}', [UserController::class, 'getUserInfo'])->name('user.show');
+
+// ticket subjects
+Route::get('/active-subjects', [TicketSubjectController::class, 'activeSubjects'])->name('active-subjects');
+
 
 // Route::get('/filters', [FilterController::class, 'index'])->name('filters.index');
 // Route::get('/filters/{filter}', [FilterController::class, 'show'])->name('filters.show');
-// Route::get('/business/{business}', [BusinessController::class, 'show'])->name('business.show');
-// Route::get('/user-info/{user}', [UserController::class, 'getUserInfo'])->name('user.show');
-// Route::get('/active-subjects', [TicketSubjectController::class, 'activeSubjects'])->name('active-subjects');
-// Route::get('/user/{user}/reviews', [ReviewController::class, 'getReviewsPerUser']);
 
 
 Route::get('/posts', [PostController::class, 'getPosts'])->name('site.posts.index');
@@ -78,47 +79,32 @@ Route::middleware(['auth:sanctum', 'auth', 'throttle:200,1'])->prefix('profile')
     Route::get('events/{event}/favorite', [EventController::class, 'favorite'])->name('events.favorite');
     Route::get('events/favorite', [EventController::class, 'getFavoriteEvents'])->name('events.favorite.index');
 
-
+    // review
     Route::get('my-reviews', [ReviewController::class, 'myReviews'])->name('reviews.index');
     Route::post('reviews/{business}', [ReviewController::class, 'store'])->name('reviews.store');
     Route::patch('reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::get('reviews/{review}/change-status', [ReviewController::class, 'changeStatus'])->name('reviews.change-status');
 
 
     Route::get('/check-verification', [UserController::class, 'checkVerification'])->name('user.check.verification');
 
     // // update user
-    // Route::patch('/users/{user}', [UserController::class, 'update'])->name('user.update');
-    // Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show');
-    // Route::patch('/users/{user}/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
+    Route::get('/my-info', [UserController::class, 'show'])->name('user.show');
+    Route::patch('/users', [UserController::class, 'update'])->name('user.update');
+    Route::patch('/users/change-password', [UserController::class, 'changePassword'])->name('user.change-password');
 
 
-    // Route::resource('notifications', NotificationController::class);
-    // Route::get('/notifications-unread', [NotificationController::class, 'unread'])->name('unread-notifications');
-    // Route::get('/notifications-read-all', [NotificationController::class, 'readAll'])->name('read-all-notifications');
+    Route::resource('notifications', NotificationController::class);
+    Route::get('/notifications-unread', [NotificationController::class, 'unread'])->name('unread-notifications');
+    Route::get('/notifications-read-all', [NotificationController::class, 'readAll'])->name('read-all-notifications');
 
-    // Route::resource('identity-records', IdentityRecordController::class);
-    // Route::get('identity-records-info/{user}', [IdentityRecordController::class, 'getIdentityInfo']);
-    // Route::post('identity-records/{identityRecord}/change-status', [IdentityRecordController::class, 'changeStatus']);
-    // Route::resource('business-categories', CategoryController::class);
-    // Route::resource('businesses', BusinessController::class);
-    // Route::post('/businesses/{business}/edit', [BusinessController::class, 'edit'])->name('business.edit');
-    // Route::resource('tickets', TicketController::class);
-    // Route::post('tickets/{ticket}/message', [TicketController::class, 'storeMessage'])->name('profile.ticket.message.store');
-    // Route::post('/ticket-status/{ticket}', [TicketController::class, 'changeStatus'])->name('profile.ticket.change-status');
-    // Route::resource('ticket-subjects', TicketSubjectController::class);
-
-
+    Route::resource('tickets', TicketController::class);
+    Route::post('tickets/{ticket}/message', [TicketController::class, 'storeMessage'])->name('profile.ticket.message.store');
+    Route::post('/ticket-status/{ticket}', [TicketController::class, 'closeTicket'])->name('profile.ticket.close-ticket');
+    Route::get('ticket-subjects', [TicketSubjectController::class, 'activeSubjects'])->name('profile.ticket.active-subjects');
 
     // // activity count
-    // Route::get('/activity-count', [UserController::class, 'getActivityCount'])->name('profile.activity.count');
-    // Route::get('/dashboard-info', [UserController::class, 'getDashboardInfo'])->name('profile.dashboard.info');
-
-    // // review
-    // Route::post('/reviews/{business}', [ReviewController::class, 'store']);
-    // Route::get('/business/{business}/reviews', [ReviewController::class, 'getReviewsPerBusiness']);
-    // // just for admin
-    // Route::patch('/reviews/{review}', [ReviewController::class, 'update']);
-    // Route::get('/reviews', [ReviewController::class, 'index']);
+    Route::get('/dashboard-info', [UserController::class, 'getDashboardInfo'])->name('profile.dashboard.info');
 
     // // chats
     // Route::prefix('chats')->group(function () {

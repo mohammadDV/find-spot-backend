@@ -54,4 +54,11 @@ interface IReviewRepository
      * @throws \Exception
      */
     public function update(ReviewRequest $request, Review $review) :JsonResponse;
+
+    /**
+     * Change the review status.
+     * @param Review $review
+     * @return JsonResponse
+     */
+    public function changeStatus(Review $review) :JsonResponse;
 }

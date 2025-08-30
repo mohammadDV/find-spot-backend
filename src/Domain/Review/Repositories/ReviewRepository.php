@@ -218,6 +218,33 @@ class ReviewRepository implements IReviewRepository
         throw new \Exception();
     }
 
+    /**
+     * Change the review status.
+     * @param Review $review
+     * @return JsonResponse
+     */
+    public function changeStatus(Review $review) :JsonResponse
+    {
+        $this->checkLevelAccess(Auth::user()->id == $review->user_id);
+        
+        $review->update([
+            'status' => in_array($review->status, [Review::PENDING, Review::APPROVED]) ? Review::CANCELLED : Review::PENDING
+        ]);
+
+        $review->refresh();
+
+        return response()->json([
+            'status_review' => $review->status,
+            'status' => 1,
+            'message' => __('site.The operation has been successfully')
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Update review services.
+     * @param Review $review
+     * @param array $services
+     */
     private function updateReviewServices(Review $review, array $services): void
     {
         // Delete existing service votes for this review
@@ -232,6 +259,7 @@ class ReviewRepository implements IReviewRepository
             ]);
         }
     }
+
     /**
      * Update review files intelligently
      * @param Review $review

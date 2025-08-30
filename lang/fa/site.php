@@ -403,7 +403,6 @@ return array(
     'biography' => 'درباره من',
     'address' => 'آدرس',
     'country_id' => 'کشور',
-    'province_id' => 'استان',
     'city_id' => 'شهر',
     'profile_photo_path' => 'عکس پروفایل',
     'bg_photo_path' => 'تصویر پس‌زمینه',
@@ -595,10 +594,7 @@ return array(
     'light_mode' => 'حالت روشن',
     'auto_mode' => 'حالت خودکار',
 
-    // Identity Record Translations
-    'identity_records' => 'سوابق هویتی',
-    'identity_record' => 'سابقه هویتی',
-    'Identity Management' => 'مدیریت هویت',
+
     'personal_information' => 'اطلاعات شخصی',
     'first_name' => 'نام',
     'last_name' => 'نام خانوادگی',
@@ -628,33 +624,12 @@ return array(
     'updated_at' => 'تاریخ بروزرسانی',
     'from_date' => 'از تاریخ',
     'to_date' => 'تا تاریخ',
-    'view_identity_record' => 'مشاهده سابقه هویتی',
-    'edit_identity_record' => 'ویرایش سابقه هویتی',
-    'create_identity_record' => 'ایجاد سابقه هویتی',
     'approve' => 'تایید',
     'reject' => 'رد',
-    'confirm_approve_identity' => 'تایید تایید هویت',
-    'confirm_approve_identity_description' => 'آیا از تایید این سابقه هویتی اطمینان دارید؟',
-    'confirm_reject_identity' => 'تایید رد هویت',
-    'confirm_reject_identity_description' => 'آیا از رد این سابقه هویتی اطمینان دارید؟',
     'cancel' => 'انصراف',
     'error' => 'خطا',
     'something_went_wrong' => 'مشکلی پیش آمد. لطفا دوباره تلاش کنید.',
-    'identity_record_approved_successfully' => 'سابقه هویتی با موفقیت تایید شد',
-    'identity_record_rejected_successfully' => 'سابقه هویتی با موفقیت رد شد',
     'delete_selected' => 'حذف انتخاب شده‌ها',
-    'Identity Records Management' => 'مدیریت سوابق هویتی',
-    'Create Identity Record' => 'ایجاد سابقه هویتی',
-    'Edit Identity Record' => 'ویرایش سابقه هویتی',
-    'View Identity Record' => 'مشاهده سابقه هویتی',
-
-    // Identity Verification Notification
-    'identity_verification_approved' => 'تایید احراز هویت',
-    'identity_verification_approved_message' => 'کاربر گرامی: احراز هویت شما با موفقیت انجام شد و پلن اولیه برای شما فعال شد.',
-    'identity_verification_rejected' => 'رد احراز هویت',
-    'identity_verification_rejected_message' => 'کاربر گرامی: احراز هویت شما رد شده است لطفا از صحت اطلاعات خود اطمینان حاصل کرده و مجددا ارسال کنید.',
-    'identity_verification_payment_required' => 'پرداخت احراز هویت الزامی است',
-    'identity_verification_payment_required_message' => 'هویت باید قبل از تایید پرداخت شود.',
 
     // Project Management Translations
     'projects' => 'پروژه‌ها',
