@@ -47,12 +47,11 @@ class UserController extends Controller
 
     /**
      * Get the user info
-     * @param User $user
      * @return JsonResponse
      */
-    public function show(User $user): JsonResponse
+    public function show(): JsonResponse
     {
-        return response()->json($this->repository->show($user));
+        return response()->json($this->repository->show());
     }
 
     /**
@@ -77,22 +76,20 @@ class UserController extends Controller
      /**
      * Update the user.
      * @param UpdateUserRequest $request
-     * @param User $user
      * @return JsonResponse
      */
-    public function update(UpdateUserRequest $request, User $user) :JsonResponse
+    public function update(UpdateUserRequest $request) :JsonResponse
     {
-        return response()->json($this->repository->update($request, $user));
+        return response()->json($this->repository->update($request));
     }
 
     /**
      * Change the user password.
      * @param ChangePasswordRequest $request
-     * @param User $user
      * @return JsonResponse
      */
-    public function changePassword(ChangePasswordRequest $request, User $user) :JsonResponse
+    public function changePassword(ChangePasswordRequest $request) :JsonResponse
     {
-        return response()->json($this->repository->changePassword($request, $user));
+        return response()->json($this->repository->changePassword($request));
     }
 }

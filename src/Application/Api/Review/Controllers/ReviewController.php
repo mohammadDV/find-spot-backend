@@ -78,12 +78,12 @@ class ReviewController extends Controller
     }
 
     /**
-     * Delete the review.
+     * Change the review status.
      * @param Review $review
      * @return JsonResponse
      */
-    public function destroy(Review $review) :JsonResponse
+    public function changeStatus(Review $review) :JsonResponse
     {
-        return $this->repository->destroy($review);
+        return $this->repository->changeStatus($review);
     }
 }

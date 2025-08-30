@@ -28,10 +28,9 @@ interface IUserRepository
 
     /**
      * Get the user info.
-     * @param User $user
      * @return array
      */
-    public function show(User $user) :array;
+    public function show() :array;
 
     /**
      * Get the user info.
@@ -49,16 +48,14 @@ interface IUserRepository
     /**
      * Update the user.
      * @param UpdateUserRequest $request
-     * @param User $user
      * @return array
      */
-    public function update(UpdateUserRequest $request, User $user) :array;
+    public function update(UpdateUserRequest $request) :array;
 
     /**
      * Change the user password.
      * @param ChangePasswordRequest $request
-     * @param User $user
      * @return array
      */
-    public function changePassword(ChangePasswordRequest $request, User $user) :array;
+    public function changePassword(ChangePasswordRequest $request) :array;
 }
