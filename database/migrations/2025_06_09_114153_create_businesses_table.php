@@ -44,7 +44,7 @@ return new class extends Migration
             $table->tinyInteger('to_monday')->default(0);
             $table->tinyInteger('to_tuesday')->default(0);
             $table->tinyInteger('to_wednesday')->default(0);
-            $table->tinyInteger('to_thursday')->default(1);
+            $table->tinyInteger('to_thursday')->default(0);
             $table->tinyInteger('to_friday')->default(0);
             $table->tinyInteger('to_saturday')->default(0);
             $table->tinyInteger('to_sunday')->default(0);

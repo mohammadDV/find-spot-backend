@@ -27,12 +27,12 @@ class Category extends Model
 
     public function businesses()
     {
-        return $this->belongsToMany(Business::class, 'category_business', 'category_id', 'business_id');
+        return $this->belongsToMany(Business::class, 'business_category', 'category_id', 'business_id');
     }
 
     public function facilities()
     {
-        return $this->hasMany(Facility::class);
+        return $this->belongsToMany(Facility::class, 'category_facility', 'category_id', 'facility_id');
     }
 
     public function services()

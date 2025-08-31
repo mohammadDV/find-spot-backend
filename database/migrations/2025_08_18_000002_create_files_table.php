@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('business_id')->unsigned()->index();
             $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
             $table->string('path');
+            $table->integer('priority')->default(0);
             $table->enum('type', ['image', 'video', 'document'])->nullable(); // image, video,
             $table->tinyInteger('status')->default(1); // 0 = inactive, 1 = active
             $table->timestamps();
