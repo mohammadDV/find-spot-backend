@@ -221,7 +221,7 @@ return array(
     'project_rejected_content' => 'Dear user: Your project named :project_title has been rejected by management. Reason for rejection: :reason',
     'project_approved_title' => 'Project Approved',
     'project_approved_content' => 'Dear user: Your project named :project_title has been successfully approved.',
-    
+
     // Plan Notifications
     'plan_activated_title' => 'New Plan Activated',
     'plan_activated_content' => 'Dear user: Your new plan with title :plan_title has been successfully activated.',
@@ -545,6 +545,8 @@ return array(
     'excellent' => 'Excellent',
 
     // Business Management
+    'business' => 'Business',
+    'businesses' => 'Businesses',
     'business_created_title' => 'Business Created Successfully',
     'business_created_content' => 'Your business ":business_title" has been created successfully and is pending approval.',
 
@@ -608,6 +610,12 @@ return array(
     'You must verify your account to create a review' => 'You must verify your account to create a review',
     'You must verify your account to top up your wallet' => 'You must verify your account to top up your wallet',
     'You must verify your account to withdraw from your wallet' => 'You must verify your account to withdraw from your wallet',
+
+    // Tag Management
+    'tag' => 'Tag',
+    'tags' => 'Tags',
+    'create_tag' => 'Create Tag',
+    'filter_by_status' => 'Filter by Status',
 
     // Email Verification Messages
     'Verify Email Address' => 'Verify Email Address',

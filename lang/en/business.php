@@ -1,0 +1,5639 @@
+<?php
+
+return [
+    // Business Resource Labels
+    'businesses' => 'Businesses',
+    'business' => 'Business',
+    'create_business' => 'Create Business',
+    'edit_business' => 'Edit Business',
+    'view_business' => 'View Business',
+    'delete_business' => 'Delete Business',
+    'delete_selected' => 'Delete Selected',
+    'view' => 'View',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+
+    // Form Sections
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form Fields
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working Hours
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+    'enter_hour_0_23' => 'Enter hour (0=closed, 1-23=hour)',
+
+    // Amount Types
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+
+    // Status Options
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // File Types
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+
+    // File Status
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'file_size' => 'File Size',
+    'priority' => 'Priority',
+    'lower_numbers_appear_first' => 'Higher numbers have higher priority',
+    'move_up' => 'Move Up',
+    'move_down' => 'Move Down',
+
+    // Categories
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'child_categories' => 'Child Categories',
+    'child_category' => 'Child Category',
+    'select_parent_category' => 'Select Parent Category',
+    'select_child_categories' => 'Select Child Categories',
+    'select_parent_first' => 'Please select a parent category first',
+    'select_parent_to_see_children' => 'Select a parent category to see available child categories',
+    'available_child_categories' => 'Available child categories: :count',
+    'category_management' => 'Category Management',
+    'category_management_description' => 'Manage business categories and subcategories',
+    'current_categories' => 'Current Categories',
+    'no_categories_selected' => 'No categories selected',
+    'root_category' => 'Root Category',
+    'create_category' => 'Create Category',
+    'edit_category' => 'Edit Category',
+    'view_category' => 'View Category',
+    'delete_category' => 'Delete Category',
+    'category_created_successfully' => 'Category created successfully',
+    'category_updated_successfully' => 'Category updated successfully',
+    'category_deleted_successfully' => 'Category deleted successfully',
+    'create_child_category' => 'Create Child Category',
+    'select_parent_category_help' => 'Select a parent category or leave as root category',
+    'priority_help' => 'Higher numbers have higher priority',
+    'status_help' => 'Active categories are visible to users',
+    'category_image_help' => 'Upload an image for this category',
+    'relationships_description' => 'Manage related entities for this category',
+    'select_filters' => 'Select filters to apply',
+    'filters_help' => 'Choose filters that apply to this category',
+    'select_user' => 'Select user responsible for this category',
+    'user_help' => 'User who manages this category',
+    'attach_business' => 'Attach Business',
+    'attach_filter' => 'Attach Filter',
+    'attach_facility' => 'Attach Facility',
+    'attach_service' => 'Attach Service',
+    'detach' => 'Detach',
+    'detach_selected' => 'Detach Selected',
+    'owner' => 'Owner',
+    'service' => 'Service',
+    'services' => 'Services',
+    'all' => 'All',
+    'inactive' => 'Inactive',
+    'no_owner' => 'No Owner',
+    'child_categories' => 'Child Categories',
+    'businesses' => 'Businesses',
+    'select_business' => 'Select Business',
+    'relationships' => 'Relationships',
+    'select_filter' => 'Select Filter',
+
+    // Filters
+    'filters' => 'Filters',
+    'filter' => 'Filter',
+    'select_filters' => 'Select Filters',
+    'filters_description' => 'Apply filters to categorize and organize your business',
+    'select_filters_help' => 'Choose filters that best describe your business services and features. Only filters related to your business categories will be available.',
+    'select_filters_to_apply' => 'Select filters to apply',
+    'enter_starting_price' => 'Enter the starting price for your services',
+    'enter_latitude' => 'Enter the latitude coordinate',
+    'enter_longitude' => 'Enter the longitude coordinate',
+    'current_filters' => 'Current Filters',
+    'no_filters_selected' => 'No filters selected',
+    'attach_filter' => 'Attach Filter',
+    'select_filter' => 'Select Filter',
+    'select_filter_to_attach' => 'Select filter to attach',
+    'only_filters_for_business_categories' => 'Only shows filters that are related to this business\'s categories',
+    'filter_by_status' => 'Filter by Status',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'category_management_description' => 'Select parent and child categories for this business',
+    'current_categories' => 'Current Categories',
+    'no_categories_selected' => 'No categories selected',
+    'root_category' => 'Root Category',
+    'current_categories' => 'Current Categories',
+    'no_categories_selected' => 'No categories selected',
+    'root_category' => 'Root Category',
+
+    // Table Columns
+    'owner' => 'Owner',
+    'city' => 'City',
+    'country' => 'Country',
+    'area' => 'Area',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+
+    // Actions
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+
+    // Messages
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation Messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // Helper Text
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filters
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+
+    // Facilities
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+    'attach_facility' => 'Attach Facility',
+    'select_facility' => 'Select Facility',
+
+    // Reviews
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+
+    // Rating Options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Files
+    'files' => 'Files',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Navigation
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+
+    // Common
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Missing translations
+    'image' => 'Image',
+    'phone' => 'Phone',
+    'status' => 'Status',
+
+    // Additional translations
+    'owner' => 'Owner',
+    'city' => 'City',
+    'country' => 'Country',
+    'area' => 'Area',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+
+    // Form field translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+    'user' => 'Owner',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'media_files' => 'Media Files',
+    'settings' => 'Settings',
+
+    // Form field translations
+    'title' => 'Title',
+    'description' => 'Description',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'website' => 'Website',
+    'address' => 'Address',
+    'lat' => 'Latitude',
+    'long' => 'Longitude',
+
+    // Social media translations
+    'facebook' => 'Facebook',
+    'instagram' => 'Instagram',
+    'youtube' => 'YouTube',
+    'tiktok' => 'TikTok',
+    'whatsapp' => 'WhatsApp',
+
+    // Business details translations
+    'start_amount' => 'Starting Amount',
+    'amount_type' => 'Amount Type',
+    'image' => 'Image',
+    'menu_image' => 'Menu Image',
+    'slider_image' => 'Slider Image',
+    'video' => 'Video',
+
+    // Settings translations
+    'user' => 'Owner',
+    'status' => 'Status',
+    'active' => 'Active',
+    'vip' => 'VIP Business',
+    'priority' => 'Priority',
+    'point' => 'Points',
+    'rate' => 'Rating',
+
+    // Working hours translations
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'from' => 'From',
+    'to' => 'To',
+    'minutes_from_midnight' => 'minutes from midnight',
+    'enter_minutes' => 'Enter minutes from midnight (0-1439)',
+
+    // Amount types and status
+    'fixed' => 'Fixed',
+    'from' => 'From',
+    'up_to' => 'Up to',
+    'pending' => 'Pending',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
+    'cancelled' => 'Cancelled',
+
+    // Helper text translations
+    'enter_latitude' => 'Enter latitude (e.g., 35.6892)',
+    'enter_longitude' => 'Enter longitude (e.g., 51.3890)',
+    'enter_starting_price' => 'Enter the starting price for this business',
+
+    // Filter translations
+    'filter_by_status' => 'Filter by Status',
+    'filter_by_city' => 'Filter by City',
+    'filter_by_country' => 'Filter by Country',
+    'filter_active_status' => 'Active Status',
+    'filter_vip_status' => 'VIP Status',
+
+    // Categories and facilities
+    'categories' => 'Categories',
+    'category' => 'Category',
+    'parent_category' => 'Parent Category',
+    'facilities' => 'Facilities',
+    'facility' => 'Facility',
+
+    // Reviews and files
+    'reviews' => 'Reviews',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'content' => 'Content',
+    'verified_review' => 'Verified Review',
+    'files' => 'Files',
+    'file' => 'File',
+    'type' => 'Type',
+    'image_type' => 'Image',
+    'video_type' => 'Video',
+    'document_type' => 'Document',
+    'other_type' => 'Other',
+    'active_status' => 'Active',
+    'inactive_status' => 'Inactive',
+    'pending_status' => 'Pending',
+    'file_upload' => 'File Upload',
+    'preview' => 'Preview',
+    'upload_file' => 'Upload File',
+
+    // Rating options
+    '1_star' => '1 Star',
+    '2_stars' => '2 Stars',
+    '3_stars' => '3 Stars',
+    '4_stars' => '4 Stars',
+    '5_stars' => '5 Stars',
+
+    // Navigation and common
+    'dashboard' => 'Dashboard',
+    'business_management' => 'Business Management',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'none' => 'None',
+    'all' => 'All',
+    'search' => 'Search',
+    'filter' => 'Filter',
+    'clear' => 'Clear',
+    'apply' => 'Apply',
+    'reset' => 'Reset',
+    'loading' => 'Loading...',
+    'no_records' => 'No records found',
+    'showing' => 'Showing',
+    'of' => 'of',
+    'entries' => 'entries',
+    'per_page' => 'per page',
+
+    // Actions and messages
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
+    'back' => 'Back',
+    'view' => 'View',
+    'business_created' => 'Business created successfully',
+    'business_updated' => 'Business updated successfully',
+    'business_deleted' => 'Business deleted successfully',
+    'confirm_delete' => 'Are you sure you want to delete this business?',
+
+    // Validation messages
+    'title_required' => 'Title is required',
+    'phone_required' => 'Phone is required',
+    'country_required' => 'Country is required',
+    'city_required' => 'City is required',
+    'area_required' => 'Area is required',
+    'lat_required' => 'Latitude is required',
+    'long_required' => 'Longitude is required',
+    'user_required' => 'Owner is required',
+    'start_amount_required' => 'Starting amount is required',
+
+    // File size and type translations
+    'file_size_limit' => 'File size limit: :size MB',
+    'accepted_file_types' => 'Accepted file types: :types',
+
+    // Basic information translations
+    'basic_information' => 'Basic Information',
+    'location_coordinates' => 'Location & Coordinates',
+    'social_media' => 'Social Media',
+    'business_details' => 'Business Details',
+    'working_hours' => 'Working Hours',
+    'comment' => 'Comment',
+];

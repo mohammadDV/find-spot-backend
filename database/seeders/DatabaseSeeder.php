@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             CitySeeder::class,
             AreaSeeder::class,
+            CategorySeeder::class,
             EventSeeder::class,
             PostSeeder::class,
         ]);

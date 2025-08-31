@@ -14,6 +14,12 @@ class File extends Model
         'path',
         'type',
         'status',
+        'priority',
+    ];
+
+    protected $casts = [
+        'status' => 'integer',
+        'priority' => 'integer',
     ];
 
     /**

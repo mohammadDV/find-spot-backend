@@ -1118,6 +1118,8 @@ return array(
     'excellent' => 'عالی',
 
     // Business Management
+    'business' => 'کسب و کار',
+    'businesses' => 'کسب و کارها',
     'business_created_title' => 'کسب و کار با موفقیت ایجاد شد',
     'business_created_content' => 'کسب و کار شما با عنوان ":business_title" با موفقیت ایجاد شد و در انتظار تایید است.',
 
@@ -1234,6 +1236,12 @@ return array(
     'table_persist_filters' => 'حفظ فیلترها',
     'table_persist_sort' => 'حفظ مرتب‌سازی',
     'table_auto_refresh' => 'بازنشانی خودکار',
+
+    // Tag Management
+    'tag' => 'برچسب',
+    'tags' => 'برچسب‌ها',
+    'create_tag' => 'ایجاد برچسب',
+    'filter_by_status' => 'فیلتر بر اساس وضعیت',
 
     // Suggested Amount Notifications
     'confirm_suggested_amount_title' => 'مبلغ پیشنهادی تایید شد',

@@ -5,9 +5,9 @@ namespace Domain\Business\Models;
 use Domain\Address\Models\Area;
 use Domain\Address\Models\City;
 use Domain\Address\Models\Country;
+use Domain\Business\Models\Category;
 use Domain\Business\Models\File;
 use Domain\Business\Models\Facility;
-use Domain\Business\Models\Service;
 use Domain\Business\Models\Tag;
 use Domain\Review\Models\Review;
 use Domain\User\Models\User;
@@ -30,6 +30,20 @@ class Business extends Model
         'active' => 'integer',
         'vip' => 'boolean',
         'priority' => 'integer',
+        'from_monday' => 'integer',
+        'to_monday' => 'integer',
+        'from_tuesday' => 'integer',
+        'to_tuesday' => 'integer',
+        'from_wednesday' => 'integer',
+        'to_wednesday' => 'integer',
+        'from_thursday' => 'integer',
+        'to_thursday' => 'integer',
+        'from_friday' => 'integer',
+        'to_friday' => 'integer',
+        'from_saturday' => 'integer',
+        'to_saturday' => 'integer',
+        'from_sunday' => 'integer',
+        'to_sunday' => 'integer',
     ];
 
     public function categories()
@@ -95,5 +109,54 @@ class Business extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    // Helper methods for working hours
+    public function getWorkingHoursAttribute()
+    {
+        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $hours = [];
+
+        foreach ($days as $day) {
+            $from = $this->{"from_$day"};
+            $to = $this->{"to_$day"};
+
+            if ($from !== null && $to !== null) {
+                $hours[$day] = [
+                    'from' => $this->minutesToTime($from),
+                    'to' => $this->minutesToTime($to),
+                    'from_minutes' => $from,
+                    'to_minutes' => $to,
+                ];
+            }
+        }
+
+        return $hours;
+    }
+
+    private function minutesToTime($minutes)
+    {
+        if ($minutes === null) return null;
+
+        $hours = intval($minutes / 60);
+        $mins = $minutes % 60;
+
+        return sprintf('%02d:%02d', $hours, $mins);
+    }
+
+    public function setWorkingHours($day, $fromTime, $toTime)
+    {
+        $this->{"from_$day"} = $this->timeToMinutes($fromTime);
+        $this->{"to_$day"} = $this->timeToMinutes($toTime);
+    }
+
+    private function timeToMinutes($time)
+    {
+        if (empty($time)) return null;
+
+        $parts = explode(':', $time);
+        if (count($parts) !== 2) return null;
+
+        return intval($parts[0]) * 60 + intval($parts[1]);
     }
 }
