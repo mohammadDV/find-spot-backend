@@ -3,7 +3,6 @@
 namespace Domain\Event\Models;
 
 use Domain\Business\Models\Favorite;
-use Domain\Business\Models\Save;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,11 +12,6 @@ class Event extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-    public function saves()
-    {
-        return $this->morphMany(Save::class, 'saveable');
-    }
 
     public function favorites()
     {

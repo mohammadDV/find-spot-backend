@@ -1,31 +1,33 @@
 <?php
 
-namespace App\Filament\Resources\CategoryResource\RelationManagers;
+namespace App\Filament\Resources\FilterResource\RelationManagers;
 
-
+use Filament\Forms;
+use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Forms\Components\Select;
 
-class FacilitiesRelationManager extends RelationManager
+class CategoriesRelationManager extends RelationManager
 {
-    protected static string $relationship = 'facilities';
+    protected static string $relationship = 'categories';
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?string $title = 'امکانات';
+    protected static ?string $title = 'دسته‌بندی‌ها';
 
     public static function getModelLabel(): string
     {
-        return __('business.facility');
+        return __('business.category');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('business.facilities');
+        return __('business.categories');
     }
 
     public function table(Table $table): Table
@@ -38,12 +40,27 @@ class FacilitiesRelationManager extends RelationManager
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
+                TextColumn::make('parent.title')
+                    ->label(__('business.parent_category'))
+                    ->formatStateUsing(fn ($state) => $state ?: __('business.root_category'))
+                    ->searchable()
+                    ->sortable()
+                    ->badge()
+                    ->color('info')
+                    ->default('—'),
+                TextColumn::make('businesses_count')
+                    ->label(__('business.businesses'))
+                    ->counts('businesses')
+                    ->sortable()
+                    ->badge()
+                    ->color('success')
+                    ->default(0),
                 BadgeColumn::make('status')
                     ->label(__('business.status'))
                     ->formatStateUsing(fn ($state) => $state ? __('business.active') : __('business.inactive'))
                     ->colors([
-                        'success' => true,
-                        'danger' => false,
+                        'success' => 1,
+                        'danger' => 0,
                     ]),
                 TextColumn::make('created_at')
                     ->label(__('business.created_at'))
@@ -60,13 +77,13 @@ class FacilitiesRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\AttachAction::make()
-                    ->label(__('business.attach_facility'))
+                    ->label(__('business.attach_category'))
                     ->recordTitleAttribute('title')
                     ->form([
-                        \Filament\Forms\Components\Select::make('recordId')
-                            ->label(__('business.select_facility'))
+                        Select::make('recordId')
+                            ->label(__('business.select_category'))
                             ->options(function () {
-                                return \Domain\Business\Models\Facility::whereNotNull('title')
+                                return \Domain\Business\Models\Category::whereNotNull('title')
                                     ->where('title', '!=', '')
                                     ->where('status', 1)
                                     ->pluck('title', 'id');
@@ -78,6 +95,12 @@ class FacilitiesRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\DetachAction::make()
                     ->label(__('business.detach')),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DetachBulkAction::make()
+                        ->label(__('business.detach_selected')),
+                ]),
             ]);
     }
 }

@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BusinessResource\Pages;
 use App\Filament\Resources\BusinessResource\RelationManagers;
 use Domain\Business\Models\Business;
-use Domain\Business\Models\Filter;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -410,7 +409,12 @@ class BusinessResource extends Resource
                     ->searchable(),
                 BadgeColumn::make('status')
                     ->label(__('business.status'))
-                    ->formatStateUsing(fn ($state) => $state ?: __('business.pending'))
+                    ->formatStateUsing(fn ($state) => match($state) {
+                        'pending' => __('business.pending'),
+                        'approved' => __('business.approved'),
+                        'reject' => __('business.rejected'),
+                        default => $state,
+                    })
                     ->colors([
                         'warning' => Business::PENDING,
                         'success' => Business::APPROVED,

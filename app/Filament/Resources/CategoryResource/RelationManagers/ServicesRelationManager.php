@@ -17,7 +17,7 @@ class ServicesRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static ?string $title = 'خدمات';
+    protected static ?string $title = 'کیفیت خدمت';
 
     public static function getModelLabel(): string
     {

@@ -8,6 +8,7 @@ use Domain\Address\Models\Country;
 use Domain\Business\Models\Category;
 use Domain\Business\Models\File;
 use Domain\Business\Models\Facility;
+use Domain\Business\Models\Service;
 use Domain\Business\Models\Tag;
 use Domain\Review\Models\Review;
 use Domain\User\Models\User;
@@ -101,14 +102,19 @@ class Business extends Model
         return $this->belongsToMany(Weekend::class, 'business_weekend', 'business_id', 'weekend_id');
     }
 
-    public function saves()
-    {
-        return $this->morphMany(Save::class, 'saveable');
-    }
-
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function serviceVotes()
+    {
+        return $this->hasMany(ServiceVote::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'service_votes', 'business_id', 'service_id');
     }
 
     // Helper methods for working hours
