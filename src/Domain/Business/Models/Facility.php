@@ -13,7 +13,6 @@ class Facility extends Model
     protected $fillable = [
         'title',
         'status',
-        'category_id',
     ];
 
     protected $casts = [
@@ -23,9 +22,9 @@ class Facility extends Model
     /**
      * Get the category that the facility belongs to.
      */
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsToMany(Category::class, 'category_facility', 'facility_id', 'category_id');
     }
 
     /**

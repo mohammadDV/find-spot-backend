@@ -12,7 +12,6 @@ class Service extends Model
 
     protected $fillable = [
         'title',
-        'description',
         'status',
         'category_id',
     ];
@@ -30,11 +29,19 @@ class Service extends Model
     }
 
     /**
-     * Get the businesses that offer this service.
+     * Get the service votes for this service.
+     */
+    public function serviceVotes()
+    {
+        return $this->hasMany(ServiceVote::class);
+    }
+
+    /**
+     * Get the businesses that have votes for this service.
      */
     public function businesses()
     {
-        return $this->belongsToMany(Business::class, 'business_services', 'service_id', 'business_id');
+        return $this->belongsToMany(Business::class, 'service_votes', 'service_id', 'business_id');
     }
 
     /**
