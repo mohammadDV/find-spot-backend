@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Filament\Resources\CityResource\Pages;
+
+use App\Filament\Resources\CityResource;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateCity extends CreateRecord
+{
+    protected static string $resource = CityResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    protected function getCreatedNotificationTitle(): ?string
+    {
+        return __('address.city_created_successfully');
+    }
+}
