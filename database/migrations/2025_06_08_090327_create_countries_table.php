@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('image', 2048)->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('priority')->default(0);
             $table->timestamps();
         });
     }
