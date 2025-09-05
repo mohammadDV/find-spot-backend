@@ -42,4 +42,8 @@ class Review extends Model
     public function files() {
         return $this->hasMany(ReviewFile::class);
     }
+
+    public function allLikes() {
+        return $this->hasMany(ReviewLike::class);
+    }
 }

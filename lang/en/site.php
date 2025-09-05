@@ -209,6 +209,8 @@ return array(
     // Review Notifications
     'new_review_title' => 'New Review Posted',
     'new_review_content' => 'Dear user: User with name :user_nickname has posted a new review for you.',
+    'review_approved_title' => 'Review Approved',
+    'review_approved_content' => 'Dear user: Your review has been approved and is now visible to other users.',
 
     // User Notifications
     'password_changed_title' => 'Password Changed',

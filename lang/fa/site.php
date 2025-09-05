@@ -798,6 +798,8 @@ return array(
     // Review Notifications
     'new_review_title' => 'ثبت دیدگاه جدید',
     'new_review_content' => 'کاربر گرامی: کاربر با نام :user_nickname برای کسب و کار شما یک دیدگاه جدید ثبت کرده است.',
+    'review_approved_title' => 'تایید دیدگاه',
+    'review_approved_content' => 'کاربر گرامی: دیدگاه شما تایید شد و اکنون برای سایر کاربران قابل مشاهده است.',
 
     // User Notifications
     'password_changed_title' => 'تغییر رمز عبور',
