@@ -112,6 +112,10 @@ class CategoryResource extends Resource
         return $table
             ->defaultSort('priority', 'desc')
             ->columns([
+                TextColumn::make('id')
+                    ->label('#')
+                    ->sortable()
+                    ->searchable(),
                 ImageColumn::make('image')
                     ->label(__('business.image'))
                     ->circular()

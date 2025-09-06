@@ -41,13 +41,6 @@ interface IEventRepository
     public function getFeaturedEvents();
 
     /**
-     * Search businesses with filters and pagination.
-     * @param SearchBusinessRequest $request
-     * @return LengthAwarePaginator
-     */
-    public function search(SearchBusinessRequest $request): LengthAwarePaginator;
-
-    /**
      * Favorite the event.
      * @param Event $event
      * @return JsonResponse
