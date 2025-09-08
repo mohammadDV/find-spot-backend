@@ -25,8 +25,11 @@ class ServicesRelationManager extends RelationManager
             ->schema([
                 Select::make('service_id')
                     ->label(__('business.service'))
-                    ->relationship('services', 'title', function ($query) {
-                        return $query->whereNotNull('title')->where('title', '!=', '');
+                    ->options(function () {
+                        return \Domain\Business\Models\Service::whereNotNull('title')
+                            ->where('title', '!=', '')
+                            ->pluck('title', 'id')
+                            ->toArray();
                     })
                     ->searchable()
                     ->preload()

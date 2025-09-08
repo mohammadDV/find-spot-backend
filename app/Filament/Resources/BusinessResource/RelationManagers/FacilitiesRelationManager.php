@@ -7,6 +7,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 
 class FacilitiesRelationManager extends RelationManager
 {
@@ -35,9 +36,6 @@ class FacilitiesRelationManager extends RelationManager
                     ->label(__('business.title'))
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('description')
-                    ->limit(50)
-                    ->toggleable(),
                 TextColumn::make('created_at')
                     ->label(__('business.created_at'))
                     ->formatStateUsing(fn ($state) => $state ? $state->format('Y-m-d H:i:s') : 'N/A')
@@ -46,8 +44,19 @@ class FacilitiesRelationManager extends RelationManager
             ])
             ->filters([
                 SelectFilter::make('category_id')
-                    ->relationship('category', 'title', function ($query) {
-                        return $query->whereNotNull('title')->where('title', '!=', '')->select('id', 'title');
+                    ->options(function () {
+                        return \Domain\Business\Models\Category::whereNotNull('title')
+                            ->where('title', '!=', '')
+                            ->pluck('title', 'id')
+                            ->toArray();
+                    })
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query->when(
+                            $data['value'],
+                            fn (Builder $query, $categoryId): Builder => $query->whereHas('categories', function (Builder $query) use ($categoryId) {
+                                $query->where('categories.id', $categoryId);
+                            })
+                        );
                     })
                     ->label(__('business.category')),
             ])
