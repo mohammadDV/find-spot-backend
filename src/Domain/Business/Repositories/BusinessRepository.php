@@ -684,7 +684,8 @@ class BusinessRepository implements IBusinessRepository
     {
         $query = Review::query()
             ->select('rate', DB::raw('COUNT(*) as count'))
-            ->where('status', 1); // Only approved reviews
+            ->where('active', 1) // Only approved reviews
+            ->where('status', Review::APPROVED); // Only approved reviews
 
         if ($businessId) {
             $query->where('business_id', $businessId);
