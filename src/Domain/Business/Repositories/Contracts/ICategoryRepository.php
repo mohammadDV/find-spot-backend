@@ -69,6 +69,14 @@ interface ICategoryRepository
     public function getCategoryFilters(TableRequest $request, Category $category) :LengthAwarePaginator;
 
     /**
+     * Get the services associated with a specific category.
+     * @param TableRequest $request
+     * @param Category $category
+     * @return LengthAwarePaginator
+     */
+    public function getCategoryServices(TableRequest $request, Category $category) :LengthAwarePaginator;
+
+    /**
      * Store the businessCategory.
      * @param BusinessCategoryRequest $request
      * @return JsonResponse

@@ -28,6 +28,7 @@ Route::get('/parent-categories', [CategoryController::class, 'getParentCategorie
 Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('category.show');
 Route::get('/categories/{category}/children', [CategoryController::class, 'getCategoryChildren'])->name('category-children');
 Route::get('/categories/{category}/filters', [CategoryController::class, 'getCategoryFilters'])->name('category.filters');
+Route::get('/categories/{category}/services', [CategoryController::class, 'getCategoryServices'])->name('category.services');
 
 
 // Businesses

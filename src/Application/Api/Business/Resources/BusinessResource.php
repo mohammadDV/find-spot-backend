@@ -3,9 +3,6 @@
 namespace Application\Api\Business\Resources;
 
 use Application\Api\Address\Resources\AreaResource;
-use Application\Api\Address\Resources\CityResource;
-use Application\Api\Address\Resources\CountryResource;
-use Application\Api\Address\Resources\ProvinceResource;
 use Application\Api\Business\Resources\CategoryResource;
 use Application\Api\Business\Resources\FilterResource;
 use Application\Api\Business\Resources\FileResource;
@@ -39,6 +36,25 @@ class BusinessResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'type' => $this->type,
+            'address' => $this->address,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'from_monday' => $this->from_monday,
+            'to_monday' => $this->to_monday,
+            'from_tuesday' => $this->from_tuesday,
+            'to_tuesday' => $this->to_tuesday,
+            'from_wednesday' => $this->from_wednesday,
+            'to_wednesday' => $this->to_wednesday,
+            'from_thursday' => $this->from_thursday,
+            'to_thursday' => $this->to_thursday,
+            'from_friday' => $this->from_friday,
+            'to_friday' => $this->to_friday,
+            'from_saturday' => $this->from_saturday,
+            'to_saturday' => $this->to_saturday,
+            'from_sunday' => $this->from_sunday,
+            'to_sunday' => $this->to_sunday,
+            'country_id' => $this->country_id,
+            'city_id' => $this->city_id,
             'path_type' => $this->path_type,
             'amount_type' => $this->amount_type,
             'start_amount' => $this->start_amount,

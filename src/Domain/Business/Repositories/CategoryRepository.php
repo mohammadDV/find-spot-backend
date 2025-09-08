@@ -5,9 +5,11 @@ namespace Domain\Business\Repositories;
 use Application\Api\Business\Requests\BusinessCategoryRequest;
 use Application\Api\Business\Resources\CategoryResource;
 use Application\Api\Business\Resources\FilterResource;
+use Application\Api\Business\Resources\ServiceResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\Business\Models\Category;
+use Domain\Business\Models\Service;
 use Domain\Business\Repositories\Contracts\ICategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -147,6 +149,32 @@ class CategoryRepository implements ICategoryRepository
 
         return $filters->through(fn ($filter) => new FilterResource($filter));
 
+    }
+
+    /**
+     * Get the services associated with a specific category.
+     * @param TableRequest $request
+     * @param Category $category
+     * @return LengthAwarePaginator
+     */
+    public function getCategoryServices(TableRequest $request, Category $category) :LengthAwarePaginator
+    {
+
+        if (empty($category->services()->count())) {
+            $category = Category::find($category->parent_id);
+        }
+
+
+        $search = $request->get('query');
+        $services = $category->services()
+            ->when(!empty($search), function ($query) use ($search) {
+                return $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->where('status', 1)
+            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
+            ->paginate($request->get('count', 25));
+
+        return $services->through(fn ($service) => new ServiceResource($service));
     }
 
     /**

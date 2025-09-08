@@ -93,6 +93,17 @@ class CategoryController extends Controller
     }
 
     /**
+     * Get the services associated with a specific category.
+     * @param TableRequest $request
+     * @param Category $category
+     * @return JsonResponse
+     */
+    public function getCategoryServices(TableRequest $request, Category $category): JsonResponse
+    {
+        return response()->json($this->repository->getCategoryServices($request, $category), Response::HTTP_OK);
+    }
+
+    /**
      * Store the category.
      * @param CategoryRequest $request
      * @return JsonResponse
