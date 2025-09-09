@@ -70,7 +70,7 @@ class ReviewRepository implements IReviewRepository
     public function getReviewsPerBusiness(TableRequest $request, Business $business) :LengthAwarePaginator
     {
         $reviews = Review::query()
-            ->with('user:id,nickname,profile_photo_path,rate', 'services')
+            ->with('user:id,nickname,profile_photo_path,rate', 'services', 'files')
             ->withCount('likes')
             ->withCount('dislikes')
             ->where('business_id', $business->id)
@@ -226,7 +226,7 @@ class ReviewRepository implements IReviewRepository
     public function changeStatus(Review $review) :JsonResponse
     {
         $this->checkLevelAccess(Auth::user()->id == $review->user_id);
-        
+
         $review->update([
             'status' => in_array($review->status, [Review::PENDING, Review::APPROVED]) ? Review::CANCELLED : Review::PENDING
         ]);

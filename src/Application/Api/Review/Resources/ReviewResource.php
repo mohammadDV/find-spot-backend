@@ -2,6 +2,7 @@
 
 namespace Application\Api\Review\Resources;
 
+use Application\Api\Business\Resources\FileResource;
 use Application\Api\Business\Resources\ServiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Application\Api\User\Resources\UserResource;
@@ -27,6 +28,7 @@ class ReviewResource extends JsonResource
             'owner_id' => $this->owner_id,
             'user_id' => $this->user_id,
             'user' => new UserResource($this->whenLoaded('user')),
+            'files' => FileResource::collection($this->whenLoaded('files')),
             'likes_count' => $this->likes_count,
             'dislikes_count' => $this->dislikes_count,
             'quality_services' => ServiceResource::collection($this->whenLoaded('services')),
