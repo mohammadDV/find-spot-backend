@@ -60,6 +60,9 @@ Route::get('/active-subjects', [TicketSubjectController::class, 'activeSubjects'
 // Route::get('/filters/{filter}', [FilterController::class, 'show'])->name('filters.show');
 
 
+Route::get('/weekends', [BusinessController::class, 'getWeekends'])->name('site.weekends.index');
+
+
 Route::get('/posts', [PostController::class, 'getPosts'])->name('site.posts.index');
 Route::get('/posts/popular', [PostController::class, 'getPopularPosts'])->name('site.posts.popular');
 Route::get('/posts/latest', [PostController::class, 'getLatestPosts'])->name('site.posts.latest');
