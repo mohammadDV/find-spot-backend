@@ -120,6 +120,19 @@ class BusinessController extends Controller
     }
 
     /**
+     * Get weekends.
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getWeekends(): JsonResponse
+    {
+        return response()->json([
+            'status' => 1,
+            'data' => $this->repository->getWeekends()
+        ], Response::HTTP_OK);
+    }
+
+    /**
      * Search businesses with filters.
      * @param SearchBusinessRequest $request
      * @return JsonResponse

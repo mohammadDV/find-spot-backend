@@ -19,6 +19,7 @@ use DateTimeZone;
 use Domain\Business\Models\Category;
 use Domain\Business\Models\Favorite;
 use Domain\Business\Models\ServiceVote;
+use Domain\Business\Models\Weekend;
 use Domain\Notification\Services\NotificationService;
 use Domain\Review\Models\Review;
 use Domain\User\Services\TelegramNotificationService;
@@ -459,6 +460,25 @@ class BusinessRepository implements IBusinessRepository
                 'offers' => $businesses,
                 'weekends' => $weekends
         ];
+    }
+
+    /**
+     * Get weekends.
+     * @return array
+     */
+    public function getWeekends(): array
+    {
+
+        $weekends = Weekend::query()->where('status', 1)->get();
+
+        $result = [];
+
+        foreach ($weekends as $weekend) {
+            $result[$weekend->id]['title'] = $weekend->title;
+            $result[$weekend->id]['businesses'] = $weekend->businesses()->where('status', Business::APPROVED)->get()->map(fn ($business) => new BusinessBoxResource($business));
+        }
+
+        return $result;
     }
 
     /**

@@ -80,6 +80,12 @@ interface IBusinessRepository
     public function getFeaturedBusinesses(): array;
 
     /**
+     * Get weekends.
+     * @return array
+     */
+    public function getWeekends(): array;
+
+    /**
      * Search businesses with filters and pagination.
      * @param SearchBusinessRequest $request
      * @return LengthAwarePaginator
