@@ -83,4 +83,14 @@ class EventController extends Controller
         return response()->json($this->repository->getFavoriteEvents($request), Response::HTTP_OK);
     }
 
+    /**
+     * Get similar events.
+     * @param Event $event
+     * @return JsonResponse
+     */
+    public function similarEvents(Event $event): JsonResponse
+    {
+        return response()->json($this->repository->similarEvents($event), Response::HTTP_OK);
+    }
+
 }

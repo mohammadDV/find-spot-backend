@@ -47,6 +47,7 @@ Route::prefix('events')->group(function () {
     Route::get('sliders', [EventController::class, 'sliders'])->name('events.vip');
     Route::get('/', [EventController::class, 'index'])->name('events.index');
     Route::get('{event}', [EventController::class, 'show'])->name('events.show');
+    Route::get('{event}/similar', [EventController::class, 'similarEvents'])->name('event.similar');
 });
 
 // user info

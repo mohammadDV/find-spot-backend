@@ -174,4 +174,23 @@ class EventRepository implements IEventRepository
 
         return $events->through(fn ($event) => new EventBoxResource($event));
     }
+
+    /**
+     * Get similar events.
+     * @param Event $event
+     */
+    public function similarEvents(Event $event)
+    {
+        return Event::query()
+            ->where('status', 1)
+            ->where('id', '!=', $event->id)
+            ->where(function($query) {
+                $query->where('end_date', '>=', now()->startOfDay())
+                    ->orWhereNull('end_date');
+            })
+            ->inRandomOrder()
+            ->limit(4)
+            ->get()
+            ->map(fn ($event) => new EventBoxResource($event));
+    }
 }

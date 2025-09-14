@@ -54,4 +54,10 @@ interface IEventRepository
      */
     public function getFavoriteEvents(TableRequest $request): LengthAwarePaginator;
 
+    /**
+     * Get similar events.
+     * @param Event $event
+     */
+    public function similarEvents(Event $event);
+
 }
