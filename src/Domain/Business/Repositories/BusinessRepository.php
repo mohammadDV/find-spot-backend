@@ -47,9 +47,7 @@ class BusinessRepository implements IBusinessRepository
         $search = $request->get('query');
         $status = $request->get('status');
         $businesses = Business::query()
-            ->with([
-                'area:id,title',
-            ])
+            ->with(['area', 'tags'])
             ->when(Auth::user()->level != 3, function ($query) {
                 return $query->where('user_id', Auth::user()->id);
             })
@@ -388,9 +386,7 @@ class BusinessRepository implements IBusinessRepository
     {
         $search = $request->get('query');
         $businesses = Business::query()
-            ->with([
-                'area:id,title',
-            ])
+            ->with(['area', 'tags'])
             ->whereHas('favorites', function ($query) {
                 $query->where('favorites.user_id', Auth::user()->id);
             })
@@ -410,6 +406,7 @@ class BusinessRepository implements IBusinessRepository
     public function similarBusinesses(Business $business)
     {
         $similarBusinesses = Business::query()
+            ->with(['area', 'tags'])
             ->where('active', 1)
             ->where('status', Business::APPROVED)
             ->whereHas('categories', function ($query) use ($business) {
@@ -431,9 +428,7 @@ class BusinessRepository implements IBusinessRepository
 
         $businesses = Business::query()
             ->select('id', 'title', 'amount_type', 'start_amount', 'rate', 'lat', 'long', 'image', 'area_id')
-            ->with([
-                'area:id,title',
-            ])
+            ->with(['area', 'tags'])
             ->where('active', 1)
             ->where('status', Business::APPROVED)
             ->orderBy('priority', 'desc')
@@ -443,9 +438,7 @@ class BusinessRepository implements IBusinessRepository
 
         $weekends = Business::query()
             ->select('id', 'title', 'amount_type', 'start_amount', 'rate', 'lat', 'long', 'image', 'area_id')
-            ->with([
-                'area:id,title',
-            ])
+            ->with(['area', 'tags'])
             ->whereHas('weekends', function ($query) {
                 $query->where('weekends.status', 1);
             })
@@ -475,7 +468,7 @@ class BusinessRepository implements IBusinessRepository
 
         foreach ($weekends as $weekend) {
             $result[$weekend->id]['title'] = $weekend->title;
-            $result[$weekend->id]['businesses'] = $weekend->businesses()->where('status', Business::APPROVED)->get()->map(fn ($business) => new BusinessBoxResource($business));
+            $result[$weekend->id]['businesses'] = $weekend->businesses()->with(['area', 'tags'])->where('status', Business::APPROVED)->get()->map(fn ($business) => new BusinessBoxResource($business));
         }
 
         return $result;
@@ -505,6 +498,7 @@ class BusinessRepository implements IBusinessRepository
             ->get();
 
         $queryBusiness = Business::query()
+            ->with(['area', 'tags'])
             ->where('active', 1)
             ->where('status', Business::APPROVED)
             ->where(function ($query) use ($search) {
@@ -564,6 +558,7 @@ class BusinessRepository implements IBusinessRepository
         // Try to get results from cache first
         // return cache()->remember($cacheKey, now()->addMinutes(5), function () use ($request, $today) {
             $query = Business::query()
+                ->with(['area', 'tags'])
                 ->where('active', 1)
                 ->where('status', Business::APPROVED);
 
