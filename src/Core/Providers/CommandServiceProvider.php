@@ -3,6 +3,7 @@
 namespace Core\Providers;
 
 use Core\Console\Commands\AddPermissions;
+use Core\Console\Commands\AddFiltersToCategory;
 use Illuminate\Support\ServiceProvider;
 
 class CommandServiceProvider extends ServiceProvider
@@ -14,6 +15,7 @@ class CommandServiceProvider extends ServiceProvider
     {
         $this->commands([
             AddPermissions::class,
+            AddFiltersToCategory::class,
         ]);
     }
 
