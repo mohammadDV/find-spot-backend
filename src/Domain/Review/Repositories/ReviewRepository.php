@@ -38,6 +38,7 @@ class ReviewRepository implements IReviewRepository
             ->with('user:id,nickname,profile_photo_path,rate')
             ->withCount('likes')
             ->withCount('dislikes')
+            ->where('user_id', Auth::id())
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('comment', 'like', '%' . $search . '%');
             })
