@@ -4,9 +4,14 @@ namespace Application\Api\Event\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
+use Domain\Business\Models\Favorite;
+use Domain\Event\Models\Event;
+use Core\Http\traits\GlobalFunc;
 
 class EventResource extends JsonResource
 {
+    use GlobalFunc;
+
     /**
      * Transform the resource into an array.
      *
@@ -15,6 +20,13 @@ class EventResource extends JsonResource
      */
     public function toArray($request)
     {
+        // is favorite or not
+        $isFavorite = Favorite::query()
+                ->where('favoritable_type', Event::class)
+                ->where('favoritable_id', $this->id)
+                ->where('user_id', $this->getAuthenticatedUser()->id)
+                ->exists();
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -38,6 +50,7 @@ class EventResource extends JsonResource
             'end_date' => Carbon::parse($this->end_date)->format('F j'),
             'slider_image' => $this->slider_image,
             'video' => $this->video,
+            'is_favorite' => $isFavorite,
         ];
     }
 }

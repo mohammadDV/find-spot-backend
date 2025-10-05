@@ -5,6 +5,7 @@ namespace Core\Http\traits;
 use App\Services\Image\ImageService;
 use Domain\User\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 trait GlobalFunc
 {
@@ -37,6 +38,27 @@ trait GlobalFunc
         }
 
         return true;
+    }
+
+    /**
+     * Get authenticated user from bearer token
+     * @return User|null
+     */
+    public function getAuthenticatedUser(): ?User
+    {
+        $token = request()->bearerToken();
+
+        if (!$token) {
+            return null;
+        }
+
+        $accessToken = PersonalAccessToken::findToken($token);
+
+        if (!$accessToken) {
+            return null;
+        }
+
+        return $accessToken->tokenable;
     }
 
     /**
