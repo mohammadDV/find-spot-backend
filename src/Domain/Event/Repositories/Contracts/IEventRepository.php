@@ -16,27 +16,27 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface IEventRepository
 {
     /**
-     * Get the businesses pagination.
+     * Get the events pagination.
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
     public function index(TableRequest $request) :LengthAwarePaginator;
 
     /**
-     * Get the businesses pagination.
+     * Get the events pagination.
      * @return array
      */
     public function sliders() :array;
 
     /**
-     * Get the business.
+     * Get the event.
      * @param Event $event
      * @return arrayEventResource
      */
     public function show(Event $event) :EventResource;
 
     /**
-     * Get featured businesses by type with configurable limits.
+     * Get featured events by type with configurable limits.
      */
     public function getFeaturedEvents();
 

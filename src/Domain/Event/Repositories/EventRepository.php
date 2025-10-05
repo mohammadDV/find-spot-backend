@@ -2,17 +2,14 @@
 
 namespace Domain\Event\Repositories;
 
-use Application\Api\Business\Resources\BusinessResource;
 use Application\Api\Event\Resources\EventResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
-use Domain\Business\Models\Business;
 use Domain\Business\Models\Favorite;
 use Domain\Event\Models\Event;
 use Domain\Event\Repositories\Contracts\IEventRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
-use Application\Api\Business\Requests\SearchBusinessRequest;
 use Application\Api\Event\Resources\EventBoxResource;
 use Domain\User\Services\TelegramNotificationService;
 use Illuminate\Http\JsonResponse;
@@ -31,7 +28,7 @@ class EventRepository implements IEventRepository
     }
 
     /**
-     * Get the businesses pagination.
+     * Get the events pagination.
      * @param TableRequest $request
      * @return LengthAwarePaginator
      */
@@ -54,7 +51,7 @@ class EventRepository implements IEventRepository
     }
 
     /**
-     * Get the businesses pagination.
+     * Get the events sliders.
      * @return array
      */
     public function sliders() :array
@@ -107,7 +104,7 @@ class EventRepository implements IEventRepository
     }
 
     /**
-     * Get featured businesses by type with configurable limits.
+     * Get featured events by type with configurable limits.
      */
     public function getFeaturedEvents()
     {

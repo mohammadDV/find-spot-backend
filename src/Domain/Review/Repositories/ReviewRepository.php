@@ -34,8 +34,8 @@ class ReviewRepository implements IReviewRepository
     {
 
         $search = $request->get('query');
-        return Review::query()
-            ->with('user:id,nickname,profile_photo_path,rate')
+        $reviews = Review::query()
+            ->with('user:id,nickname,profile_photo_path,rate', 'services', 'files')
             ->withCount('likes')
             ->withCount('dislikes')
             ->where('user_id', Auth::id())
@@ -44,6 +44,9 @@ class ReviewRepository implements IReviewRepository
             })
             ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
             ->paginate($request->get('count', 25));
+
+
+        return $reviews->through(fn ($review) => new ReviewResource($review));
     }
 
     /**
@@ -80,7 +83,7 @@ class ReviewRepository implements IReviewRepository
             ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
             ->paginate($request->get('count', 25));
 
-        return $reviews->through(fn ($review) => new ReviewResource($review));;
+        return $reviews->through(fn ($review) => new ReviewResource($review));
     }
 
     /**

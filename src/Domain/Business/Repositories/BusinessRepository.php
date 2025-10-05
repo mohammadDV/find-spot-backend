@@ -90,10 +90,20 @@ class BusinessRepository implements IBusinessRepository
 
         $reviews = $this->getReviewsByRate($business->id);
 
+        $user = $this->getAuthenticatedUser();
+
+        // is favorite or not
+        $isFavorite = Favorite::query()
+                ->where('favoritable_type', Business::class)
+                ->where('favoritable_id', $business->id)
+                ->where('user_id', $user?->id)
+                ->exists();
+
         return [
             'business' => new BusinessResource($business),
             'quality_services' => $services,
             'reviews' => $reviews,
+            'is_favorite' => $isFavorite,
         ];
 
     }
