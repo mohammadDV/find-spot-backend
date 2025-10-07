@@ -4,7 +4,6 @@ namespace Application\Api\Business\Controllers;
 
 use Application\Api\Business\Requests\CategoryRequest;
 use Application\Api\Business\Resources\CategoryWithParentsResource;
-use Application\Api\Business\Resources\FilterResource;
 use Core\Http\Controllers\Controller;
 use Core\Http\Requests\TableRequest;
 use Domain\Business\Models\Category;
@@ -90,6 +89,17 @@ class CategoryController extends Controller
     public function getCategoryFilters(TableRequest $request, Category $category): JsonResponse
     {
         return response()->json($this->repository->getCategoryFilters($request, $category), Response::HTTP_OK);
+    }
+
+    /**
+     * Get the facilities associated with a specific category.
+     * @param TableRequest $request
+     * @param Category $category
+     * @return JsonResponse
+     */
+    public function getCategoryFacilities(TableRequest $request, Category $category): JsonResponse
+    {
+        return response()->json($this->repository->getCategoryFacilities($request, $category), Response::HTTP_OK);
     }
 
     /**
