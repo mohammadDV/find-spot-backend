@@ -10,6 +10,8 @@ use Application\Api\Business\Resources\ServiceResource;
 use Core\Http\Requests\TableRequest;
 use Core\Http\traits\GlobalFunc;
 use Domain\Business\Models\Category;
+use Domain\Business\Models\Facility;
+use Domain\Business\Models\Filter;
 use Domain\Business\Repositories\Contracts\ICategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -133,34 +135,45 @@ class CategoryRepository implements ICategoryRepository
     /**
      * Get the filters associated with a specific category.
      * @param TableRequest $request
-     * @param Category $category
      * @return LengthAwarePaginator
      */
-    public function getCategoryFilters(TableRequest $request, Category $category) :LengthAwarePaginator
+    public function getCategoryFilters(TableRequest $request) :LengthAwarePaginator
     {
+
+        $categoryIds = $request->get('categories', []);
+
         $search = $request->get('query');
-        $filters = $category->filters()
+        $filters = Filter::query()
+            ->whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('categories.id', $categoryIds);
+            })
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
             ->where('status', 1)
-            ->orderBy($request->get('column', 'priority'), $request->get('sort', 'desc'))
+            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
             ->paginate($request->get('count', 25));
+
 
         return $filters->through(fn ($filter) => new FilterResource($filter));
 
     }
 
     /**
-     * Get the facilities associated with a specific category.
+     * Get the facilities associated with multiple categories.
      * @param TableRequest $request
-     * @param Category $category
+     * @param array $categories - Array of Category models or category IDs
      * @return LengthAwarePaginator
      */
-    public function getCategoryFacilities(TableRequest $request, Category $category) :LengthAwarePaginator
+    public function getCategoryFacilities(TableRequest $request) :LengthAwarePaginator
     {
+        $categoryIds = $request->get('categories', []);
+
         $search = $request->get('query');
-        $facilities = $category->facilities()
+        $facilities = Facility::query()
+            ->whereHas('categories', function ($query) use ($categoryIds) {
+                $query->whereIn('categories.id', $categoryIds);
+            })
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
@@ -183,7 +196,6 @@ class CategoryRepository implements ICategoryRepository
         if (empty($category->services()->count())) {
             $category = Category::find($category->parent_id);
         }
-
 
         $search = $request->get('query');
         $services = $category->services()

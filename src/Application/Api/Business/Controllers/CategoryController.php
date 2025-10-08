@@ -81,25 +81,23 @@ class CategoryController extends Controller
     }
 
     /**
-     * Get the filters associated with a specific category.
+     * Get the filters associated with multiple categories.
      * @param TableRequest $request
-     * @param Category $category
      * @return JsonResponse
      */
-    public function getCategoryFilters(TableRequest $request, Category $category): JsonResponse
+    public function getCategoryFilters(TableRequest $request): JsonResponse
     {
-        return response()->json($this->repository->getCategoryFilters($request, $category), Response::HTTP_OK);
+        return response()->json($this->repository->getCategoryFilters($request), Response::HTTP_OK);
     }
 
     /**
-     * Get the facilities associated with a specific category.
+     * Get the facilities associated with multiple categories.
      * @param TableRequest $request
-     * @param Category $category
      * @return JsonResponse
      */
-    public function getCategoryFacilities(TableRequest $request, Category $category): JsonResponse
+    public function getCategoryFacilities(TableRequest $request): JsonResponse
     {
-        return response()->json($this->repository->getCategoryFacilities($request, $category), Response::HTTP_OK);
+        return response()->json($this->repository->getCategoryFacilities($request),Response::HTTP_OK);
     }
 
     /**

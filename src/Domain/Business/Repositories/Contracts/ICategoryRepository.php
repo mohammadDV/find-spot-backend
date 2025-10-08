@@ -63,18 +63,16 @@ interface ICategoryRepository
     /**
      * Get the filters associated with a specific category.
      * @param TableRequest $request
-     * @param Category $category
      * @return LengthAwarePaginator
      */
-    public function getCategoryFilters(TableRequest $request, Category $category) :LengthAwarePaginator;
+    public function getCategoryFilters(TableRequest $request) :LengthAwarePaginator;
 
     /**
-     * Get the facilities associated with a specific category.
+     * Get the facilities associated with multiple categories.
      * @param TableRequest $request
-     * @param Category $category
      * @return LengthAwarePaginator
      */
-    public function getCategoryFacilities(TableRequest $request, Category $category) :LengthAwarePaginator;
+    public function getCategoryFacilities(TableRequest $request) :LengthAwarePaginator;
 
     /**
      * Get the services associated with a specific category.
