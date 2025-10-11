@@ -36,7 +36,7 @@ class BusinessRequest extends BaseRequest
             'phone' => ['nullable', 'string'],
             'email' => ['nullable', 'email'],
             'address' => ['nullable', 'string'],
-            'start_amount' => ['required', 'numeric', 'min:0'],
+            'start_amount' => ['nullable', 'numeric', 'min:0'],
             'amount_type' => ['nullable', 'integer', 'in:1,2,3,4'],
             'image' => ['nullable', 'string', 'max:2048'],
             'menu_image' => ['nullable', 'string', 'max:2048'],
