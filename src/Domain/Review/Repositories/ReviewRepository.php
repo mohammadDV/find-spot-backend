@@ -11,7 +11,6 @@ use Domain\Business\Models\ServiceVote;
 use Domain\Notification\Services\NotificationService;
 use Domain\Review\Models\Review;
 use Domain\Review\Repositories\Contracts\IReviewRepository;
-use Domain\User\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
@@ -102,12 +101,12 @@ class ReviewRepository implements IReviewRepository
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        // if (empty(Auth::user()->verified_at)) {
-        //     return response()->json([
-        //         'status' => 0,
-        //         'message' => __('site.You must verify your account to create a review'),
-        //     ], Response::HTTP_BAD_REQUEST);
-        // }
+        if (empty(Auth::user()->verified_at)) {
+            return response()->json([
+                'status' => 0,
+                'message' => __('site.You must verify your account to create a review'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         // Check for duplicate review
         $duplicate = Review::query()

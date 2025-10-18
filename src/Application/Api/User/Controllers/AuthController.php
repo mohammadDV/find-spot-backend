@@ -160,11 +160,11 @@ class AuthController extends Controller
     {
 
         Auth::user()->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'nickname' => $request->nickname,
-            'mobile' => $request->mobile,
-            'profile_photo_path' => $request->profile_photo_path,
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'nickname' => $request->input('nickname'),
+            'mobile' => $request->input('mobile'),
+            'profile_photo_path' => $request->input('profile_photo_path'),
             'verified_at' => now(),
         ]);
 

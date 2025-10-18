@@ -21,6 +21,7 @@ class CategoryResource extends JsonResource
             'children' => $this->when($this->children->isNotEmpty(), function () {
                 return $this->children->where('status', 1)->map(function ($child) {
                     return [
+                        'id' => $child->id,
                         'title' => $child->title,
                         'image' => $child->image ?? '',
                         'status' => $child->status,
