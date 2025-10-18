@@ -3,7 +3,7 @@
 namespace Core\Console\Commands;
 
 use Domain\Business\Models\Category;
-use Domain\Business\Models\Filter;
+use Domain\Business\Models\Facility;
 use Illuminate\Console\Command;
 
 class AddFiltersToCategory extends Command
@@ -27,18 +27,13 @@ class AddFiltersToCategory extends Command
      */
     public function handle()
     {
-        $categoryId = 20;
+        $categoryId = 134;
         $titles = [
-            'ایرانی',
-            'ترکی',
-            'فست‌فود',
-            'آسیایی',
-            'عربی',
-            'مدیترانه‌ای',
-            'شیرینی/نوشیدنی',
-            'برندهای زنجیره‌ای',
-            'گزینه‌های سالم',
-            'اقتصادی/دانشجویی',
+            "تعمیرات جزئی و فوری منزل",
+            "نصب وسایل کوچک (شیرآلات، لوازم خانگی)",
+            "رفع اشکالات جزئی برق و لوله‌کشی",
+            "خدمات سیار",
+            "هزینه شفاف بر اساس زمان کار",
         ];
         // $interactive = $this->option('interactive');
 
@@ -76,7 +71,7 @@ class AddFiltersToCategory extends Command
             }
 
             // Create or find existing filter
-            $filter = Filter::firstOrCreate(
+            $facility = Facility::firstOrCreate(
                 ['title' => trim($title)],
                 [
                     'title' => trim($title),
@@ -84,31 +79,31 @@ class AddFiltersToCategory extends Command
                 ]
             );
 
-            if ($filter->wasRecentlyCreated) {
+            if ($facility->wasRecentlyCreated) {
                 $createdCount++;
-                $this->line("Created filter: {$filter->title}");
+                $this->line("Created facility: {$facility->title}");
             } else {
-                $this->line("Found existing filter: {$filter->title}");
+                $this->line("Found existing facility: {$facility->title}");
             }
 
             // Attach filter to category if not already attached
-            if (!$category->filters()->where('filter_id', $filter->id)->exists()) {
-                $category->filters()->attach($filter->id, [
-                    'priority' => 0,
+            if (!$category->facilities()->where('facility_id', $facility->id)->exists()) {
+                $category->facilities()->attach($facility->id, [
+                    // 'priority' => 0,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
                 $attachedCount++;
-                $this->line("Attached filter '{$filter->title}' to category '{$category->title}'");
+                $this->line("Attached facility '{$facility->title}' to category '{$category->title}'");
             } else {
-                $this->line("Filter '{$filter->title}' already attached to category '{$category->title}'");
+                $this->line("Facility '{$facility->title}' already attached to category '{$category->title}'");
             }
         }
 
         $this->info("Summary:");
-        $this->info("- Created {$createdCount} new filters");
-        $this->info("- Attached {$attachedCount} filters to category");
-        $this->info("- Total filters in category: " . $category->filters()->count());
+        $this->info("- Created {$createdCount} new facilities");
+        $this->info("- Attached {$attachedCount} facilities to category");
+        $this->info("- Total facilities in category: " . $category->facilities()->count());
 
         return 0;
     }
@@ -120,10 +115,10 @@ class AddFiltersToCategory extends Command
     {
         $titles = [];
 
-        $this->info("Enter filter titles (press Enter with empty input to finish):");
+        $this->info("Enter facility titles (press Enter with empty input to finish):");
 
         while (true) {
-            $title = $this->ask("Enter filter title");
+            $title = $this->ask("Enter facility title");
 
             if (empty(trim($title))) {
                 break;

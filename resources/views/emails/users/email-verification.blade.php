@@ -11,7 +11,7 @@
                 <span class="dot"></span>
                 <span class="dot"></span>
             </span>
-            Oshtow
+            Finybo
         </h1>
     </div>
 

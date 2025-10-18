@@ -330,8 +330,9 @@ class BusinessResource extends Resource
                             ->disk('s3')
                             ->directory('businesses/videos')
                             ->visibility('public')
-                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/wmv'])
+                            ->acceptedFileTypes(['video/mp4', 'video/avi', 'video/mov', 'video/quicktime', 'video/wmv', 'video/webm', 'video/3gpp', 'video/x-msvideo'])
                             ->maxSize(100 * 1024) // 100MB
+                            ->helperText(__('Maximum file size: 100MB. Supported formats: MP4, AVI, MOV, WMV, WEBM'))
                             ->columnSpanFull(),
                     ])
                     ->collapsible(),
