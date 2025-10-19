@@ -40,6 +40,7 @@ class BusinessRequest extends BaseRequest
             'amount_type' => ['nullable', 'integer', 'in:1,2,3,4'],
             'image' => ['nullable', 'string', 'max:2048'],
             'menu_image' => ['nullable', 'string', 'max:2048'],
+            'slider_image' => ['nullable', 'string', 'max:2048'],
             'video' => ['nullable', 'string', 'max:2048'],
             'from_monday' => ['nullable', 'integer', 'between:0,23'],
             'from_tuesday' => ['nullable', 'integer', 'between:0,23'],

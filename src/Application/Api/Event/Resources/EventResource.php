@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Domain\Business\Models\Favorite;
 use Domain\Event\Models\Event;
 use Core\Http\traits\GlobalFunc;
+use Illuminate\Support\Facades\Auth;
 
 class EventResource extends JsonResource
 {
@@ -20,12 +21,16 @@ class EventResource extends JsonResource
      */
     public function toArray($request)
     {
-        // is favorite or not
-        $isFavorite = Favorite::query()
+
+        $isFavorite = false;
+
+        if (Auth::check()) {
+            $isFavorite = Favorite::query()
                 ->where('favoritable_type', Event::class)
                 ->where('favoritable_id', $this->id)
                 ->where('user_id', $this->getAuthenticatedUser()->id)
                 ->exists();
+        }
 
         return [
             'id' => $this->id,
@@ -45,7 +50,6 @@ class EventResource extends JsonResource
             'youtube' => $this->youtube,
             'image' => $this->image,
             'description' => $this->description,
-            'image' => $this->image,
             'start_date' => Carbon::parse($this->start_date)->format('F j'),
             'end_date' => Carbon::parse($this->end_date)->format('F j'),
             'slider_image' => $this->slider_image,

@@ -82,40 +82,52 @@ class AuthController extends Controller
      */
     public function handleGoogleCallback(Request $request)
     {
-
         $code = $request->input('code');
+        $frontendUrl = env('FRONTEND_URL', 'http://localhost:3000');
 
         if (!$code) {
-            return redirect('/auth/check-verification');
+            return redirect($frontendUrl . '/auth/login?error=no_code');
         }
 
-        // Exchange code for token
-        $response = Http::asForm()->post('https://oauth2.googleapis.com/token', [
-            'code' => $code,
-            'client_id' => env('GOOGLE_CLIENT_ID'),
-            'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-            'redirect_uri' => env('GOOGLE_REDIRECT_URI'),
-            'grant_type' => 'authorization_code',
-        ]);
+        try {
+            // Exchange code for token
+            $response = Http::asForm()->post('https://oauth2.googleapis.com/token', [
+                'code' => $code,
+                'client_id' => env('GOOGLE_CLIENT_ID'),
+                'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+                'redirect_uri' => env('GOOGLE_REDIRECT_URI'),
+                'grant_type' => 'authorization_code',
+            ]);
 
-        $tokenData = $response->json();
+            if (!$response->successful()) {
+                return redirect($frontendUrl . '/auth/login?error=token_exchange_failed');
+            }
 
-        // Get user info
-        $userResponse = Http::withToken($tokenData['access_token'])
-            ->get('https://www.googleapis.com/oauth2/v3/userinfo');
+            $tokenData = $response->json();
 
-        $payload = $userResponse->json();
+            // Get user info
+            $userResponse = Http::withToken($tokenData['access_token'])
+                ->get('https://www.googleapis.com/oauth2/v3/userinfo');
 
-        if ($payload) {
+            if (!$userResponse->successful()) {
+                return redirect($frontendUrl . '/auth/login?error=user_info_failed');
+            }
+
+            $payload = $userResponse->json();
+
+            if (!$payload || !isset($payload['email'])) {
+                return redirect($frontendUrl . '/auth/login?error=invalid_user_data');
+            }
 
             $user = User::where('email', $payload['email'])->first();
+            $isNewUser = false;
 
             if (!empty($user->id)) {
-                $user->createToken('finybotoken')->plainTextToken;
+                // Existing user - create token
+                $token = $user->createToken('finybotoken')->plainTextToken;
             } else {
-
+                // New user - register and create token
                 $nickname = str_replace(' ', '-', $payload['name']);
-
                 $nickname = $this->nicknameCheck($nickname);
                 $password = $nickname . '!@#' . rand(1111, 9999);
 
@@ -130,13 +142,28 @@ class AuthController extends Controller
                 ]);
 
                 $user->assignRole(['user']);
-
-                $user->createToken('finybotoken')->plainTextToken;
+                $token = $user->createToken('finybotoken')->plainTextToken;
+                $isNewUser = true;
             }
+
+            // Build redirect URL with authentication data
+            $queryParams = http_build_query([
+                'token' => $token,
+                'is_new_user' => $isNewUser ? '1' : '0',
+                'verify_email' => !empty($user->email_verified_at) ? '1' : '0',
+                'verify_access' => !empty($user->verified_at) ? '1' : '0',
+                'customer_number' => $user->customer_number,
+                'user' => new UserResource($user),
+                'email' => $user->email,
+            ]);
+
+            // Redirect to frontend with token
+            return redirect($frontendUrl . '/auth/google/callback?' . $queryParams);
+
+        } catch (\Exception $e) {
+            \Log::error('Google OAuth Error: ' . $e->getMessage());
+            return redirect($frontendUrl . '/auth/login?error=oauth_failed');
         }
-
-        return redirect('/auth/check-verification');
-
     }
 
     /**
