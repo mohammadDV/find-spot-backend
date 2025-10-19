@@ -229,12 +229,6 @@
         <div class="email-card">
             @yield('content')
         </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <img src="https://varzeshpod-prod.s3.ir-thr-at1.arvanstorage.com/uploads/images/default/user-8/2025/10/19/EkeDwVgmts3OAOUPUY8eXQF7ZA9WVPAeoQjD2MT6.jpg" alt="Finybo" class="footer-logo-img" width="80" height="20" style="height: 20px; width: auto;">
-            <span>©2025 Finybo, All rights reserved.</span>
-        </div>
     </div>
 </body>
 </html>
