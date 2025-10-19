@@ -35,7 +35,7 @@ return [
     ],
 
     'default-current-index-image' => 'medium',
-    'default-profile-image' => 'default/default-avatar.jpg',
+    'default-profile-image' => 'default-avatar.png',
     'default-background-image' => 'default/default-user-banner.jpg',
     'default_business_image' => 'default/default-destination.jpeg',
 ];

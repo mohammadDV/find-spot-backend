@@ -211,7 +211,7 @@ class AuthController extends Controller
             'last_name' => $request->input('last_name'),
             'nickname' => $request->input('nickname'),
             'mobile' => $request->input('mobile'),
-            'profile_photo_path' => $request->input('profile_photo_path'),
+            'profile_photo_path' => $request->input('profile_photo_path', config('image.default-profile-image')),
             'verified_at' => now(),
         ]);
 

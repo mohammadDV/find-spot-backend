@@ -5,10 +5,7 @@
 @section('content')
     <!-- Logo Section -->
     <div class="logo">
-        <h1 class="logo-text">
-            FINYBO
-            <span class="logo-dot"></span>
-        </h1>
+        <img src="https://finybo.com/images/finybo-logo.svg" alt="Finybo" class="logo-img">
     </div>
 
     <!-- Title Section -->

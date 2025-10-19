@@ -93,6 +93,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            direction: rtl;
         }
 
         .email-card {
@@ -108,24 +109,10 @@
             margin-bottom: 30px;
         }
 
-        .logo-text {
-            font-size: 28px;
-            font-weight: bold;
-            color: #1a365d;
+        .logo-img {
+            height: 40px;
+            width: auto;
             margin: 0;
-            position: relative;
-            display: inline-block;
-        }
-
-        .logo-dot {
-            position: absolute;
-            right: -8px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            background-color: #E62117;
-            border-radius: 2px;
         }
 
         .title {
@@ -165,29 +152,17 @@
             padding-top: 20px;
             font-size: 14px;
             color: #666666;
-            text-align: left;
+            text-align: center;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
 
-        .footer-logo {
-            font-size: 16px;
-            font-weight: bold;
-            color: #1a365d;
-            position: relative;
-            display: inline-block;
-        }
-
-        .footer-logo-dot {
-            position: absolute;
-            right: -8px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            background-color: #E62117;
-            border-radius: 2px;
+        .footer-logo-img {
+            height: 20px;
+            width: auto;
+            margin: 0;
         }
 
         .welcome-message {
@@ -257,10 +232,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <span class="footer-logo">
-                FINYBO
-                <span class="footer-logo-dot"></span>
-            </span>
+            <img src="https://finybo.com/images/finybo-logo.svg" alt="Finybo" class="footer-logo-img">
             <span>©2025 Finybo, All rights reserved.</span>
         </div>
     </div>
