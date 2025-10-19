@@ -24,6 +24,7 @@ class PostResource extends JsonResource
             'content' => $this->content,
             'type' => $this->type,
             'image' => $this->image,
+            'slide' => $this->slide,
             'video' => $this->video,
             'view' => $this->view,
             'special' => $this->special,

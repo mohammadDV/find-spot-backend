@@ -232,6 +232,7 @@ class EventResource extends Resource
                     ->searchable(),
                 ImageColumn::make('image')
                     ->label(__('site.image'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->disk('s3')
                     ->visibility('public')
                     ->extraImgAttributes(['loading' => 'lazy'])
@@ -282,15 +283,18 @@ class EventResource extends Resource
                     ->boolean()
                     ->trueIcon('heroicon-o-star')
                     ->falseIcon('heroicon-o-star')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->trueColor('warning')
                     ->falseColor('gray'),
                 TextColumn::make('priority')
                     ->label(__('site.priority'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->badge()
                     ->color('info'),
                 TextColumn::make('created_at')
                     ->label(__('site.created_at'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->dateTime('Y/m/d H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)

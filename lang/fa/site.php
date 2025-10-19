@@ -1174,6 +1174,8 @@ return array(
     'content' => 'محتوای',
     'post_image' => 'تصویر پست',
     'upload_post_image' => 'تصویر پست را آپلود کنید',
+    'slide' => 'اسلاید',
+    'upload_slide' => 'اسلاید را آپلود کنید',
     'generate_thumbnails' => 'تولید تصاویر کوچک',
     'generate_thumbnails_help' => 'تصاویر کوچک و اسلاید را به طور خودکار تولید کنید',
     'author' => 'نویسنده',

@@ -137,6 +137,7 @@ class UserResource extends Resource
                 ImageColumn::make('profile_photo_path')
                     ->label(__('site.profile_photo_path'))
                     ->disk('s3')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->circular()
                     ->size(40)
                     ->extraImgAttributes(['loading' => 'lazy']), // HTML lazy loading attribute
@@ -159,6 +160,7 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('customer_number')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->label(__('site.customer_number'))
                     ->searchable()
                     ->sortable(),

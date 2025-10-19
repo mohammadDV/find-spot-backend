@@ -116,37 +116,45 @@ class PostResource extends Resource
                                     ->required(fn (callable $get) => $get('type') == 1),
                             ]),
                     ]),
-
-                Section::make(__('site.media'))
-                    ->schema([
-                        FileUpload::make('image')
-                            ->label(__('site.post_image'))
+                    Section::make(__('site.media'))
+                        ->schema([
+                            FileUpload::make('image')
+                                ->label(__('site.post_image'))
+                                ->placeholder(__('site.upload_post_image'))
+                                ->image()
+                                ->imageEditor()
+                                ->disk('s3')
+                                ->directory('posts/images')
+                                ->visibility('public')
+                                ->required(),
+                            FileUpload::make('slide')
+                            ->label(__('site.slide'))
                             ->placeholder(__('site.upload_post_image'))
                             ->image()
                             ->imageEditor()
                             ->disk('s3')
-                            ->directory('posts/images')
+                            ->directory('posts/slides')
                             ->visibility('public')
                             ->required()
-                    ])->columns(2),
+                        ])->columns(2),
 
-                Section::make(__('site.settings'))
-                    ->schema([
-                        Select::make('status')
-                            ->label(__('site.status'))
-                            ->options([
-                                0 => __('site.Inactive'),
-                                1 => __('site.Active'),
-                            ])
-                            ->default(0)
-                            ->required(),
-                        Toggle::make('special')
-                            ->label(__('site.special'))
-                            ->default(false)
-                            ->helperText(__('site.special_post_help')),
-                        Hidden::make('view')
-                            ->default(0),
-                    ])->columns(2),
+                    Section::make(__('site.settings'))
+                        ->schema([
+                            Select::make('status')
+                                ->label(__('site.status'))
+                                ->options([
+                                    0 => __('site.Inactive'),
+                                    1 => __('site.Active'),
+                                ])
+                                ->default(0)
+                                ->required(),
+                            Toggle::make('special')
+                                ->label(__('site.special'))
+                                ->default(false)
+                                ->helperText(__('site.special_post_help')),
+                            Hidden::make('view')
+                                ->default(0),
+                        ])->columns(2),
             ]);
     }
 
@@ -160,6 +168,7 @@ class PostResource extends Resource
                     ->searchable(),
                 ImageColumn::make('image')
                     ->label(__('site.image'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->disk('s3')
                     ->visibility('public')
                     ->extraImgAttributes(['loading' => 'lazy'])
@@ -205,11 +214,13 @@ class PostResource extends Resource
                     }),
                 TextColumn::make('view')
                     ->label(__('site.views'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->badge()
                     ->color('info'),
                 IconColumn::make('special')
                     ->label(__('site.special'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->boolean()
                     ->trueIcon('heroicon-o-star')
                     ->falseIcon('heroicon-o-star')
@@ -217,6 +228,7 @@ class PostResource extends Resource
                     ->falseColor('gray'),
                 TextColumn::make('user.nickname')
                     ->label(__('site.author'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable()
                     ->sortable()
                     ->url(fn ($record) => $record->user ? route('filament.admin.resources.users.edit', $record->user) : null)
