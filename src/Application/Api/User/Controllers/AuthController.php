@@ -153,8 +153,12 @@ class AuthController extends Controller
                 'verify_email' => !empty($user->email_verified_at) ? '1' : '0',
                 'verify_access' => !empty($user->verified_at) ? '1' : '0',
                 'customer_number' => $user->customer_number,
-                'user' => new UserResource($user),
+                'id' => $user->id,
+                'nickname' => $user->nickname,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
                 'email' => $user->email,
+                'profile_photo_path' => $user->profile_photo_path,
             ]);
 
             // Redirect to frontend with token
@@ -164,6 +168,21 @@ class AuthController extends Controller
             \Log::error('Google OAuth Error: ' . $e->getMessage());
             return redirect($frontendUrl . '/auth/login?error=oauth_failed');
         }
+    }
+
+    /**
+     * Get the user info.
+     */
+    public function getUserInfo()
+    {
+        $user = Auth::user();
+        return response([
+            'user' => new UserResource($user),
+            'verify_email' => !empty($user->email_verified_at),
+            'verify_access' => !empty($user->verified_at),
+            'customer_number' => $user->customer_number,
+            'status' => 1
+        ], Response::HTTP_CREATED);
     }
 
     /**

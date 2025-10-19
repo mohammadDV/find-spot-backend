@@ -11,6 +11,10 @@ Route::post('/email/verification-notification', [AuthController::class, 'resendV
     ->middleware(['auth:sanctum', 'throttle:6,1'])
     ->name('verification.send');
 
+Route::get('/auth/user-info', [AuthController::class, 'getUserInfo'])
+    ->middleware('auth:sanctum')
+    ->name('auth.user.info');
+
 
 Route::post('/register', [AuthController::class, 'register'])
                 ->middleware('guest')
