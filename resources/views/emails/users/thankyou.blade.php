@@ -6,12 +6,8 @@
     <!-- Logo Section -->
     <div class="logo">
         <h1 class="logo-text">
-            <span class="logo-dots">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </span>
-            Finybo
+            FINYBO
+            <span class="logo-dot"></span>
         </h1>
     </div>
 
@@ -33,9 +29,4 @@
         {{ __('site.Go to Dashboard') }}
     </a>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>{{ __('site.If you have any questions, feel free to reply to this email') }}.</p>
-        <p>{{ __('site.Thanks') }},<br>{{ __('site.The') }} {{ config('app.name') }} {{ __('site.Team') }}</p>
-    </div>
 @endsection

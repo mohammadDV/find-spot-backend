@@ -6,12 +6,8 @@
     <!-- Logo Section -->
     <div class="logo">
         <h1 class="logo-text">
-            <span class="logo-dots">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </span>
-            Finybo
+            FINYBO
+            <span class="logo-dot"></span>
         </h1>
     </div>
 
@@ -26,9 +22,4 @@
         رفتن به سایت
     </a>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>این ایمیل از طرف {{ config('app.name') }} ارسال شده است</p>
-        <p>اگر سوالی دارید، لطفاً با ما تماس بگیرید</p>
-    </div>
 @endsection

@@ -86,7 +86,7 @@ class AuthController extends Controller
         $frontendUrl = env('FRONTEND_URL', 'http://localhost:3000');
 
         if (!$code) {
-            return redirect($frontendUrl . '/auth/login?error=no_code');
+            return redirect($frontendUrl . '/auth/login?error=no_code&status=0');
         }
 
         try {
@@ -100,7 +100,7 @@ class AuthController extends Controller
             ]);
 
             if (!$response->successful()) {
-                return redirect($frontendUrl . '/auth/login?error=token_exchange_failed');
+                return redirect($frontendUrl . '/auth/login?error=token_exchange_failed&status=0');
             }
 
             $tokenData = $response->json();
@@ -110,13 +110,13 @@ class AuthController extends Controller
                 ->get('https://www.googleapis.com/oauth2/v3/userinfo');
 
             if (!$userResponse->successful()) {
-                return redirect($frontendUrl . '/auth/login?error=user_info_failed');
+                return redirect($frontendUrl . '/auth/login?error=user_info_failed&status=0');
             }
 
             $payload = $userResponse->json();
 
             if (!$payload || !isset($payload['email'])) {
-                return redirect($frontendUrl . '/auth/login?error=invalid_user_data');
+                return redirect($frontendUrl . '/auth/login?error=invalid_user_data&status=0');
             }
 
             $user = User::where('email', $payload['email'])->first();
@@ -159,6 +159,7 @@ class AuthController extends Controller
                 'last_name' => $user->last_name,
                 'email' => $user->email,
                 'profile_photo_path' => $user->profile_photo_path,
+                'status' => 1,
             ]);
 
             // Redirect to frontend with token
@@ -166,7 +167,7 @@ class AuthController extends Controller
 
         } catch (\Exception $e) {
             \Log::error('Google OAuth Error: ' . $e->getMessage());
-            return redirect($frontendUrl . '/auth/login?error=oauth_failed');
+            return redirect($frontendUrl . '/auth/login?error=oauth_failed&status=0');
         }
     }
 

@@ -75,9 +75,10 @@
             margin: 0;
             padding: 0;
             font-family: 'PeydaWebFaNum', 'Tahoma', 'Arial', sans-serif !important;
-            background-color: #f5f5f5;
+            background-color: #F5F5F5;
             direction: rtl;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         * {
@@ -88,10 +89,14 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .email-card {
-            background-color: #ffffff;
+            background-color: #FFFFFF;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 40px;
@@ -106,26 +111,21 @@
         .logo-text {
             font-size: 28px;
             font-weight: bold;
-            color: rgba(230, 78, 181, 1);
+            color: #1a365d;
             margin: 0;
             position: relative;
             display: inline-block;
         }
 
-        .logo-dots {
+        .logo-dot {
             position: absolute;
-            right: -25px;
+            right: -8px;
             top: 50%;
             transform: translateY(-50%);
-        }
-
-        .dot {
-            width: 6px;
-            height: 6px;
-            background-color: rgba(230, 78, 181, 1);
-            border-radius: 50%;
-            margin: 2px 0;
-            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: #E62117;
+            border-radius: 2px;
         }
 
         .title {
@@ -146,7 +146,7 @@
 
         .button {
             display: inline-block;
-            background-color: rgba(230, 78, 181, 1);
+            background-color: #E62117;
             color: #ffffff;
             padding: 12px 30px;
             text-decoration: none;
@@ -157,15 +157,37 @@
         }
 
         .button:hover {
-            background-color: rgba(200, 68, 161, 1);
+            background-color: #c41e14;
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: auto;
             padding-top: 20px;
-            border-top: 1px solid #e5e5e5;
             font-size: 14px;
             color: #666666;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a365d;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-logo-dot {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #E62117;
+            border-radius: 2px;
         }
 
         .welcome-message {
@@ -231,6 +253,15 @@
     <div class="email-container">
         <div class="email-card">
             @yield('content')
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span class="footer-logo">
+                FINYBO
+                <span class="footer-logo-dot"></span>
+            </span>
+            <span>©2025 Finybo, All rights reserved.</span>
         </div>
     </div>
 </body>
