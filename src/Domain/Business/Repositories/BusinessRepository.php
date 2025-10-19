@@ -587,8 +587,8 @@ class BusinessRepository implements IBusinessRepository
             // category
             if (!empty($catId)) {
                 $query->whereHas('categories', function ($q) use ($catId) {
-                    $q->where('categories.id', $catId)
-                      ->orWhere('categories.parent_id', $catId);
+                    $q->where('id', $catId)
+                      ->orWhere('parent_id', $catId);
                 });
             }
 
