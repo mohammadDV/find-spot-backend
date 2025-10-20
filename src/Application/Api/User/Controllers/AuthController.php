@@ -11,11 +11,9 @@ use Application\Api\User\Requests\RegisterInformationRequest;
 use Core\Http\Controllers\Controller;
 use Domain\User\Models\User;
 use Domain\User\Services\TelegramNotificationService;
-use Google_Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -139,6 +137,7 @@ class AuthController extends Controller
                     'google_id' => $payload['sub'],
                     'password' => bcrypt($password),
                     'email_verified_at' => now(),
+                    'profile_photo_path' => config('image.default-profile-image'),
                 ]);
 
                 $user->assignRole(['user']);
@@ -211,7 +210,7 @@ class AuthController extends Controller
             'last_name' => $request->input('last_name'),
             'nickname' => $request->input('nickname'),
             'mobile' => $request->input('mobile'),
-            'profile_photo_path' => $request->input('profile_photo_path', config('image.default-profile-image')),
+            'profile_photo_path' => !empty($request->input('profile_photo_path')) ? $request->input('profile_photo_path') : config('image.default-profile-image'),
             'verified_at' => now(),
         ]);
 

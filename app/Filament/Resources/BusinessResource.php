@@ -171,7 +171,6 @@ class BusinessResource extends Resource
                                 TextInput::make('start_amount')
                                     ->label(__('business.start_amount'))
                                     ->numeric()
-                                    ->required()
                                     ->minValue(0)
                                     ->step(0.01)
                                     ->prefix('$')
