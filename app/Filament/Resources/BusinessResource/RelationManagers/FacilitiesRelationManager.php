@@ -8,6 +8,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Select;
 
 class FacilitiesRelationManager extends RelationManager
 {
@@ -62,9 +63,57 @@ class FacilitiesRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\AttachAction::make()
-                    ->recordTitleAttribute('title')
-                    ->label(__('business.attach_facility')),
+                    ->label(__('business.attach_facility'))
+                    ->form([
+                        Select::make('facility_id')
+                            ->label(__('business.select_facility'))
+                            ->options(function () {
+                                // Get the business record
+                                $business = $this->getOwnerRecord();
+
+                                if (!$business) {
+                                    return [];
+                                }
+
+                                // Get filters that are related to the business's categories
+                                $businessCategoryIds = $business->categories()->pluck('categories.id')->toArray();
+
+                                if (empty($businessCategoryIds)) {
+                                    return [];
+                                }
+
+                                // Get filters through category_filter table
+                                return \Domain\Business\Models\Facility::where('status', 1)
+                                    ->whereHas('categories', function ($query) use ($businessCategoryIds) {
+                                        $query->whereIn('categories.id', $businessCategoryIds);
+                                    })
+                                    ->pluck('title', 'id')
+                                    ->toArray();
+                            })
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->placeholder(__('business.select_filter_to_attach'))
+                            ->helperText(__('business.only_filters_for_business_categories')),
+                    ])
+                    ->action(function (array $data) {
+                        // Get the parent record (business)
+                        $business = $this->getOwnerRecord();
+
+                        // Get the filter to attach
+                        $filter = \Domain\Business\Models\Filter::find($data['filter_id']);
+
+                        if ($filter && $business) {
+                            // Attach the filter to the business
+                            $business->filters()->attach($filter->id);
+                        }
+                    }),
             ])
+            // ->headerActions([
+            //     Tables\Actions\AttachAction::make()
+            //         ->recordTitleAttribute('title')
+            //         ->label(__('business.attach_facility')),
+            // ])
             ->actions([
                 Tables\Actions\DetachAction::make(),
             ])
