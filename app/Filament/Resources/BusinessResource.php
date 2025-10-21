@@ -117,8 +117,6 @@ class BusinessResource extends Resource
                                 TextInput::make('lat')
                                     ->label(__('business.lat'))
                                     ->required()
-                                    ->numeric()
-                                    ->step(0.000001)
                                     ->helperText(__('business.enter_latitude'))
                                     ->live()
                                     ->afterStateUpdated(function ($state, $set) {
@@ -127,8 +125,6 @@ class BusinessResource extends Resource
                                 TextInput::make('long')
                                     ->label(__('business.long'))
                                     ->required()
-                                    ->numeric()
-                                    ->step(0.000001)
                                     ->helperText(__('business.enter_longitude'))
                                     ->live()
                                     ->afterStateUpdated(function ($state, $set) {
