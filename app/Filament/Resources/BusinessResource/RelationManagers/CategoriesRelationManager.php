@@ -48,13 +48,13 @@ class CategoriesRelationManager extends RelationManager
                             ->preload()
                             ->placeholder(__('business.select_parent_category'))
                             ->live()
-                            ->dehydrated(false)
                             ->afterStateUpdated(function ($state, $set) {
                                 if ($state) {
                                     $set('category_id', null);
                                 }
                             })
-                            ->helperText(__('business.select_parent_to_see_children')),
+                            ->helperText(__('business.select_parent_to_see_children'))
+                            ->required(),
                         Select::make('category_id')
                             ->label(__('business.category'))
                             ->options(function ($get) {
@@ -139,13 +139,13 @@ class CategoriesRelationManager extends RelationManager
                             ->preload()
                             ->placeholder(__('business.select_parent_category'))
                             ->live()
-                            ->dehydrated(false)
                             ->afterStateUpdated(function ($state, $set) {
                                 if ($state) {
                                     $set('category_id', null);
                                 }
                             })
-                            ->helperText(__('business.select_parent_to_see_children')),
+                            ->helperText(__('business.select_parent_to_see_children'))
+                            ->required(),
                         Select::make('category_id')
                             ->label(__('business.category'))
                             ->options(function ($get) {
@@ -181,12 +181,18 @@ class CategoriesRelationManager extends RelationManager
                         // Get the parent record (business)
                         $business = $this->getOwnerRecord();
 
-                        // Get the category to attach
-                        $category = \Domain\Business\Models\Category::find($data['category_id']);
+                        // Get the child category to attach
+                        $childCategory = \Domain\Business\Models\Category::find($data['category_id']);
+                        $parentCategoryId = $data['parent_category_id'];
 
-                        if ($category && $business) {
-                            // Attach the category to the business
-                            $business->categories()->attach($category->id);
+                        if ($childCategory && $business) {
+                            // Attach the child category to the business
+                            $business->categories()->attach($childCategory->id);
+
+                            // Also attach the parent category if it's not already attached
+                            if ($parentCategoryId && !$business->categories()->where('categories.id', $parentCategoryId)->exists()) {
+                                $business->categories()->attach($parentCategoryId);
+                            }
                         }
                     }),
             ])
