@@ -49,4 +49,37 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+
+    /**
+     * Get the image attribute with fallback to parent image
+     */
+    public function getImageAttribute($value)
+    {
+        // If this category has an image, return it
+        if (!empty($value)) {
+            return $value;
+        }
+
+        // If no image and has a parent, try to get parent's image
+        if ($this->parent_id && $this->parent) {
+            return $this->parent->image;
+        }
+
+        // Return null if no image found
+        return null;
+    }
+
+    /**
+     * Get the full image URL
+     */
+    public function getImageUrlAttribute()
+    {
+        $image = $this->getImageAttribute($this->attributes['image'] ?? null);
+
+        if (empty($image)) {
+            return null;
+        }
+
+        return $image;
+    }
 }
