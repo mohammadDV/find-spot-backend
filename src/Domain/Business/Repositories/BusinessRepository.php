@@ -273,10 +273,6 @@ class BusinessRepository implements IBusinessRepository
     {
         $this->checkLevelAccess(Auth::user()->id == $business->user_id);
 
-        if (Auth::user()->level != 3 && $business->status != Business::PENDING) {
-            throw New \Exception('Unauthorized', 403);
-        }
-
         $updated = $business->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -314,6 +310,7 @@ class BusinessRepository implements IBusinessRepository
             'country_id' => $request->input('country_id'),
             'city_id' => $request->input('city_id'),
             'area_id' => $request->input('area_id'),
+            'status' => Business::PENDING,
         ]);
 
         if ($updated) {
