@@ -93,19 +93,19 @@ class FacilitiesRelationManager extends RelationManager
                             ->searchable()
                             ->preload()
                             ->required()
-                            ->placeholder(__('business.select_filter_to_attach'))
-                            ->helperText(__('business.only_filters_for_business_categories')),
+                            ->placeholder(__('business.select_facility_to_attach'))
+                            ->helperText(__('business.only_facilities_for_business_categories')),
                     ])
                     ->action(function (array $data) {
                         // Get the parent record (business)
                         $business = $this->getOwnerRecord();
 
-                        // Get the filter to attach
-                        $filter = \Domain\Business\Models\Filter::find($data['filter_id']);
+                        // Get the facility to attach
+                        $facility = \Domain\Business\Models\Facility::find($data['facility_id']);
 
-                        if ($filter && $business) {
-                            // Attach the filter to the business
-                            $business->filters()->attach($filter->id);
+                        if ($facility && $business) {
+                            // Attach the facility to the business
+                            $business->facilities()->attach($facility->id);
                         }
                     }),
             ])

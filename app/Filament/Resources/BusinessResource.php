@@ -483,20 +483,6 @@ class BusinessResource extends Resource
         $data['city_id'] = $data['city_id'] ?? null;
         $data['area_id'] = $data['area_id'] ?? null;
 
-        // Set parent category ID and categories for editing
-        if (isset($data['categories']) && !empty($data['categories'])) {
-            $firstCategory = \Domain\Business\Models\Category::find($data['categories'][0]);
-            if ($firstCategory && $firstCategory->parent_id) {
-                $data['parent_category_id'] = $firstCategory->parent_id;
-            } else {
-                // If it's a root category, set parent_category_id to null
-                $data['parent_category_id'] = null;
-            }
-        } else {
-            $data['parent_category_id'] = null;
-            $data['categories'] = [];
-        }
-
         // Ensure filters is an array
         if (!isset($data['filters'])) {
             $data['filters'] = [];
@@ -513,14 +499,6 @@ class BusinessResource extends Resource
         $data['city_id'] = $data['city_id'] ?? null;
         $data['area_id'] = $data['area_id'] ?? null;
 
-        // Remove parent_category_id as it's not a database field
-        unset($data['parent_category_id']);
-
-        // Ensure categories is an array
-        if (!isset($data['categories'])) {
-            $data['categories'] = [];
-        }
-
         return $data;
     }
 
@@ -531,14 +509,6 @@ class BusinessResource extends Resource
         $data['country_id'] = $data['country_id'] ?? null;
         $data['city_id'] = $data['city_id'] ?? null;
         $data['area_id'] = $data['area_id'] ?? null;
-
-        // Remove parent_category_id as it's not a database field
-        unset($data['parent_category_id']);
-
-        // Ensure categories is an array
-        if (!isset($data['categories'])) {
-            $data['categories'] = [];
-        }
 
         return $data;
     }
