@@ -28,6 +28,7 @@ class BusinessBoxResource extends JsonResource
             'long' => $this->long,
             'image' => $this->image,
             'rate' => $this->rate,
+            'status' => $this->status,
             'area' => new AreaResource($this->whenLoaded('area')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
         ];

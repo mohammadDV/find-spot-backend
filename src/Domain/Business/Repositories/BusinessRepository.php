@@ -48,9 +48,7 @@ class BusinessRepository implements IBusinessRepository
         $status = $request->get('status');
         $businesses = Business::query()
             ->with(['area', 'tags'])
-            ->when(Auth::user()->level != 3, function ($query) {
-                return $query->where('user_id', Auth::user()->id);
-            })
+            ->where('user_id', Auth::user()->id)
             ->when(!empty($search), function ($query) use ($search) {
                 return $query->where('title', 'like', '%' . $search . '%');
             })
@@ -139,19 +137,19 @@ class BusinessRepository implements IBusinessRepository
      */
     public function store(BusinessRequest $request) :JsonResponse
     {
-        // if (empty(Auth::user()->status)) {
-        //     return response()->json([
-        //         'status' => 0,
-        //         'message' => __('site.Your account is not active yet. Please send a message to the admin from ticket section.'),
-        //     ], Response::HTTP_BAD_REQUEST);
-        // }
+        if (empty(Auth::user()->status)) {
+            return response()->json([
+                'status' => 0,
+                'message' => __('site.Your account is not active yet. Please send a message to the admin from ticket section.'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
-        // if (empty(Auth::user()->verified_at)) {
-        //     return response()->json([
-        //         'status' => 0,
-        //         'message' => __('site.You must verify your account to create a business'),
-        //     ], Response::HTTP_BAD_REQUEST);
-        // }
+        if (empty(Auth::user()->verified_at)) {
+            return response()->json([
+                'status' => 0,
+                'message' => __('site.You must verify your account to create a business'),
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
         try {
             DB::beginTransaction();

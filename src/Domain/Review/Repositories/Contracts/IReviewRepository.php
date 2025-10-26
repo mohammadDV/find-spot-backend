@@ -61,4 +61,11 @@ interface IReviewRepository
      * @return JsonResponse
      */
     public function changeStatus(Review $review) :JsonResponse;
+
+    /**
+     * Like the review.
+     * @param Review $review
+     * @return JsonResponse
+     */
+    public function like(Review $review) :JsonResponse;
 }

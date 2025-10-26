@@ -297,4 +297,35 @@ class ReviewRepository implements IReviewRepository
             $review->files()->whereIn('id', array_values($existingFiles))->delete();
         }
     }
+
+    /**
+     * Like the review.
+     * @param Review $review
+     * @return JsonResponse
+     */
+    public function like(Review $review) :JsonResponse
+    {
+
+        $active = 0;
+        $like = $review->likes()
+            ->where('user_id', Auth::id())
+            ->where('is_like', true)
+            ->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            $active = 1;
+            $review->likes()->create([
+                'user_id' => Auth::id(),
+                'is_like' => true,
+            ]);
+        }
+
+        return response()->json([
+            'active' => $active,
+            'status' => 1,
+            'message' => __('site.The operation has been successfully'),
+        ], Response::HTTP_OK);
+    }
 }
