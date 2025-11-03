@@ -8,6 +8,7 @@ The goal is to connect people with trusted places around them.
 ## Table of Contents
 
 -   [Features](#features)
+-   [Admin Panel with Filament](#admin-panel-with-filament)
 -   [Business Structure & DDD](#business-structure--ddd)
 -   [How to Run](#how-to-run)
 -   [Contributing](#contributing)
@@ -17,10 +18,55 @@ The goal is to connect people with trusted places around them.
 
 ## Features
 
--   Travelers can accept and deliver packages for others.
--   Senders can find travelers going to their desired destination.
--   Secure, efficient, and affordable delivery system.
+-   Discover and explore local businesses by location, category, or service type.
+-   Read and write authentic reviews with photos and ratings.
+-   Favorite businesses and save them for future reference.
+-   Real-time chat and messaging system between users.
+-   Event management for businesses.
+-   Powerful admin panel built with **Filament PHP**.
 -   Modular, scalable backend using Domain-Driven Design (DDD).
+
+---
+
+## Admin Panel with Filament
+
+This project includes a comprehensive admin panel built with **[Filament PHP](https://filamentphp.com/)**, a modern TALL stack (Tailwind, Alpine, Laravel, Livewire) admin panel framework.
+
+### What is Filament?
+
+Filament is a powerful admin panel and form builder for Laravel applications. It provides a beautiful, intuitive interface for managing your application's data with minimal code.
+
+### Admin Panel Features
+
+-   **Resource Management**: Full CRUD operations for all domain entities (Businesses, Users, Reviews, Posts, Events, etc.)
+-   **Custom Widgets**: Dashboard widgets for analytics and insights
+-   **Role-Based Access Control**: Integrated with Spatie Laravel Permission for fine-grained access control
+-   **Rich Form Fields**: Built-in support for various field types including file uploads, relationships, and rich text
+-   **Responsive Design**: Mobile-friendly interface with RTL support for Persian language
+-   **Custom Actions**: Bulk operations and custom actions for business workflows
+
+### Accessing the Admin Panel
+
+Once your application is running, you can access the Filament admin panel at:
+
+```
+http://localhost:8000/admin
+```
+
+To create an admin user, run:
+
+```bash
+php artisan make:filament-user
+```
+
+### Admin Panel Structure
+
+```
+app/Filament/
+├── Resources/        # Resource classes for managing models
+├── Widgets/          # Dashboard widgets
+└── Providers/        # Filament service providers
+```
 
 ---
 
@@ -111,9 +157,20 @@ src/
     ```
 
 5. **Start the development server:**
+
     ```bash
     php artisan serve
     ```
+
+6. **Access the admin panel (optional):**
+
+    Create a Filament admin user:
+
+    ```bash
+    php artisan make:filament-user
+    ```
+
+    Then visit `http://localhost:8000/admin` to access the Filament admin panel.
 
 ---
 
