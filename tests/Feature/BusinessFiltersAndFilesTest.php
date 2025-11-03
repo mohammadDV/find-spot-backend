@@ -10,6 +10,7 @@ use Domain\Address\Models\Country;
 use Domain\Address\Models\City;
 use Domain\Address\Models\Area;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class BusinessFiltersAndFilesTest extends TestCase
@@ -64,7 +65,7 @@ class BusinessFiltersAndFilesTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_attach_filters_to_business()
     {
         $filterIds = $this->filters->pluck('id')->toArray();
@@ -75,7 +76,7 @@ class BusinessFiltersAndFilesTest extends TestCase
         $this->assertTrue($this->business->filters->contains($this->filters->first()));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_files_for_business()
     {
         $fileData = [
@@ -92,7 +93,7 @@ class BusinessFiltersAndFilesTest extends TestCase
         $this->assertEquals('test/path/image.jpg', $file->path);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_sync_filters()
     {
         // Attach initial filters
@@ -107,7 +108,7 @@ class BusinessFiltersAndFilesTest extends TestCase
         $this->assertFalse($this->business->filters->contains($this->filters[0]));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_load_filters_and_files_relationships()
     {
         // Attach filters and create files
