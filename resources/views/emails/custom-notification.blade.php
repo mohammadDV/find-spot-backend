@@ -5,7 +5,7 @@
 @section('content')
     <!-- Logo Section -->
     <div class="logo">
-        <img src="https://finybo-prod.s3.ir-thr-at1.arvanstorage.ir/finybo-logo.png" alt="Finybo" class="logo-img" width="160" height="40" style="height: 40px; width: auto;">
+        <img src="https://finybo.com/images/finybo-logo.png" alt="Finybo" class="logo-img" width="160" height="40" style="height: 40px; width: auto;">
     </div>
 
     <!-- Title Section -->
