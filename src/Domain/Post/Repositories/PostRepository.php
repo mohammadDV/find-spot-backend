@@ -33,16 +33,29 @@ class PostRepository implements IPostRepository
     public function getPosts(TableRequest $request) :LengthAwarePaginator
     {
 
-        $search = $request->get('query');
-        $posts = Post::query()
-            ->where('status', 1)
-            ->when(!empty($search), function ($query) use ($search) {
-                return $query->where('title', 'like', '%' . $search . '%');
-            })
-            ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
-            ->paginate($request->get('count', 25));
+        // Generate a unique cache key based on all search parameters
+        $cacheKey = 'business_search_' . md5(json_encode([
+            'query' => $request->get('query'),
+            'column' => $request->get('column', 'id'),
+            'sort' => $request->get('sort', 'desc'),
+            'count' => $request->get('count', 25),
+            'page' => $request->input('page', 1),
+        ]));
 
-        return $posts->through(fn ($post) => new PostResource($post));
+        // Try to get results from cache first
+        return cache()->remember($cacheKey, now()->addMinutes(1), function () use ($request) {
+
+            $search = $request->get('query');
+            $posts = Post::query()
+                ->where('status', 1)
+                ->when(!empty($search), function ($query) use ($search) {
+                    return $query->where('title', 'like', '%' . $search . '%');
+                })
+                ->orderBy($request->get('column', 'id'), $request->get('sort', 'desc'))
+                ->paginate($request->get('count', 25));
+
+            return $posts->through(fn ($post) => new PostResource($post));
+        });
 
     }
 
