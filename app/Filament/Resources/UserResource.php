@@ -325,8 +325,7 @@ class UserResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->paginated([10, 25, 50, 100]) // Add pagination options
             ->persistFiltersInSession() // Persist filters in session
-            ->persistSortInSession() // Persist sort in session
-            ->poll('30s'); // Refresh data every 30 seconds for real-time updates
+            ->persistSortInSession(); // Persist sort in session
     }
 
     public static function getRelations(): array
