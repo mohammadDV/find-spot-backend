@@ -124,8 +124,8 @@ Route::middleware(['auth:sanctum', 'auth', 'throttle:200,1'])->prefix('profile')
 
 });
 
-// upload files
-Route::middleware(['auth:sanctum', 'auth', 'throttle:10,1'])->group(function() {
+// upload files - Reduced rate limit for security
+Route::middleware(['auth:sanctum', 'auth', 'throttle:5,1'])->group(function() {
     Route::post('/upload-image', [FileController::class, 'uploadImage'])->name('site.upload-image');
     Route::post('/upload-video', [FileController::class, 'uploadVideo'])->name('site.upload-video');
     Route::post('/upload-file', [FileController::class, 'uploadFile'])->name('site.upload-file');
