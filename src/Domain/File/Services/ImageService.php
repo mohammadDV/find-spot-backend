@@ -68,8 +68,8 @@ class ImageService extends ImageToolsService
         // }
 
         // Use config() instead of env() for production code
-        $appEnv = config('app.env', 'production');
-        return $appEnv == "production" ? explode(config('filesystems.disks.s3.bucket') . "/",$S3Path)[1] :  $this->getImageAddress();
+        // $appEnv = config('app.env', 'production');
+        // return $appEnv == "production" ? explode(config('filesystems.disks.s3.bucket') . "/",$S3Path)[1] :  $this->getImageAddress();
     }
 
     public function fitAndSave($image, $width, $height)
