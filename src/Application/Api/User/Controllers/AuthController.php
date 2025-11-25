@@ -351,8 +351,8 @@ class AuthController extends Controller
         // Generate reset URL (you can customize this based on your frontend URL)
         $resetUrl = config('app.frontend_url', 'http://localhost:3000') . '/auth/reset-password?token=' . $token . '&email=' . urlencode($request->email);
 
-        // Send email
-        Mail::to($user->email)->send(new PasswordResetMail($user, $resetUrl));
+        // Queue email to avoid blocking the request (prevents CPU spikes from slow SMTP)
+        Mail::to($user->email)->queue(new PasswordResetMail($user, $resetUrl));
 
         return response([
             'message' => __('site.Password reset link sent to your email.'),

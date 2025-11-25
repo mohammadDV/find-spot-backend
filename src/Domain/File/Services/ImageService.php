@@ -12,10 +12,20 @@ class ImageService extends ImageToolsService
 
     public function save($image, $thumb = 0)
     {
+        // Validate image content (not just MIME type)
+        $this->validateImageContent($image);
+        
         //set image
         $this->setImage($image);
+        
+        // Sanitize image name
+        $this->sanitizeImageName();
+        
         //execute provider
         $this->provider();
+        
+        // Validate final directory path
+        $this->validateFinalImageDirectory();
 
         // Save image
         // if($image->getClientOriginalExtension()=='gif'){
@@ -57,8 +67,9 @@ class ImageService extends ImageToolsService
             // }
         // }
 
-        // return explode(config('filesystems.disks.s3.bucket') . "/",$S3Path)[1];
-        return env('APP_ENV') == "production" ? explode(config('filesystems.disks.s3.bucket') . "/",$S3Path)[1] :  $this->getImageAddress();
+        // Use config() instead of env() for production code
+        $appEnv = config('app.env', 'production');
+        return $appEnv == "production" ? explode(config('filesystems.disks.s3.bucket') . "/",$S3Path)[1] :  $this->getImageAddress();
     }
 
     public function fitAndSave($image, $width, $height)
@@ -116,28 +127,155 @@ class ImageService extends ImageToolsService
             return $images;
     }
 
-    public function deleteImage($imagePath)
-    {
-        if(file_exists($imagePath))
-        {
-            unlink($imagePath);
-        }
-    }
 
     public function deleteIndex($images)
     {
+        if (empty($images['directory'])) {
+            return false;
+        }
+        
         $directory = public_path($images['directory']);
         $this->deleteDirectoryAndFiles($directory);
     }
-
-    public function deleteDirectoryAndFiles($directory)
+    
+    /**
+     * Validate image content to prevent malicious file uploads
+     */
+    protected function validateImageContent($image)
     {
-        if(!is_dir($directory))
-        {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $image->getRealPath());
+        finfo_close($finfo);
+        
+        // Whitelist allowed image MIME types
+        $allowedMimes = [
+            'image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp'
+        ];
+        
+        if (!in_array($mimeType, $allowedMimes)) {
+            throw new \Exception('Invalid image type: ' . $mimeType);
+        }
+        
+        // Verify it's actually an image
+        $imageInfo = @getimagesize($image->getRealPath());
+        if ($imageInfo === false) {
+            throw new \Exception('Invalid image file');
+        }
+        
+        // Validate extension matches MIME type
+        $extension = strtolower($image->getClientOriginalExtension());
+        $extensionMap = [
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+            'svg' => 'image/svg+xml',
+            'webp' => 'image/webp',
+        ];
+        
+        if (isset($extensionMap[$extension]) && $extensionMap[$extension] !== $mimeType) {
+            throw new \Exception('Image extension does not match file content');
+        }
+    }
+    
+    /**
+     * Sanitize image name
+     */
+    protected function sanitizeImageName()
+    {
+        if (empty($this->image)) {
+            return;
+        }
+        
+        $originalName = $this->image->getClientOriginalName();
+        $filename = pathinfo($originalName, PATHINFO_FILENAME);
+        
+        // Sanitize and limit length
+        $safeName = Str::slug($filename);
+        $safeName = substr($safeName, 0, 100);
+        $safeName = $safeName . '_' . Str::random(10);
+        
+        $this->setImageName($safeName);
+    }
+    
+    /**
+     * Validate final image directory path
+     */
+    protected function validateFinalImageDirectory()
+    {
+        $finalDir = $this->getFinalImageDirectory();
+        
+        // Ensure no path traversal
+        if (strpos($finalDir, '..') !== false || strpos($finalDir, './') !== false) {
+            throw new \InvalidArgumentException('Invalid directory path: path traversal detected');
+        }
+        
+        // Ensure directory starts with allowed base
+        $allowedBases = ['finybo', 'uploads', 'images', 'videos', 'files'];
+        $parts = explode('/', $finalDir);
+        if (!empty($parts[0]) && !in_array($parts[0], $allowedBases)) {
+            throw new \InvalidArgumentException('Invalid directory: not in whitelist');
+        }
+    }
+    
+    /**
+     * Safe image deletion with path validation
+     */
+    public function deleteImage($imagePath)
+    {
+        if (empty($imagePath)) {
             return false;
         }
-
-        $files = glob($directory . DIRECTORY_SEPARATOR . '*', GLOB_MARK);
+        
+        // Validate path is within allowed directories
+        $storagePath = storage_path('app');
+        $publicPath = public_path();
+        
+        $realPath = realpath($imagePath);
+        $realStorage = realpath($storagePath);
+        $realPublic = realpath($publicPath);
+        
+        // Ensure file is within storage or public directory
+        $isInStorage = $realStorage && $realPath && strpos($realPath, $realStorage) === 0;
+        $isInPublic = $realPublic && $realPath && strpos($realPath, $realPublic) === 0;
+        
+        if (!$isInStorage && !$isInPublic) {
+            throw new \InvalidArgumentException('Invalid image path: file outside allowed directories');
+        }
+        
+        if (file_exists($realPath) && is_file($realPath)) {
+            return unlink($realPath);
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Safe directory deletion with path validation
+     */
+    public function deleteDirectoryAndFiles($directory)
+    {
+        if (empty($directory) || !is_dir($directory)) {
+            return false;
+        }
+        
+        // Validate directory path
+        $storagePath = storage_path('app');
+        $publicPath = public_path();
+        
+        $realPath = realpath($directory);
+        $realStorage = realpath($storagePath);
+        $realPublic = realpath($publicPath);
+        
+        // Ensure directory is within storage or public directory
+        $isInStorage = $realStorage && $realPath && strpos($realPath, $realStorage) === 0;
+        $isInPublic = $realPublic && $realPath && strpos($realPath, $realPublic) === 0;
+        
+        if (!$isInStorage && !$isInPublic) {
+            throw new \InvalidArgumentException('Invalid directory path: directory outside allowed directories');
+        }
+        
+        $files = glob($realPath . DIRECTORY_SEPARATOR . '*', GLOB_MARK);
         foreach($files as $file)
         {
             if(is_dir($file))
@@ -145,13 +283,13 @@ class ImageService extends ImageToolsService
                 $this->deleteDirectoryAndFiles($file);
             }
             else{
-                unlink($file);
+                if (is_file($file)) {
+                    unlink($file);
+                }
             }
         }
-
-        $result = rmdir($directory);
+        $result = rmdir($realPath);
         return $result;
     }
-
 
 }

@@ -11,7 +11,8 @@ class ImageRequest extends BaseRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $user = \Illuminate\Support\Facades\Auth::user();
+        return $user && $user->status == 1; // Check user is active
     }
 
     /**

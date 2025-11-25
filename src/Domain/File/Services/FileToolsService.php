@@ -28,7 +28,23 @@ class FileToolsService
 
     public function setExclusiveDirectory($exclusiveDirectory)
     {
-        $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
+        $dir = trim($exclusiveDirectory, '/\\');
+        
+        // Prevent path traversal attacks
+        if (strpos($dir, '..') !== false || strpos($dir, './') !== false || strpos($dir, '\\') !== false) {
+            throw new \InvalidArgumentException('Invalid directory path: path traversal detected');
+        }
+        
+        // Whitelist allowed base directories
+        $allowedBases = ['finybo', 'uploads', 'images', 'videos', 'files'];
+        if (!empty($dir)) {
+            $parts = explode('/', $dir);
+            if (!empty($parts[0]) && !in_array($parts[0], $allowedBases)) {
+                throw new \InvalidArgumentException('Invalid directory: not in whitelist');
+            }
+        }
+        
+        $this->exclusiveDirectory = $dir;
     }
 
     public function getFileDirectory()
@@ -37,7 +53,14 @@ class FileToolsService
     }
     public function setFileDirectory($fileDirectory)
     {
-        $this->fileDirectory = trim($fileDirectory, '/\\');
+        $dir = trim($fileDirectory, '/\\');
+        
+        // Prevent path traversal attacks
+        if (strpos($dir, '..') !== false || strpos($dir, './') !== false || strpos($dir, '\\') !== false) {
+            throw new \InvalidArgumentException('Invalid directory path: path traversal detected');
+        }
+        
+        $this->fileDirectory = $dir;
     }
 
     public function getFileSize()
@@ -61,8 +84,20 @@ class FileToolsService
 
     public function setCurrentFileName()
     {
-            return !empty($this->file) ? $this->setFileName(pathinfo($this->file->getClientOriginalName(), PATHINFO_FILENAME)) : false;
-            // $_FILES['file']['name']
+        if (empty($this->file)) {
+            return false;
+        }
+        
+        // Sanitize file name to prevent injection attacks
+        $originalName = $this->file->getClientOriginalName();
+        $filename = pathinfo($originalName, PATHINFO_FILENAME);
+        
+        // Remove any dangerous characters and limit length
+        $safeName = \Illuminate\Support\Str::slug($filename);
+        $safeName = substr($safeName, 0, 100); // Limit length
+        $safeName = $safeName . '_' . \Illuminate\Support\Str::random(10); // Add random suffix
+        
+        return $this->setFileName($safeName);
     }
 
     public function getFileFormat()

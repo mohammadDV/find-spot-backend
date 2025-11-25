@@ -32,7 +32,23 @@ class ImageToolsService
 
     public function setExclusiveDirectory($exclusiveDirectory)
     {
-        $this->exclusiveDirectory = trim($exclusiveDirectory, '/\\');
+        $dir = trim($exclusiveDirectory, '/\\');
+        
+        // Prevent path traversal attacks
+        if (strpos($dir, '..') !== false || strpos($dir, './') !== false || strpos($dir, '\\') !== false) {
+            throw new \InvalidArgumentException('Invalid directory path: path traversal detected');
+        }
+        
+        // Whitelist allowed base directories
+        $allowedBases = ['finybo', 'uploads', 'images', 'videos', 'files'];
+        if (!empty($dir)) {
+            $parts = explode('/', $dir);
+            if (!empty($parts[0]) && !in_array($parts[0], $allowedBases)) {
+                throw new \InvalidArgumentException('Invalid directory: not in whitelist');
+            }
+        }
+        
+        $this->exclusiveDirectory = $dir;
     }
 
     public function getImageDirectory()
@@ -41,7 +57,14 @@ class ImageToolsService
     }
     public function setImageDirectory($imageDirectory)
     {
-        $this->imageDirectory = trim($imageDirectory, '/\\');
+        $dir = trim($imageDirectory, '/\\');
+        
+        // Prevent path traversal attacks
+        if (strpos($dir, '..') !== false || strpos($dir, './') !== false || strpos($dir, '\\') !== false) {
+            throw new \InvalidArgumentException('Invalid directory path: path traversal detected');
+        }
+        
+        $this->imageDirectory = $dir;
     }
 
     public function getImageName()
@@ -56,7 +79,20 @@ class ImageToolsService
 
     public function setCurrentImageName()
     {
-        return !empty($this->image) ? $this->setImageName(pathinfo($this->image->getClientOriginalName(), PATHINFO_FILENAME)) : false;
+        if (empty($this->image)) {
+            return false;
+        }
+        
+        // Sanitize image name to prevent injection attacks
+        $originalName = $this->image->getClientOriginalName();
+        $filename = pathinfo($originalName, PATHINFO_FILENAME);
+        
+        // Remove any dangerous characters and limit length
+        $safeName = \Illuminate\Support\Str::slug($filename);
+        $safeName = substr($safeName, 0, 100); // Limit length
+        $safeName = $safeName . '_' . \Illuminate\Support\Str::random(10); // Add random suffix
+        
+        return $this->setImageName($safeName);
     }
 
     public function getImageFormat()
