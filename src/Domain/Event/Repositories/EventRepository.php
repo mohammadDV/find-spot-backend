@@ -60,10 +60,10 @@ class EventRepository implements IEventRepository
             ->where('status', 1)
             ->where('vip', 1)
             ->orderBy('priority', 'desc')
-            ->where(function($query) {
-                $query->where('end_date', '>=', now()->startOfDay())
-                    ->orWhereNull('end_date');
-            })
+            // ->where(function($query) {
+            //     $query->where('end_date', '>=', now()->startOfDay())
+            //         ->orWhereNull('end_date');
+            // })
             ->limit(10)
             ->get()
             ->map(fn ($event) => new EventBoxResource($event));
@@ -72,10 +72,10 @@ class EventRepository implements IEventRepository
             ->where('status', 1)
             ->where('start_date', '<=', now()->addDays(2)->startOfDay())
             ->where('start_date', '>=', now()->yesterday()->startOfDay())
-            ->where(function($query) {
-                $query->where('end_date', '>=', now()->startOfDay())
-                    ->orWhereNull('end_date');
-            })
+            // ->where(function($query) {
+            //     $query->where('end_date', '>=', now()->startOfDay())
+            //         ->orWhereNull('end_date');
+            // })
             ->inRandomOrder()
             ->limit(20)
             ->get()
